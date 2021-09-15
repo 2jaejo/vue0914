@@ -1,6 +1,8 @@
 <template>
     <v-ons-page>
-        <custom-toolbar title="Hospital"></custom-toolbar>
+       <v-ons-toolbar>
+            <div class="center">{{ title }}</div>
+        </v-ons-toolbar>
 
         <!-- 캐러셀 -->
         <div style="position:relative;">
@@ -22,7 +24,7 @@
 
         <!-- 로그인정보 -->
         <v-ons-row>
-            <v-ons-col><div class="bg" style="height:70px;">{{loginData[0].KOR_NM}}병원 로그인하셨습니다.</div></v-ons-col>
+            <v-ons-col><div class="bg" style="height:70px;">{{user.kor_nm}}병원 로그인하셨습니다.</div></v-ons-col>
             <v-ons-col width="80px"><div class="bg" @click="logout" style="height:70px;">로그아웃</div></v-ons-col>
         </v-ons-row>
 
@@ -48,8 +50,6 @@
 <script>
 import {mapState} from 'vuex'
 
-import customToolbar from '../components/Toolbar.vue'
-
 import HosInfo from './Hospital/HosInfo.vue'
 import HosOrder from './Hospital/HosOrder.vue'
 import HosOrderList from './Hospital/HosOrderList.vue'
@@ -61,10 +61,10 @@ import Page11 from './Page11.vue'
 export default {
 
     components: { 
-        customToolbar, 
+        
     },
     computed:{
-        ...mapState(['loginData']),
+        ...mapState(['user']),
     },
     data(){
         return{
@@ -118,7 +118,7 @@ export default {
         },
 
         logout(){
-            this.$store.dispatch('logoutSubmit');
+            this.$store.dispatch('procLogoutData');
         },
     }
 }

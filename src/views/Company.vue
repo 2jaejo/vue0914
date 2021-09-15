@@ -1,6 +1,8 @@
 <template>
     <v-ons-page>
-        <custom-toolbar title="Store"></custom-toolbar>
+        <v-ons-toolbar>
+            <div class="center">{{ title }}</div>
+        </v-ons-toolbar>
 
         <!-- 캐러셀 -->
         <div style="position:relative;">
@@ -32,38 +34,45 @@
             <v-ons-col><div class="bg puple" @click="push('주문조회')">주문조회</div></v-ons-col>
         </v-ons-row>
         <v-ons-row>
-            <v-ons-col><div class="bg orange" @click="pop('거래처조회')">거래처조회</div></v-ons-col>
-            <v-ons-col><div class="bg green" @click="splice('판매현황')">판매현황</div></v-ons-col>
+            <v-ons-col><div class="bg orange" @click="push('거래처조회')">거래처조회</div></v-ons-col>
+            <v-ons-col><div class="bg green" @click="push('판매현황')">판매현황</div></v-ons-col>
         </v-ons-row>
-        user_id : {{user.user_id}} <br>
-        kor_nm : {{user.kor_nm}}
+       
     </v-ons-page>
 </template>
 
 <script>
 import {mapState} from 'vuex'
-import customToolbar from '../components/Toolbar.vue'
 
 import ComProduct from './Company/ComProduct.vue'
 import ComOrderList from './Company/ComOrderList.vue'
 import ComClientList from './Company/ComClientList.vue'
 import ComSalesList from './Company/ComSalesList.vue'
+import Page11 from './Page11.vue'
 
 
 export default {
     components: { 
-        customToolbar, 
+
     },
     created() {
-
+       this.nbr = this.user.relater_nbr;
     },
     computed:{
         ...mapState({
             user : state => state.user,
         }),
     },
+    watch:{
+        user(newVal){
+            console.log(newVal);
+            //this.nbr = newVal.relater_nbr;
+        }
+    },
     data(){
         return{
+            title:'Store',
+            nbr:'',
             carouselIndex: 0,
             items: {
                 BLUE: '#085078',
@@ -83,6 +92,7 @@ export default {
     },
     methods: {
         push(e) {
+          
             const getMenu = (type)=>{
                  switch(type){
                     case '상품관리':
@@ -92,17 +102,19 @@ export default {
                     case '거래처조회':
                         return ComClientList;
                     case '판매현황':
-                        return ComSalesList;        
+                        return ComSalesList;
+                    case 'test':
+                        return Page11;        
                 }
             }
-
+            let nbr = this.nbr;
             var pageToPush = {
                 extends: getMenu(e),
                 data(){
                     return{
                         title: e,
-                        back:'Store',
-                        cde: '',
+                        back:'',
+                        nbr : nbr,
                     }
                 }
             }
@@ -111,16 +123,9 @@ export default {
         },
 
         logout(){
-            this.$store.dispatch('procLogoutData'); 
+            this.$store.dispatch('procLogoutData');
+            
         },
-
-        pop(){
-            this.$store.dispatch('navigator/popPage');
-        },
-
-        splice(){
-            this.$store.dispatch('navigator/splicePage');
-        }
     }
 }
 </script>

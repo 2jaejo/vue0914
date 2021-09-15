@@ -2,25 +2,34 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from "axios";
 
+//로그인 컴포넌트
 import Login from '../views/Login.vue'
-import Company from '../views/Company'
-import Hospital from '../views/Hospital'
+
+//모듈 임포트
+import companyStore from './modules/companyStore'
+import hospitalStore from './modules/hospitalStore'
 
 Vue.use(Vuex);
 
+//내비게이터 모듈 
 const navigator = {
     namespaced:true,
     state:{
+        //내비 페이지 스택
         pageStack:[Login],
 
     },
     mutations:{
+        //페이지 더하기
         pushPage:(state, payload) => {
             state.pageStack.push(payload);    
         },
+        //페이지 빼기
         popPage:(state) =>{
             state.pageStack.pop();
         },
+
+        //페이지 첫화면
         splicePage:(state) =>{
             state.pageStack.splice(1);
         },
@@ -39,35 +48,42 @@ const navigator = {
 }
 
 
+
 export default new Vuex.Store({
     namespaced:true,
     modules:{
         navigator,
+        companyStore,
+        hospitalStore,
  
     },
     state:{ //data
-        user :{is_login:false, kor_nm:'',relater_div_cde:'',user_id:''},
+        user :{
+            is_login:false, 
+            user_id:'',
+            kor_nm:'',
+            relater_div_cde:'',
+            relater_nbr:'',
+        },
         session:'',       
     },
     mutations:{
         //로그인 데이터 저장
         procLoginData: (state, payload) =>{
-            console.log(payload.user);
             state.user = payload.user;         
-        },
-        emptyLoginData:() => {
-            console.log('OK!!!!');
-    
         },
         //로그아웃 데이터 삭제
         procLogoutData:(state) => {
-            state.user='';
-            console.log(state.user);
+            state.user.is_login=false;
+            state.user.user_id='';
+            state.user.kor_nm='';
+            state.user.relater_div_cde='';
+            state.user.relater_nbr='';
+
         },
         //로그인 데이터 확인
         chkLoginData:(state, payload ) => {
             state.user.is_login = payload;
-            //state.session = payload;
         }
     },
     actions:{
@@ -77,36 +93,18 @@ export default new Vuex.Store({
                 data
             })
             .then(res => {
-                if(!(res.data.status == '000')){
-                    alert('로그인 실패');
-                }else{
-                    alert('로그인 성공');
-                    commit('procLoginData', res.data);
-                    console.log(res.data.user.relater_div_cde);
 
-                    const getMenu = (type)=>{
-                        switch(type){
-                            case '3002':
-                                return Company;
-                            case '3001':
-                                return Hospital;
-                        }
-                    }
-                    var pageToPush = {
-                        extends: getMenu(res.data.user.relater_div_cde),
-                        data(){
-                            return{
-                                
-                            }
-                        }
-                    }
-                    commit('navigator/pushPage',pageToPush);    
-                
+                if(res.data.status == '000'){
+                    //alert('로그인 성공');
+                    commit('procLoginData', res.data);
+                }else{
+                    alert('로그인 실패');
                 }     
             })
             .catch(err => {
                 console.log('catch : '+err);
             });
+
         },
 
         procLogoutData:({ commit }) => {
@@ -115,9 +113,12 @@ export default new Vuex.Store({
             })
             .then(res => {
                 if(res.data.status == '000'){
-                    alert('로그아웃');
+                    //state.user 초기화
                     commit('procLogoutData');
-                    //commit('navigator/splicePage');
+                    //alert('로그아웃');
+
+                    //첫번째 스택 이동  (로그인화면)
+                    commit('navigator/splicePage');
                 }     
             })
             .catch(err => {
@@ -125,19 +126,21 @@ export default new Vuex.Store({
             });
             
         },
+
+        //세션 확인 
         chkLoginData({ commit } ){
             axios.get('http://49.50.160.174/comm/check',{
     
             })
             .then(res => {
-                console.log('chkLoginData');
+                console.log('세션 확인');
                 console.log(res.data);
 
                 if(res.data.user.is_login) {
                     commit('chkLoginData',res.data);
                 } else {
                     //TO-DO 로그아웃 페이지로 이동
-                    commit('navigator/popPage');
+                    commit('navigator/splicePage');
                 }
   
             })

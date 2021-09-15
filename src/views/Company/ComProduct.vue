@@ -7,9 +7,7 @@
         <div class="center">{{ title }}</div>
         </v-ons-toolbar>
 
-        <p style="text-align: center">
-        Welcome {{title}}
-        </p>
+       
  
     </v-ons-page>
 </template>
@@ -17,13 +15,19 @@
 <script>
 
 export default {
+    created(){
+        this.$store.dispatch('companyStore/itemManagement',this.nbr);
+    },
     components: { 
 
     },
-    methods: {
-        pop() {
-            this.$store.dispatch('navigator/popPage');
+    data(){
+        return{
+         
         }
+    },
+    methods: {
+        
     }
 }
 </script>

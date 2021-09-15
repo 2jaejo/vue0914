@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Navi></Navi>
+    
+      <Navi></Navi>
+
   </div>
 </template>
 
@@ -8,9 +10,14 @@
 
 import Navi from './components/Navigator.vue'
 
+
 export default {
   components:{
     Navi,
+
+  },
+  computed:{
+
   }
 }
 </script>
