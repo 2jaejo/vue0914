@@ -8,13 +8,17 @@ import router from './router/router'
 import store from './store/store'
 import VueOnsen from 'vue-onsenui'; // This imports 'onsenui', so no need to import it separately
 
+
 Vue.use(VueOnsen);
+
 
 Vue.config.productionTip = false
 
 new Vue({
+
   router,
   store,
   VueOnsen,
+
   render: h => h(App),
 }).$mount('#app')

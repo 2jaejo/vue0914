@@ -64,8 +64,8 @@ export default {
         }),
     },
     watch:{
-        user(newVal){
-            console.log(newVal);
+        user(Val){
+            console.log(Val);
             //this.nbr = newVal.relater_nbr;
         }
     },

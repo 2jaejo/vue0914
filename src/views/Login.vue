@@ -1,8 +1,9 @@
 <template>
-    <v-ons-page>
+    <v-ons-page>      
         <div class="title" style="margin: 10px 10px;">
             <h2>메디퍼</h2>
         </div>
+        
         <div class="login">
             
                 <div>
@@ -18,16 +19,7 @@
                 </div>
            
         </div>
-<!-- 
-        <div class="logout" >
-            <div class="title" style="margin: 10px 10px;">
-                <P><b>{{user.kor_nm}}</b>님</P>
-            </div>
-            <div>
-                <button class="button--large--cta" @click="logout" style="width: 95%; margin: 0 auto;">로그아웃</button>
-            </div>        
-        </div>
--->
+
     </v-ons-page>
 </template>
 <script>
@@ -83,8 +75,7 @@ export default {
                 extends: getMenu(e),
                 data(){
                     return{
-                        title: e,
-                        back:'',
+                  
                    
                     }
                 }
