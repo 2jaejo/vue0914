@@ -8,33 +8,38 @@
             <div class="center">{{ title }}</div>
         </v-ons-toolbar>
 
-        <v-ons-row style="height:30px;">
-            <v-ons-col class="col" width="25%">
+        <v-ons-row>
+            <v-ons-col class="col" width="20%" vertical-align="center">
                 기간
             </v-ons-col>
             <v-ons-col class="col">
-               <input type="date" v-model="sdate" style="height:95%;">
+               <input type="date" v-model="sdate" style="width:99%; height:90%;">
             </v-ons-col>
             <v-ons-col class="col">
-               <input type="date" v-model="edate" style="height:95%;">
+               <input type="date" v-model="edate" style="width:99%; height:90%;">
             </v-ons-col>
         </v-ons-row>
+
         <v-ons-row>
-            <v-ons-col class="col" width="25%">
-                <v-ons-select style="width:100%;"
-                    v-model="searchSel"
-                >
+
+            <v-ons-col class="col" width="30%" vertical-align="center">
+                <v-ons-select style="width:80%;" height="200" v-model="searchSel">
                     <option v-for="search in searchSelect" :value="search.value" :key="search.text">
                         {{search.text}}
                     </option>
                 </v-ons-select>
             </v-ons-col>
+
             <v-ons-col class="col">
-                <v-ons-input style="width:75%; " v-model="keyword"></v-ons-input>
-                <v-ons-button @click="search" style="width:25%;">검색</v-ons-button>
+                <v-ons-input placeholder="Search something" style="width:95%; margin-top:30px;" v-model="keyword" float></v-ons-input>
+            </v-ons-col>
+
+            <v-ons-col class="col" width="60px"> 
+                <v-ons-button @click="search" style="width:100%;"><p>검색</p></v-ons-button>
             </v-ons-col> 
+
         </v-ons-row>
-  
+
         <v-ons-list>
             <v-ons-list-item expandable
                 v-for="sales in salesList" :key="sales.HC_OM_ID"
@@ -46,8 +51,9 @@
                 <div class="expandable-content">
                     주문일자 : {{sales.OM_ORDER_DT}} <br>
                     제품코드 : {{sales.PDC_ID}}<br>
-                    {{sales.OM_NM}} <br>
-                    {{sales.OM_TEL}} <br>
+                    이름     : {{sales.OM_NM}} <br>
+                    연락처   : {{sales.OM_TEL}} <br>
+                    상태     : {{sales.OM_STATE_CDE}}
                 </div>
             </v-ons-list-item>
         </v-ons-list>
@@ -66,6 +72,7 @@ export default {
     },
 
     created(){
+        //dayjs 플러그인사용
         this.sdate = dayjs().format("YYYY-MM-DD");
         this.edate = dayjs().format("YYYY-MM-DD");
         let data = {
@@ -75,6 +82,7 @@ export default {
             search:this.searchSel,
             keyword:this.keyword,
         };
+       
         this.$store.dispatch('companyStore/searchSales',data);
         
     },
@@ -101,12 +109,13 @@ export default {
     methods: {
         search(){
             let data = {
-                state:this.stateSel,
-                search:this.searchSel,
                 nbr:this.nbr,
+                sdate:this.sdate,
+                edate:this.edate,
+                search:this.searchSel,
                 keyword:this.keyword,
             };
-            this.$store.dispatch('companyStore/searchOrder',data);
+            this.$store.dispatch('companyStore/searchSales',data);
             this.keyword = '';
         },      
     }
@@ -114,8 +123,5 @@ export default {
 </script>
 
 <style scoped>
-.col{
-    border: 1px solid black;
-}
 
 </style>

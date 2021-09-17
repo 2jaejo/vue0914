@@ -10,13 +10,33 @@
         </v-ons-toolbar>
 
         <v-ons-row>
-            <v-ons-col class="col" width="25%">
-                상태
+            <v-ons-col class="col" width="15%" vertical-align="center">
+                기간 : 
             </v-ons-col>
             <v-ons-col class="col">
-                <v-ons-select style="width:100%;"
-                    v-model="stateSel"
-                >
+               <input type="date" v-model="sdate" style="width:99%; height:90%;">
+            </v-ons-col>
+            <v-ons-col class="col">
+               <input type="date" v-model="edate" style="width:99%; height:90%;">
+            </v-ons-col>
+        </v-ons-row>
+
+        <v-ons-row>
+            <v-ons-col class="col" width="25%" vertical-align="center">
+                검색조건 : 
+            </v-ons-col>
+            <v-ons-col class="col">
+                <v-ons-select style="width:80%;" v-model="searchSel">
+                    <option v-for="search in searchSelect" :value="search.value" :key="search.text">
+                        {{search.text}}
+                    </option>
+                </v-ons-select>
+            </v-ons-col>
+            <v-ons-col class="col" width="15%" vertical-align="center">
+                상태 :           
+            </v-ons-col>
+            <v-ons-col class="col">
+                <v-ons-select style="width:80%" v-model="stateSel">
                     <option v-for="state in stateSelect" :value="state.value" :key="state.text">
                         {{state.text}}
                     </option>
@@ -24,19 +44,12 @@
             </v-ons-col>
         </v-ons-row>
         <v-ons-row>
-            <v-ons-col class="col" width="25%">
-                <v-ons-select style="width:100%;"
-                    v-model="searchSel"
-                >
-                    <option v-for="search in searchSelect" :value="search.value" :key="search.text">
-                        {{search.text}}
-                    </option>
-                </v-ons-select>
-            </v-ons-col>
             <v-ons-col class="col">
-                <v-ons-input placeholder="Search something" style="width:75%; " v-model="keyword"></v-ons-input>
-                <v-ons-button @click="search" style="width:25%;">검색</v-ons-button>
-            </v-ons-col> 
+                <v-ons-input placeholder="Search something" style="width:90%; margin-left:5%; margin-top:30px;" float v-model="keyword"></v-ons-input>
+            </v-ons-col>
+            <v-ons-col class="col" width="60px">      
+                <v-ons-button @click="search" style="width:100%;"><p>검색</p></v-ons-button>
+            </v-ons-col>  
         </v-ons-row>
   
         <v-ons-list>
@@ -50,8 +63,9 @@
                 <div class="expandable-content">
                     주문일자 : {{order.OM_ORDER_DT}} <br>
                     제품코드 : {{order.PDC_ID}}<br>
-                    {{order.OM_NM}} <br>
-                    {{order.OM_TEL}} <br>
+                    이름     : {{order.OM_NM}} <br>
+                    연락처   : {{order.OM_TEL}} <br>
+                    상태     : {{order.OM_STATE_CDE}}
                 </div>
             </v-ons-list-item>
         </v-ons-list>
@@ -163,7 +177,7 @@ export default {
 
 <style scoped>
 .col{
-    border: 1px solid black;
+    
 }
 
 </style>

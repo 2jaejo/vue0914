@@ -7,11 +7,23 @@
         <div class="login">
             
                 <div>
-                    <input class="text-input text-input--material" placeholder="Username" type="text" v-model="id" required style="width: 94%; margin: 10px 10px;">
+                    <v-ons-input placeholder="Username" 
+                        float 
+                        type="text" 
+                        v-model="id" 
+                        style="width: 94%; margin: 10px 10px;"
+                    >
+                    </v-ons-input>
                 </div>
                 <br />
                 <div>
-                    <input class="text-input text-input--material" placeholder="Password" type="password" v-model="pw" required style="width: 94%; margin: 10px 10px;">
+                    <v-ons-input placeholder="Password" 
+                        float 
+                        type="password" 
+                        v-model="pw" 
+                        style="width: 94%; margin: 10px 10px;"
+                    >
+                    </v-ons-input>
                 </div>
                 <br />
                 <div>

@@ -32,7 +32,7 @@ import { mapState } from 'vuex'
 
 export default {
     created(){
-        this.$store.dispatch('companyStore/itemManagement',this.nbr);
+        this.$store.dispatch('companyStore/clientList',this.nbr);
     },
 
     components: { 

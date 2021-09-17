@@ -44,7 +44,7 @@
 <script>
 import {mapState} from 'vuex'
 
-import ComProduct from './Company/ComProduct.vue'
+import ComItem from './Company/ComItem.vue'
 import ComOrderList from './Company/ComOrderList.vue'
 import ComClientList from './Company/ComClientList.vue'
 import ComSalesList from './Company/ComSalesList.vue'
@@ -96,7 +96,7 @@ export default {
             const getMenu = (type)=>{
                  switch(type){
                     case '상품관리':
-                        return ComProduct;
+                        return ComItem;
                     case '주문조회':
                         return ComOrderList;
                     case '거래처조회':

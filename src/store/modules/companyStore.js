@@ -4,23 +4,33 @@ const companyStore = {
     namespaced:true,
     
     state:{ 
-        clientList:{
+        itmeList:[],
 
-        },
+        itemStepOne:[],
 
-        orderList:{
+        itemStepTwo:[],
 
-        },
+        clientList:{},
 
-        salesList:{
+        orderList:{},
 
-        },
+        salesList:{},
 
     },
 
     mutations:{
-       
-        itemManagement: (state, payload) =>{
+        itemList: (state, payload) =>{
+            state.itemList = payload;        
+        },
+
+        itemSelectStepOne:(state, payload) => {
+            state.itemStepOne = payload;
+        },
+        itemSelectStepTwo:(state, payload) => {
+            state.itemStepTwo = payload;
+        },
+
+        clientList: (state, payload) =>{
             state.clientList = payload;        
         },
 
@@ -34,8 +44,76 @@ const companyStore = {
     },
 
     actions:{
+        itemList:({ commit }, data) => {
 
-        itemManagement:({ commit }, data) => {
+            axios.post('http://49.50.160.174/store/itemlist',{
+                data
+            },{
+                headers:{
+
+                }
+            })
+            .then(res => {
+                console.log(res.data);
+                commit('itemList',res.data);
+            })
+            .catch(err => {
+                console.log('catch : '+err);
+            });
+
+        }, 
+
+        itemSelectStepOne:({ commit }) => {
+            axios.get('http://49.50.160.174/store/itemselectstepone',{
+   
+            },{
+                headers:{
+
+                }
+            })
+            .then(res => {
+                let base = {
+                    CLS_PARENT:'0',
+                    CLS_NM:'전체',
+                    CLS_ID:'0',
+                }
+                //배열 맨앞에 '전체' 추가
+                res.data.unshift(base);
+
+               commit('itemSelectStepOne',res.data);
+            })
+            .catch(err => {
+                console.log('catch : '+err);
+            });
+
+        },
+
+        itemSelectStepTwo:({ commit }, data) => {
+            axios.post('http://49.50.160.174/store/itemselectsteptwo',{
+                data
+            },{
+                headers:{
+
+                }
+            })
+            .then(res => {
+                let base = {
+                    CLS_PARENT:data.key,
+                    CLS_NM:'전체',
+                    CLS_ID:'0',
+                }
+                //배열 맨앞에 '전체' 추가
+                res.data.unshift(base);
+
+               commit('itemSelectStepTwo',res.data);
+            })
+            .catch(err => {
+                console.log('catch : '+err);
+            });
+
+        }, 
+
+        clientList:({ commit }, data) => {
 
             axios.post('http://49.50.160.174/store/clientlist',{
                 data
@@ -45,7 +123,7 @@ const companyStore = {
                 }
             })
             .then(res => {
-               commit('itemManagement',res.data);
+               commit('clientList',res.data);
             })
             .catch(err => {
                 console.log('catch : '+err);
@@ -71,6 +149,7 @@ const companyStore = {
             })
             .then(res => {
                 console.log('sales');
+                console.log(res);
                 context.commit('searchSales',res.data);
             })
             .catch(err => {
