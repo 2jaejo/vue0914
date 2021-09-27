@@ -1,7 +1,7 @@
 <template>
     <v-ons-page>
         <!-- 툴바 -->
-        <custom-toolbar :title="$store.state.menuPages[0].label"></custom-toolbar>
+        <custom-toolbar></custom-toolbar>
  
         <!-- 캐러셀 -->
         <div style="position:relative;">

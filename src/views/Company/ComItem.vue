@@ -13,7 +13,7 @@
             </v-ons-col>
             <v-ons-col class="col">
                <v-ons-select style="width:90%; margin-top:10px;" @change="selectStepOne()" v-model="sel_step1">
-                    <option v-for="Step1 in itemStepOne" :value="Step1.CLS_ID" :key="Step1.CLS_ID">
+                    <option v-for="Step1 in itemClassOne" :value="Step1.CLS_ID" :key="Step1.CLS_ID">
                         {{Step1.CLS_NM}}
                     </option>
                 </v-ons-select>
@@ -25,8 +25,8 @@
                 <p style="margin-left:10px;">소분류 : </p>
             </v-ons-col>
             <v-ons-col class="col">
-               <v-ons-select style="width:90%; margin-top:10px;" v-model="sel_step2">
-                    <option v-for="Step2 in itemClassStep2" :value="Step2.CLS_ID" :key="Step2.CLS_ID">
+               <v-ons-select style="width:90%; margin-top:10px;" @change="selectStepTwo()" v-model="sel_step2">
+                    <option v-for="Step2 in itemClassTwo" :value="Step2.CLS_ID" :key="Step2.CLS_ID">
                         {{Step2.CLS_NM}}
                     </option>
                 </v-ons-select>
@@ -48,27 +48,59 @@
                 <v-ons-button @click="search" style="width:100%;"><p>검색</p></v-ons-button>
             </v-ons-col>  
         </v-ons-row>
-
+ 
         <v-ons-list>
             <v-ons-list-item expandable
-                v-for="item in itmeList" :key="item.CLS_ID"
+                v-for="item in list" :key="item.CLS_ID"
             >
-                <!-- <div class="left">
-                    {{item.PDC_ID}}
-                </div> -->
                 <div class="center">
-                    {{item.PDC_NM}}
+                    {{item.PDC_ID}} / {{item.PDC_NM}}
                 </div>
-                <!-- <div class="right">
-                    {{item.PDC_STD}}
-                </div> -->
+                <div class="right">
+                </div>
+               
                 <div class="expandable-content">
-                    제품수량 : {{item.PDC_UNIT}} <br>
-                    제품금액 : {{item.PDC_UNIT_PRICE}} <br>
-                    할인금액 : {{item.PDC_SALE_PRICE}} <br>
-                    내용     : {{item.CONTENT}} <br>
-                    내용코드 : {{item.CONTENT_CDE}} <br>
-                    상태코드 : {{item.PDC_STATE_CDE}}
+                    <v-ons-row>
+                        {{item.CLS_ID}}
+                    </v-ons-row>
+                    <v-ons-row>
+                        <v-ons-col>제품수량</v-ons-col>
+                        <v-ons-col>{{item.PDC_UNIT}}</v-ons-col>
+                        <v-ons-col><input type="text" v-model="modData.PDC_UNIT"></v-ons-col>
+                    </v-ons-row>
+                    <v-ons-row>
+                        <v-ons-col>제품금액</v-ons-col>
+                        <v-ons-col>{{item.PDC_UNIT_PRICE}}</v-ons-col>
+                        <v-ons-col><input type="text" v-model="modData.PDC_UNIT_PRICE"></v-ons-col>
+                    </v-ons-row>
+                    <v-ons-row>
+                        <v-ons-col>할인금액</v-ons-col>
+                        <v-ons-col>{{item.PDC_SALE_PRICE}}</v-ons-col>
+                        <v-ons-col><input type="text" v-model="modData.PDC_SALE_PRICE"></v-ons-col>
+                    </v-ons-row>
+                    <v-ons-row>
+                        <v-ons-col>내용</v-ons-col>
+                        <v-ons-col>{{item.CONTENT}}</v-ons-col>
+                        <v-ons-col><input type="text" v-model="modData.CONTENT"></v-ons-col>
+                    </v-ons-row>
+                    <v-ons-row>
+                        <v-ons-col>내용코드</v-ons-col>
+                        <v-ons-col>{{item.CONTENT_CDE}}</v-ons-col>
+                        <v-ons-col><input type="text" v-model="modData.CONTENT_CDE"></v-ons-col>
+                    </v-ons-row>
+                    <v-ons-row>
+                        <v-ons-col>상태코드</v-ons-col>
+                        <v-ons-col>{{item.PDC_STATE_CDE}}</v-ons-col>
+                        <v-ons-col><input type="text" v-model="modData.PDC_STATE_CDE"></v-ons-col>
+                    </v-ons-row>
+                    <v-ons-row>
+                        <v-ons-col><button @click="del(item)">삭제</button></v-ons-col>
+                        <v-ons-col></v-ons-col>
+                        <v-ons-col><button @click="mod(item)">수정</button></v-ons-col>
+                    </v-ons-row>
+                    
+                    
+                    
                 </div>
             </v-ons-list-item>
         </v-ons-list>
@@ -77,63 +109,129 @@
 </template>
 
 <script>
+import axios from "axios"
 import { mapState } from 'vuex'
 export default {
     created(){  
-        this.$store.dispatch('companyStore/itemSelectStepOne');
+        this.$store.commit('companyStore/itemSelectStepOne');
+
     },
     mounted(){
-        let data = {
-            nbr:this.nbr,
-        };
-        this.$store.dispatch('companyStore/itemList', data);
+        this.search();
+        
     },
     components: { 
 
     },
     computed:{
         ...mapState({
-            itmeList: state => state.companyStore.itmeList,
+            itemList: state => state.companyStore.itemList,
             itemStepOne: state => state.companyStore.itemStepOne,
             itemStepTwo: state => state.companyStore.itemStepTwo,
         })
     },
     watch:{
-        itemStepTwo(val){    
-            this.itemClassStep2 = val;          
+        itemList(val){
+            this.list = val;
+        },
+        itemStepOne(val){       
+            this.itemClassOne = val;
+            this.sel_step1 = val[0].CLS_ID; 
+        },
+        itemStepTwo(val){   
+            this.itemClassTwo = val;
+            this.sel_step2 = val[0].CLS_ID;           
         }
     },
     data(){
         return{
-            sel_step1:'0',
-            itemClassStep2:[],
-            sel_step2:'0',
-            select_step2:false,
+            list:[],
+            itemClassOne:[],
+            sel_step1:'',
+            itemClassTwo:[],
+            sel_step2:'',
+            select_step2:true,
             searchSelect: [
                 { text: '상품코드', value: 'PDC_ID' },
                 { text: '상품명', value: 'PDC_NM' },
             ],
             searchSel:'PDC_ID',
             keyword:'',
+
+            //수정 데이터
+            modData:{
+                PDC_UNIT:'',
+                PDC_UNIT_PRICE:'',
+                PDC_SALE_PRICE:'',
+                CONTENT:'',
+                CONTENT_CDE:'',
+                PDC_STATE_CDE:'',
+            }
         }
     },
     methods: {
-        search(){
 
+        //검색
+        search(){
+            let data = {
+                nbr:this.nbr,
+                step1:this.sel_step1,
+                step2:this.sel_step2,
+                search:this.searchSel,
+                keyword:this.keyword,
+            };
+            this.$store.dispatch('companyStore/searchItem', data);
         },
 
-        selectStepOne(){
-            if( this.sel_step1 == '0'){
-                this.sel_step2='0';
-                this.select_step2= false;
-                this.itemClassStep2.splice();
-            }else{
+        //대분류 change event
+        selectStepOne(){    
+                //this.itemClassTwo.splice();
                 let data = {
-                    key: this.sel_step1,
+                    step1: this.sel_step1,
                 };
                 this.select_step2= true;
                 this.$store.dispatch('companyStore/itemSelectStepTwo',data);
+        },
+
+        //소분류 change event
+        selectStepTwo(){
+            // this.search();
+            // this.keyword = '';
+        },
+
+        mod(item){
+            alert("수정");
+            let data = {
+                item: item,
+                modData: this.modData
             }
+  
+            axios.post('http://49.50.160.174/store/itemmodify',{
+                data
+            })
+            .then(res => {
+                console.log(res.data);
+                alert(res.data.list);
+            })
+            .catch( error => {
+                console.log('catch : ' + error);
+            })
+            .finally(() =>{
+                this.search();
+                this.modData.PDC_UNIT='';
+                this.modData.PDC_UNIT_PRICE='';
+                this.modData.PDC_SALE_PRICE='';
+                this.modData.CONTENT='';
+                this.modData.CONTENT_CDE='';
+                this.modData.PDC_STATE_CDE='';
+            });
+
+
+        },
+
+        del(item){
+            alert("삭제");
+            console.log(item);
         }
     }
 }

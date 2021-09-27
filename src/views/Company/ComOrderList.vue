@@ -81,6 +81,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import dayjs from 'dayjs'
 export default {
 
     components: { 
@@ -88,13 +89,11 @@ export default {
     },
 
     created(){
-        let data = {
-            state:this.stateSel,
-            search:this.searchSel,
-            nbr:this.nbr,
-            keyword:this.keyword,
-        };
-        this.$store.dispatch('companyStore/searchOrder',data);
+        //dayjs 플러그인사용
+        this.sdate = dayjs().format("YYYY-MM-DD");
+        this.edate = dayjs().format("YYYY-MM-DD");
+
+        this.search();
 
         // for(let i = 0; i < 20; i++) {
         //     this.list.push(this.orderList[i]);
@@ -133,6 +132,8 @@ export default {
             ],
             searchSel: 'HC_OM_ID',
             keyword:'',
+            sdate:'',
+            edate:'',
 
             //인피니트-스크롤 변수
             nextItem:0,
@@ -146,9 +147,11 @@ export default {
     methods: {
         search(){
             let data = {
+                nbr:this.nbr,
+                sdate:this.sdate,
+                edate:this.edate,
                 state:this.stateSel,
                 search:this.searchSel,
-                nbr:this.nbr,
                 keyword:this.keyword,
             };
             this.$store.dispatch('companyStore/searchOrder',data);

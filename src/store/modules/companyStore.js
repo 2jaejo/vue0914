@@ -4,34 +4,48 @@ const companyStore = {
     namespaced:true,
     
     state:{ 
-        itmeList:[],
+        itemList:[],
 
         itemStepOne:[],
 
         itemStepTwo:[],
 
-        clientList:{},
+        clientList:[],
 
-        orderList:{},
+        orderList:[],
 
-        salesList:{},
+        salesList:[],
 
     },
 
     mutations:{
         itemList: (state, payload) =>{
-            state.itemList = payload;        
+            state.itemList = payload;       
         },
 
-        itemSelectStepOne:(state, payload) => {
-            state.itemStepOne = payload;
+        searchItem:(state, payload) => {
+            state.itemList = payload;
         },
+
+        itemSelectStepOne:(state) => {
+            axios.get('http://49.50.160.174/store/itemselectstepone',{
+                
+            })
+            .then(res => {
+                state.itemStepOne = res.data.one;
+                state.itemStepTwo = res.data.two;
+            })
+            .catch(err => {
+                console.log('catch : '+err);
+            });    
+        },
+
         itemSelectStepTwo:(state, payload) => {
             state.itemStepTwo = payload;
         },
 
-        clientList: (state, payload) =>{
-            state.clientList = payload;        
+        clientList:(state, payload) => {
+            state.clientList = payload;
         },
 
         searchOrder:(state, payload) =>{
@@ -54,39 +68,25 @@ const companyStore = {
                 }
             })
             .then(res => {
-                console.log(res.data);
                 commit('itemList',res.data);
             })
             .catch(err => {
                 console.log('catch : '+err);
             });
 
-        }, 
+        },
 
-        itemSelectStepOne:({ commit }) => {
-            axios.get('http://49.50.160.174/store/itemselectstepone',{
-   
-            },{
-                headers:{
-
-                }
+        searchItem:(context, data) => {
+            axios.post('http://49.50.160.174/store/itemlist',{
+                data
             })
             .then(res => {
-                let base = {
-                    CLS_PARENT:'0',
-                    CLS_NM:'전체',
-                    CLS_ID:'0',
-                }
-                //배열 맨앞에 '전체' 추가
-                res.data.unshift(base);
-
-               commit('itemSelectStepOne',res.data);
+                context.commit('searchItem',res.data);
             })
             .catch(err => {
-                console.log('catch : '+err);
+                console.log('catch : '+ err);
             });
-
-        },
+        }, 
 
         itemSelectStepTwo:({ commit }, data) => {
             axios.post('http://49.50.160.174/store/itemselectsteptwo',{
@@ -97,13 +97,15 @@ const companyStore = {
                 }
             })
             .then(res => {
-                let base = {
-                    CLS_PARENT:data.key,
-                    CLS_NM:'전체',
-                    CLS_ID:'0',
+                if (res.data.length < 1){
+                    let base = {
+                        CLS_PARENT:data.key,
+                        CLS_NM:'전체',
+                        CLS_ID:'0',
+                    }
+                    //배열 맨앞에 '전체' 추가
+                    res.data.unshift(base);
                 }
-                //배열 맨앞에 '전체' 추가
-                res.data.unshift(base);
 
                commit('itemSelectStepTwo',res.data);
             })
@@ -111,10 +113,21 @@ const companyStore = {
                 console.log('catch : '+err);
             });
 
-        }, 
+        },
+        
+        itemAdd:() => {
+
+        },
+
+        itemModify:() => {
+            
+        },
+
+        itemDelete:() => {
+            
+        },
 
         clientList:({ commit }, data) => {
-
             axios.post('http://49.50.160.174/store/clientlist',{
                 data
             },{
@@ -148,8 +161,6 @@ const companyStore = {
                 data
             })
             .then(res => {
-                console.log('sales');
-                console.log(res);
                 context.commit('searchSales',res.data);
             })
             .catch(err => {
