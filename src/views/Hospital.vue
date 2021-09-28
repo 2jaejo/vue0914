@@ -1,7 +1,7 @@
 <template>
     <v-ons-page>
        <v-ons-toolbar>
-            <div class="center">{{ title }}</div>
+            <div class="center">Hospital</div>
         </v-ons-toolbar>
 
         <!-- 캐러셀 -->

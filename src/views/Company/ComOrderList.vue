@@ -45,10 +45,10 @@
         </v-ons-row>
         <v-ons-row>
             <v-ons-col class="col">
-                <v-ons-input placeholder="Search something" style="width:90%; margin-left:5%; margin-top:30px;" float v-model="keyword"></v-ons-input>
+                <v-ons-input placeholder="Search something" style="width:90%; margin-left:5%; margin-top:10px;" float v-model="keyword"></v-ons-input>
             </v-ons-col>
             <v-ons-col class="col" width="60px">      
-                <v-ons-button @click="search" style="width:100%;"><p>검색</p></v-ons-button>
+                <v-ons-button @click="search" style="width:100%;">검색</v-ons-button>
             </v-ons-col>  
         </v-ons-row>
   

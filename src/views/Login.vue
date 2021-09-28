@@ -87,8 +87,8 @@ export default {
                 extends: getMenu(e),
                 data(){
                     return{
-                  
-                   
+                        title:'',
+                        back:'',
                     }
                 }
             }
