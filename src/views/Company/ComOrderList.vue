@@ -140,7 +140,7 @@ export default {
 			maxItem:0,
 			count:0,
 			show:false,
-			list: [],
+			List: [],
 
         }
     },

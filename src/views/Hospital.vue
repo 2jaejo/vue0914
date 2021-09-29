@@ -30,13 +30,13 @@
 
         <!-- 그리드 -->
         <v-ons-row>
-            <v-ons-col><div class="bg mint" @click="push('HosInfo')">병원정보</div></v-ons-col>
-            <v-ons-col><div class="bg puple" @click="push('HosMonthList')">월별내역</div></v-ons-col>
+            <v-ons-col><div class="bg mint" @click="push('병원정보')">병원정보</div></v-ons-col>
+            <v-ons-col><div class="bg puple" @click="push('월별내역')">월별내역</div></v-ons-col>
         </v-ons-row>
         <v-ons-row>
-            <v-ons-col><div class="bg orange" @click="push('HosOrder')">주문하기</div></v-ons-col>
-            <v-ons-col><div class="bg green" @click="push('HosOrderList')">주문조회</div></v-ons-col>
-            <v-ons-col><div class="bg blue" @click="push('HosPeriodList')">기간내역</div></v-ons-col>
+            <v-ons-col><div class="bg orange" @click="push('주문하기')">주문하기</div></v-ons-col>
+            <v-ons-col><div class="bg green" @click="push('주문조회')">주문조회</div></v-ons-col>
+            <v-ons-col><div class="bg blue" @click="push('기간내역')">기간내역</div></v-ons-col>
         </v-ons-row>
         <v-ons-row>
             <v-ons-col><div class="bg skyblue" @click="push('Page11')">청구정보</div></v-ons-col>
@@ -63,11 +63,23 @@ export default {
     components: { 
         
     },
+    created() {
+       this.nbr = this.user.relater_nbr;
+    },
     computed:{
-        ...mapState(['user']),
+        ...mapState({
+            user : state => state.user,
+        }),
+    },
+    watch:{
+        user(Val){
+            console.log(Val);
+            //this.nbr = newVal.relater_nbr;
+        }
     },
     data(){
         return{
+            nbr:'',
             carouselIndex: 0,
             items: {
                 BLUE: '#085078',
@@ -89,27 +101,28 @@ export default {
         push(e) {
             const getMenu = (type)=>{
                 switch(type){
-                    case 'HosInfo':
+                    case '병원정보':
                         return HosInfo;
-                    case 'HosOrder':
+                    case '주문하기':
                         return HosOrder;
-                    case 'HosOrderList':
+                    case '주문조회':
                         return HosOrderList;
-                    case 'HosMonthList':
+                    case '월별내역':
                         return HosMonthList;
-                    case 'HosPeriodList':
+                    case '기간내역':
                         return HosPeriodList;        
                     case 'Page11':
                         return Page11;
                 }
             }
-
+            let nbr = this.nbr; 
             var pageToPush = {
                 extends: getMenu(e),
                 data(){
                     return{
                         title: e,
-                        back:'병원' 
+                        back:'병원',
+                        nbr : nbr, 
                     }
                 }
             }
