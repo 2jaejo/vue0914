@@ -35,7 +35,7 @@
                 </v-ons-row>
                     <v-ons-row>
                     <v-ons-col>사업자번호</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.HOS_REG_NM}}</v-ons-col>
+                    <v-ons-col>{{hospitalInfo.HOS_REG_NBR}}</v-ons-col>
                 </v-ons-row>
                     <v-ons-row>
                     <v-ons-col>전화</v-ons-col>
