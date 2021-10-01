@@ -62,7 +62,7 @@
                 </div>
                 <div class="center" style="margin-left: 10px;">
                     <v-ons-select
-                        v-model="pdc_unit"
+                        v-model="pdc_cnt"
                     >
                         <option 
                             v-for="cnt in count" :key="cnt" 
@@ -79,7 +79,7 @@
                     요청사항
                 </div>
                 <div class="center" style="margin-left: 10px;">
-                    <v-ons-input v-model="request"></v-ons-input>
+                    <v-ons-input v-model="remark"></v-ons-input>
                 </div>
             </v-ons-list-item>
 
@@ -146,8 +146,8 @@ export default {
 
             modalVisible:false,
             count:[],
-            pdc_unit:'1',
-            request:'',
+            pdc_cnt:'1',
+            remark:'',
             comInfo:{},
 
         }
@@ -175,24 +175,18 @@ export default {
         },
         
         order(){
-            console.log('order');
-
             let con = confirm('주문하시겠습니까?');
             if(con){
                 let data = {
-                    pdc_unit : this.pdc_unit,
-                    request : this.request,
-                    cus_id : this.item.CUS_ID,
-                    user_id : this.user.user_id,
-                    kor_nm : this.user.kor_nm,
-                    relater_nbr : this.user.relater_nbr,
-                    relater_div_cde : this.user.relater_div_cde,
-                    is_login : this.user.is_login
+                    pdc_cnt : this.pdc_cnt,
+                    remark : this.remark,
+                    item : this.item,
+                    user : this.user,
                 }
                 axios.post('http://49.50.160.174/doctor/hosordersend',{
                     data
                 }).then(res =>{            
-                    console.log(res.data);
+                    alert(res.data);
                 }).catch(err =>{
                     console.log('catch : '+err);
                 });

@@ -106,15 +106,17 @@ export default {
             axios.post('http://49.50.160.174/doctor/monthlist',{
                 data
             }).then(res =>{            
-                this.orderMonthList = res.data.list;
-                //무한스크롤
-                for(let i = 0; i < 15; i++) {
-                    let data = JSON.parse(JSON.stringify(this.orderMonthList[i]));
-                    this.monthList.push(data);
-                }
-                this.maxItem = this.orderMonthList.length;
-                this.nextItem = 15;
-                this.count = 5;
+                if(res.data.list.length >0){
+                    this.orderMonthList = (JSON.parse(JSON.stringify(res.data.list)));
+                    //무한스크롤
+                    for(let i = 0; i < 15; i++) {
+                        let data = this.orderMonthList[i];
+                        this.monthList.push(data);
+                    }
+                    this.maxItem = this.orderMonthList.length;
+                    this.nextItem = 15;
+                    this.count = 5;
+                }            
 
             }).catch(err =>{
                 console.log('catch : '+err);
