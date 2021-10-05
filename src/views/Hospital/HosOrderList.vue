@@ -28,11 +28,8 @@
                     modifier="tappable longdivider"
                     v-for="list in orderList" :key="list.HC_OM_ID"
                 >
-                    <div class="left">
-                       주문번호
-                    </div>
                     <div class="center">
-                       {{list.HC_OM_ID}}
+                       주문번호 {{list.HC_OM_ID}}
                     </div>
                     <div class="expandable-content">
                         {{list}}
@@ -65,9 +62,9 @@ export default {
     created(){
         this.sdate = dayjs().format("YYYY-MM-DD");
         this.edate = dayjs().format("YYYY-MM-DD");
+        this.getOrderList();
     },
     mounted(){
-        this.getOrderList();
     },
     updated(){
 
@@ -111,14 +108,15 @@ export default {
             }).then(res =>{
                 if(res.data.list.length >0){            
                     this.hosOrderList = (JSON.parse(JSON.stringify(res.data.list)));
-                    
+                    let num;
+                    this.hosOrderList.length > 15 ? num = 15 : num = this.hosOrderList.length;
                     //무한스크롤
-                    for(let i = 0; i < 2; i++) {
+                    for(let i = 0; i < num; i++) {
                         let data = this.hosOrderList[i];
                         this.orderList.push(data);
                     }
                     this.maxItem = this.hosOrderList.length;
-                    this.nextItem = 20;
+                    this.nextItem = num;
                     this.count = 5;
                 }
 

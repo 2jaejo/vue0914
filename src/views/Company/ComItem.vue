@@ -10,28 +10,17 @@
         </v-ons-toolbar>
 
 
-<!-- 검색창 -->
-        <div class="search" >
-        <v-ons-row style="margin-top:56px;">
-                <v-ons-col class="col" width="25%" vertical-align="center">
-                    <p style="margin-left:10px;">대분류 : </p>
-                </v-ons-col>
-            
-                <v-ons-col class="col">
-                <v-ons-select style="width:90%; margin-top:10px;" @change="selectStepOne()" v-model="sel_step1">
+<!-- 검색창 -->      
+            <v-ons-row style="margin-top:56px;">          
+                <v-ons-col class="col" width="35%">
+                    <v-ons-select style="width:95%; margin:10px 0;" @change="selectStepOne()" v-model="sel_step1">
                         <option v-for="Step1 in itemClassOne" :value="Step1.CLS_ID" :key="Step1.CLS_ID">
                             {{Step1.CLS_NM}}
                         </option>
                     </v-ons-select>
                 </v-ons-col>
-        </v-ons-row>
-
-        <v-ons-row v-show="select_step2">    
-                <v-ons-col class="col" width="25%" vertical-align="center">
-                    <p style="margin-left:10px;">소분류 : </p>
-                </v-ons-col>
-                <v-ons-col class="col">
-                <v-ons-select style="width:90%; margin-top:10px;" @change="selectStepTwo()" v-model="sel_step2">
+                <v-ons-col v-show="select_step2">
+                    <v-ons-select style="width:95%; margin:10px 0;" @change="selectStepTwo()" v-model="sel_step2">
                         <option v-for="Step2 in itemClassTwo" :value="Step2.CLS_ID" :key="Step2.CLS_ID">
                             {{Step2.CLS_NM}}
                         </option>
@@ -41,14 +30,14 @@
 
             <v-ons-row>
                 <v-ons-col class="col" width="30%" vertical-align="center">
-                    <v-ons-select style="width:80%" v-model="searchSel">
+                    <v-ons-select style="width:95%" v-model="searchSel">
                         <option v-for="search in searchSelect" :value="search.value" :key="search.text">
                             {{search.text}}
                         </option>
                     </v-ons-select>
                 </v-ons-col>
                 <v-ons-col class="col">
-                    <v-ons-input placeholder="Search something" style="width:90%; margin-left:5%; margin-top:10px;" float v-model="keyword"></v-ons-input>
+                    <v-ons-input placeholder="Search something" style="width:90%; margin:5px 5px;" float v-model="keyword"></v-ons-input>
                 </v-ons-col>
                 <v-ons-col class="col" width="60px">      
                     <v-ons-button @click="search" style="width:100%;">검색</v-ons-button>
@@ -57,7 +46,7 @@
             <v-ons-row>
                 <v-ons-col><v-ons-button @click="modalVisible = true" style="width:100%;margin:5px 0px;">상품추가</v-ons-button></v-ons-col>
             </v-ons-row>
-        </div>
+        
 
 <!-- 제품 추가 모달창 -->
         <v-ons-dialog :visible.sync="modalVisible" >
@@ -111,7 +100,7 @@
     <div class="background"></div> 
 
     <!-- 리스트 -->
-    <div class="content" style="top:250px;">
+    <div class="content" style="top:200px;">
         <v-ons-list>
             <v-ons-list-item 
                 expandable
@@ -158,7 +147,8 @@
                         <v-ons-col><v-ons-button @click="del(item)">삭제</v-ons-button></v-ons-col>
                         <v-ons-col></v-ons-col>
                         <v-ons-col><v-ons-button @click="mod(item)">수정</v-ons-button></v-ons-col>
-                    </v-ons-row>                 
+                    </v-ons-row>
+                    {{item}}                 
                 </div>
             </v-ons-list-item>
         </v-ons-list>
@@ -309,7 +299,7 @@ export default {
 
         //삭제
         del(item){
-            let con = confirm("삭제");
+            let con = confirm("삭제하시겠습니까?");
             if(con){
                 let data = {
                     cus_id : item.CUS_ID,

@@ -9,99 +9,130 @@
 
        <div class="content">
            <v-ons-card>
-                <v-ons-row>
-                    <v-ons-col>병원명</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.HOS_NM}}</v-ons-col>
-                </v-ons-row>
-                    <v-ons-row>
-                    <v-ons-col>진료과목</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.TREAT_SUB}}</v-ons-col>
-                </v-ons-row>
-                    <v-ons-row>
-                    <v-ons-col>대표의사</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.DIRECTOR_NM}}</v-ons-col>
-                </v-ons-row>
-                    <v-ons-row>
-                    <v-ons-col>대표의사 학력</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.DIRECTOR_HIS}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>대표의사 전공</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.DIRECTOR_SPEC}}</v-ons-col>
-                </v-ons-row>
-                    <v-ons-row>
-                    <v-ons-col>대표자명</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.HOS_REG_NM}}</v-ons-col>
-                </v-ons-row>
-                    <v-ons-row>
-                    <v-ons-col>사업자번호</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.HOS_REG_NBR}}</v-ons-col>
-                </v-ons-row>
-                    <v-ons-row>
-                    <v-ons-col>전화</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.TEL_NBR}}</v-ons-col>
-                </v-ons-row>
-                    <v-ons-row>
-                    <v-ons-col>팩스</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.FAX_NBR}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>평일 진료</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.WEEKDAY_STR}} ~ {{hospitalInfo.WEEKDAY_END}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>주말 진료</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.WEEKEND_STR}} ~ {{hospitalInfo.WEEKEND_END}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>점심 시간</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.LUNCH_STR}} ~ {{hospitalInfo.LUNCH_END}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>휴무코드</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.HOLIDAY_CDE}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>휴무여부</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.HOLIDAY_YN}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>휴무기간</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.HOLYDAY_STR}} ~ {{hospitalInfo.HOLYDAY_END}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>주소</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.ADDR_MST}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>우편번호</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.ADDR_POST}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>은행명</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.BANK_NM}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>계좌번호</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.BANK_ACCT_NUM}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>지역코드</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.LOC_CDE}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>KIND_CDE</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.KIND_CDE}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>파일경로</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.HOS_ORI_NM}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>파일명</v-ons-col>
-                    <v-ons-col>{{hospitalInfo.HOS_SAVE_NM}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-button @click="pop()">Pop Page</v-ons-button>
+               <ul class="list">
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>병원명</div>
+                            <div>{{hospitalInfo.HOS_NM}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>진료과목</div>
+                            <div>{{hospitalInfo.TREAT_SUB}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>대표의사</div>
+                            <div>{{hospitalInfo.DIRECTOR_NM}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>학력</div>
+                            <div>{{hospitalInfo.DIRECTOR_HIS}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>전공</div>
+                            <div>{{hospitalInfo.DIRECTOR_SPEC}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>대표자명</div>
+                            <div>{{hospitalInfo.HOS_REG_NM}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>사업자번호</div>
+                            <div>{{hospitalInfo.HOS_REG_NBR}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>전화</div>
+                            <div>{{hospitalInfo.TEL_NBR}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>팩스</div>
+                            <div>{{hospitalInfo.FAX_NBR}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>평일진료</div>
+                            <div>{{hospitalInfo.WEEKDAY_STR}} ~ {{hospitalInfo.WEEKDAY_END}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>주말진료</div>
+                            <div>{{hospitalInfo.WEEKEND_STR}} ~ {{hospitalInfo.WEEKEND_END}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>점심시간</div>
+                            <div>{{hospitalInfo.LUNCH_STR}} ~ {{hospitalInfo.LUNCH_END}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>주소</div>
+                            <div>{{hospitalInfo.ADDR_MST}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>우편번호</div>
+                            <div>{{hospitalInfo.ADDR_POST}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>은행명</div>
+                            <div>{{hospitalInfo.BANK_NM}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>계좌번호</div>
+                            <div>{{hospitalInfo.BANK_ACCT_NUM}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>지역코드</div>
+                            <div>{{hospitalInfo.LOC_CDE}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>kind_cde</div>
+                            <div>{{hospitalInfo.KIND_CDE}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>파일경로</div>
+                            <div>{{hospitalInfo.HOS_ORI_NM}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center" style="display: flex;justify-content: space-between;">
+                            <div>파일명</div>
+                            <div>{{hospitalInfo.HOS_SAVE_NM}}</div>
+                        </div>      
+                    </li>              
+                </ul>
+                
+                <v-ons-button modifier="large" @click="pop()">닫기</v-ons-button>
             </v-ons-card>
        </div>
        
@@ -140,5 +171,5 @@ export default {
 </script>
 
 <style scoped>
-
+.list{font-size:18px;}
 </style>

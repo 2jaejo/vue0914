@@ -9,14 +9,14 @@
         </v-ons-toolbar>
 
         <v-ons-row>
-            <v-ons-col class="col" width="20%" vertical-align="center">
-                기간
+            <v-ons-col class="col" vertical-align="center">
+                기간 : 
             </v-ons-col>
             <v-ons-col class="col">
-               <input type="date" v-model="sdate" style="width:99%; height:90%;">
+               <v-ons-input type="date" v-model="sdate" style="margin:5px 0; width:90%;"></v-ons-input>~
             </v-ons-col>
             <v-ons-col class="col">
-               <input type="date" v-model="edate" style="width:99%; height:90%;">
+               <v-ons-input type="date" v-model="edate" style="margin:5px 0; width:90%;"></v-ons-input>
             </v-ons-col>
         </v-ons-row>
 
@@ -46,14 +46,10 @@
             >
                 <div class="center">
 
-                {{sales.HC_OM_ID}}
+                주문번호 {{sales.HC_OM_ID}}
                 </div>
                 <div class="expandable-content">
-                    주문일자 : {{sales.OM_ORDER_DT}} <br>
-                    제품코드 : {{sales.PDC_ID}}<br>
-                    이름     : {{sales.OM_NM}} <br>
-                    연락처   : {{sales.OM_TEL}} <br>
-                    상태     : {{sales.OM_STATE_CDE}}
+                    {{sales}}
                 </div>
             </v-ons-list-item>
         </v-ons-list>
@@ -97,7 +93,6 @@ export default {
             searchSelect: [
                 { text: '주문번호', value: 'HC_OM_ID' },
                 { text: '상품코드', value: 'PDC_ID' },
-                { text: '주문일자', value: 'OM_ORDER_DT' },
             ],
             searchSel: 'HC_OM_ID',
             keyword:'',

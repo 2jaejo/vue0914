@@ -187,6 +187,7 @@ export default {
                     data
                 }).then(res =>{            
                     alert(res.data);
+                    this.pop();
                 }).catch(err =>{
                     console.log('catch : '+err);
                 });

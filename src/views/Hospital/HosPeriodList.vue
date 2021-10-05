@@ -29,7 +29,7 @@
                     v-for="list in monthList" :key="list.HC_OM_ID"
                 >
                     <div class="center">
-                       {{list.HC_OM_ID}}
+                       주문번호 {{list.HC_OM_ID}}
                     </div>
                     <div class="expandable-content">
                         {{list}}
@@ -108,13 +108,19 @@ export default {
             }).then(res =>{            
                 if(res.data.list.length >0){
                     this.orderMonthList = (JSON.parse(JSON.stringify(res.data.list)));
+                    let num;
+                    if(this.orderMonthList.length > 15){
+                        num = 15;
+                    }else{
+                        num = this.orderMonthList.length
+                    }
                     //무한스크롤
-                    for(let i = 0; i < 15; i++) {
+                    for(let i = 0; i < num; i++) {
                         let data = this.orderMonthList[i];
                         this.monthList.push(data);
                     }
                     this.maxItem = this.orderMonthList.length;
-                    this.nextItem = 15;
+                    this.nextItem = num;
                     this.count = 5;
                 }            
 
