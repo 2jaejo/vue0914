@@ -39,9 +39,9 @@
             <v-ons-col><div class="bg blue" @click="push('기간내역')">기간내역</div></v-ons-col>
         </v-ons-row>
         <v-ons-row>
-            <v-ons-col><div class="bg skyblue" @click="push('Page11')">청구정보</div></v-ons-col>
-            <v-ons-col><div class="bg skyblue" @click="push('Page11')">급여통계</div></v-ons-col>
-            <v-ons-col><div class="bg skyblue" @click="push('Page11')">공지사항</div></v-ons-col>
+            <v-ons-col><div class="bg skyblue" @click="$ons.notification.alert('준비중입니다.',{title:'청구정보'})">청구정보</div></v-ons-col>
+            <v-ons-col><div class="bg skyblue" @click="$ons.notification.alert('준비중입니다.',{title:'급여통계'})">급여통계</div></v-ons-col>
+            <v-ons-col><div class="bg skyblue" @click="$ons.notification.alert('준비중입니다.',{title:'공지사항'})">공지사항</div></v-ons-col>
         </v-ons-row>
         
     </v-ons-page>

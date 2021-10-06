@@ -9,44 +9,51 @@
             <div class="center">{{ title }}</div>
         </v-ons-toolbar>
 
+        <v-ons-bottom-toolbar style="height:36px;">
+            <v-ons-button @click="modalVisible = true" modifier="large" style="background-color:#fc4e03;">상품추가</v-ons-button>
+        </v-ons-bottom-toolbar>
 
-<!-- 검색창 -->      
-            <v-ons-row style="margin-top:56px;">          
-                <v-ons-col class="col" width="35%">
-                    <v-ons-select style="width:95%; margin:10px 0;" @change="selectStepOne()" v-model="sel_step1">
-                        <option v-for="Step1 in itemClassOne" :value="Step1.CLS_ID" :key="Step1.CLS_ID">
-                            {{Step1.CLS_NM}}
-                        </option>
-                    </v-ons-select>
-                </v-ons-col>
-                <v-ons-col v-show="select_step2">
-                    <v-ons-select style="width:95%; margin:10px 0;" @change="selectStepTwo()" v-model="sel_step2">
-                        <option v-for="Step2 in itemClassTwo" :value="Step2.CLS_ID" :key="Step2.CLS_ID">
-                            {{Step2.CLS_NM}}
-                        </option>
-                    </v-ons-select>
-                </v-ons-col>
-            </v-ons-row>
+<!-- 검색창 -->
+        <div class="fixed" style="margin-top:70px;">
+            <v-ons-list>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-select style="width:95%;" @change="selectStepOne()" v-model="sel_step1">
+                            <option v-for="Step1 in itemClassOne" :value="Step1.CLS_ID" :key="Step1.CLS_ID">
+                                {{Step1.CLS_NM}}
+                            </option>
+                        </v-ons-select>
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-select style="width:95%;" @change="selectStepTwo()" v-model="sel_step2">
+                            <option v-for="Step2 in itemClassTwo" :value="Step2.CLS_ID" :key="Step2.CLS_ID">
+                                {{Step2.CLS_NM}}
+                            </option>
+                        </v-ons-select>
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-select style="width:95%" v-model="searchSel">
+                            <option v-for="search in searchSelect" :value="search.value" :key="search.text">
+                                {{search.text}}
+                            </option>
+                        </v-ons-select>
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-input placeholder="Search something" style="width:95%;" float v-model="keyword"></v-ons-input>
+                    </div>
+                </v-ons-list-item>
+            </v-ons-list>
+            <v-ons-button modifier="large" style="height:60px;font-size:30px;line-height:60px;" @click="search">검색</v-ons-button>
+        </div>
 
-            <v-ons-row>
-                <v-ons-col class="col" width="30%" vertical-align="center">
-                    <v-ons-select style="width:95%" v-model="searchSel">
-                        <option v-for="search in searchSelect" :value="search.value" :key="search.text">
-                            {{search.text}}
-                        </option>
-                    </v-ons-select>
-                </v-ons-col>
-                <v-ons-col class="col">
-                    <v-ons-input placeholder="Search something" style="width:90%; margin:5px 5px;" float v-model="keyword"></v-ons-input>
-                </v-ons-col>
-                <v-ons-col class="col" width="60px">      
-                    <v-ons-button @click="search" style="width:100%;">검색</v-ons-button>
-                </v-ons-col>  
-            </v-ons-row>
-            <v-ons-row>
-                <v-ons-col><v-ons-button @click="modalVisible = true" style="width:100%;margin:5px 0px;">상품추가</v-ons-button></v-ons-col>
-            </v-ons-row>
-        
+            
+
 
 <!-- 제품 추가 모달창 -->
         <v-ons-dialog :visible.sync="modalVisible" >
@@ -56,51 +63,52 @@
                 </div>
                 <v-ons-row>
                     <v-ons-col>제품분류</v-ons-col>
-                    <v-ons-col><input type="text" v-model="addData.CLS_ID"></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" v-model="addData.CLS_ID"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>제품명</v-ons-col>
-                    <v-ons-col><input type="text" v-model="addData.PDC_NM"></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_NM"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>제품규격</v-ons-col>
-                    <v-ons-col><input type="text" v-model="addData.PDC_STD"></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_STD"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>제품수량</v-ons-col>
-                    <v-ons-col><input type="text" v-model="addData.PDC_UNIT"></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_UNIT"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>제품금액</v-ons-col>
-                    <v-ons-col><input type="text" v-model="addData.PDC_UNIT_PRICE"></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_UNIT_PRICE"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>할인금액</v-ons-col>
-                    <v-ons-col><input type="text" v-model="addData.PDC_SALE_PRICE"></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_SALE_PRICE"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>내용</v-ons-col>
-                    <v-ons-col><input type="text" v-model="addData.CONTENT"></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" v-model="addData.CONTENT"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>내용코드</v-ons-col>
-                    <v-ons-col><input type="text" v-model="addData.CONTENT_CDE"></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" v-model="addData.CONTENT_CDE"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>상태코드</v-ons-col>
-                    <v-ons-col><input type="text" v-model="addData.PDC_STATE_CDE"></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_STATE_CDE"></v-ons-input></v-ons-col>
                 </v-ons-row>
             </div>
             <div class="submit">
                 <v-ons-button style="width:30%; margin:5px;" @click="modalVisible = false">취소</v-ons-button>
-                <v-ons-button style="width:60%; margin:5px;" @click="add">추가</v-ons-button>
+
+                <v-ons-button style="width:60%; margin:5px; background-color:#fc4e03;" @click="add">추가</v-ons-button>
             </div>
         </v-ons-dialog>
 
     <div class="background"></div> 
 
     <!-- 리스트 -->
-    <div class="content" style="top:200px;">
+    <div class="content" style="top:360px; margin:5px 0px;">
         <v-ons-list>
             <v-ons-list-item 
                 expandable

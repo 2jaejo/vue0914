@@ -9,33 +9,92 @@
         <div class="center">{{ title }}</div>
         </v-ons-toolbar>
 
-        <div class="fixed">
-            <v-ons-row style="margin-top:56px;">
-                <v-ons-col>
-                    <v-ons-input type="date" style="margin:5px 5px; width:80%;" v-model="sdate"></v-ons-input>
-                </v-ons-col>
-                <v-ons-col>
-                    <v-ons-input type="date" style="margin:5px 5px; width:80%;" v-model="edate"></v-ons-input>
-                </v-ons-col>
-            </v-ons-row>
-            <v-ons-button modifier="large" @click="search">검색</v-ons-button>
+        <div class="fixed" style="margin-top:56px;">
+            <v-ons-list>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-input type="date" style="margin:5px 5px; width:90%;" modifier="underbar" v-model="sdate"></v-ons-input>
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-input type="date" style="margin:5px 5px; width:90%;" modifier="underbar" v-model="edate"></v-ons-input>
+                    </div>
+                </v-ons-list-item>
+            </v-ons-list>                   
+            <v-ons-button modifier="large" style="height:60px;font-size:30px;line-height:60px;" @click="search">검색</v-ons-button>
         </div>
 
-        <div class="content" style="top:140px;">
-            <v-ons-list>
-                <v-ons-list-item 
-                    expandable
-                    modifier="tappable longdivider"
-                    v-for="list in monthList" :key="list.HC_OM_ID"
-                >
-                    <div class="center">
-                       주문번호 {{list.HC_OM_ID}}
-                    </div>
-                    <div class="expandable-content">
-                        {{list}}
-                    </div>        
-                </v-ons-list-item>
-            </v-ons-list>
+        <div class="content" style="top:250px;">
+            <v-ons-card
+                v-for="(list,i) in monthList" :key="i+list.HC_OM_ID"
+                style="border-radius:10px;"                
+            >  
+                <div class="title">
+                    주문번호 / {{list.HC_OM_ID}}
+                </div>
+                <div class="content">
+                    <v-ons-list>
+                        <v-ons-list-item expandable>
+                            <div style="display:flex; justify-content: space-between;">
+                                <div>{{list.PDC_NM}}</div>
+                            </div>
+                            <div class="expandable-content">
+                                <ul class="list">
+                                    <li class="list-item list-item--tappable">
+                                        <div class="list-item__center">
+                                            <div>주문자</div>
+                                            <div>{{list.OM_NM}}</div>
+                                        </div>      
+                                    </li>
+                                    <li class="list-item list-item--tappable">
+                                        <div class="list-item__center">
+                                            <div>연락처</div>
+                                            <div>{{list.OM_TEL}}</div>
+                                        </div>      
+                                    </li>
+                                    <li class="list-item list-item--tappable">
+                                        <div class="list-item__center">
+                                            <div>요청사항</div>
+                                            <div>{{list.OM_REMARK}}</div>
+                                        </div>      
+                                    </li>
+                                    <li class="list-item list-item--tappable">
+                                        <div class="list-item__center">
+                                            <div>업체명</div>
+                                            <div>{{list.CUS_NM}}</div>
+                                        </div>      
+                                    </li>
+                                    <li class="list-item list-item--tappable">
+                                        <div class="list-item__center">
+                                            <div>제품명</div>
+                                            <div>{{list.PDC_NM}}</div>
+                                        </div>      
+                                    </li>
+                                    <li class="list-item list-item--tappable">
+                                        <div class="list-item__center">
+                                            <div>가격</div>
+                                            <div>{{list.PDC_PRICE}}</div>
+                                        </div>      
+                                    </li>
+                                    <li class="list-item list-item--tappable">
+                                        <div class="list-item__center">
+                                            <div>수량</div>
+                                            <div>{{list.OM_NUM}}</div>
+                                        </div>      
+                                    </li>
+                                    <li class="list-item list-item--tappable">
+                                        <div class="list-item__center">
+                                            <div>합계</div>
+                                            <div>{{list.OM_NUM * list.PDC_PRICE}}</div>
+                                        </div>      
+                                    </li>
+                                </ul>    
+                            </div>
+                        </v-ons-list-item>
+                    </v-ons-list>  
+                </div>
+            </v-ons-card>
 
             <!-- 무한스크롤 로딩바 -->
             <div class="after-list" style="text-align:center; padding:10px;">
@@ -158,3 +217,17 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.list{
+    font-size:18px;
+}
+.list-item__center{
+    display: flex;
+    justify-content: space-between;
+}
+.list-item__center > div:nth-child(2){
+    width:70%;
+    text-align: right;
+}
+</style>

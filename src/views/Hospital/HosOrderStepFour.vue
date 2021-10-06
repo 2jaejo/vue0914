@@ -9,33 +9,36 @@
 
         <!-- 제품 추가 모달창 -->
         <v-ons-dialog :visible.sync="modalVisible" >
-            <div>
-                <v-ons-row>
-                    <v-ons-col>
-                        <h3>거래처정보</h3>
-                    </v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>거래처명</v-ons-col>
-                    <v-ons-col>{{comInfo.CUS_NM}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>대표</v-ons-col>
-                    <v-ons-col>{{comInfo.CEO_NM}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>전화번호</v-ons-col>
-                    <v-ons-col>{{comInfo.TEL_NBR}}</v-ons-col>
-                </v-ons-row><v-ons-row>
-                    <v-ons-col>주소</v-ons-col>
-                    <v-ons-col>{{comInfo.ADDR_MST}}</v-ons-col>
-                </v-ons-row>
-                <v-ons-row>
-                    <v-ons-col>
-                        <v-ons-button modifier="large" @click="modalVisible = false">닫기</v-ons-button>
-                    </v-ons-col>
-                </v-ons-row>     
-            </div>
+
+               <ul class="list">
+                    <h3 style="text-align:center;">거래처정보</h3>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center">
+                            <div><b>거래처명</b></div>
+                            <div>{{comInfo.CUS_NM}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center">
+                            <div><b>대표</b></div>
+                            <div>{{comInfo.CEO_NM}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center">
+                            <div><b>전화</b></div>
+                            <div>{{comInfo.TEL_NBR}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center">
+                            <div><b>주소</b></div>
+                            <div>{{comInfo.ADDR_MST}}</div>
+                        </div>      
+                    </li>
+               </ul>       
+ 
+            <v-ons-button modifier="large" @click="modalVisible = false">닫기</v-ons-button>         
         </v-ons-dialog>
 
         <!-- 캐러셀 -->
@@ -60,8 +63,10 @@
                 <div class="left">
                     제품수량
                 </div>
-                <div class="center" style="margin-left: 10px;">
+                <div class="center" style="margin-left:10px; justify-content:right;">
                     <v-ons-select
+                        style="width:30%;"
+                        modifier="underbar"
                         v-model="pdc_cnt"
                     >
                         <option 
@@ -78,8 +83,8 @@
                 <div class="left">
                     요청사항
                 </div>
-                <div class="center" style="margin-left: 10px;">
-                    <v-ons-input v-model="remark"></v-ons-input>
+                <div class="center" style="margin-left:10px; justify-content:right;">
+                    <v-ons-input modifier="underbar" v-model="remark"></v-ons-input>
                 </div>
             </v-ons-list-item>
 
@@ -87,14 +92,14 @@
                 <div class="left">
                     거래처정보
                 </div>
-                <div class="center" style="margin-left: 10px;">
-                    <v-ons-button @click="getComInfo"> 보기 </v-ons-button>
+                <div class="center" style="margin-left: 10px; justify-content:right;">
+                    <v-ons-button modifier="cta" style="width:50%; text-align:center;" @click="getComInfo"> 보기 </v-ons-button>
                 </div>
             </v-ons-list-item>
         </v-ons-list>
  
         <div class="submit">
-            <v-ons-button modifier="large" @click="order">주문</v-ons-button>
+            <v-ons-button modifier="large" style="height: 60px;font-size:30px;line-height:50px;" @click="order">주문</v-ons-button>
         </div>
 
     </v-ons-page>
@@ -175,25 +180,55 @@ export default {
         },
         
         order(){
-            let con = confirm('주문하시겠습니까?');
-            if(con){
-                let data = {
-                    pdc_cnt : this.pdc_cnt,
-                    remark : this.remark,
-                    item : this.item,
-                    user : this.user,
+            this.$ons.notification.confirm({
+                title: '주문',
+                message: '주문하시겠습니까?',
+                buttonLabels: ['취소', '확인'],
+                animation: 'default',
+                primaryButtonIndex: 1,
+                cancelable: true,
+                callback: function (index) {
+                    return index;  
                 }
-                axios.post('http://49.50.160.174/doctor/hosordersend',{
-                    data
-                }).then(res =>{            
-                    alert(res.data);
-                    this.pop();
-                }).catch(err =>{
-                    console.log('catch : '+err);
-                });
-            }
+            }).then(result =>{
+                if(result == 1){
+                    this.orderSend();
+                }
+            })
+           
 
         },
+
+        orderSend(){
+            let data = {
+                pdc_cnt : this.pdc_cnt,
+                remark : this.remark,
+                item : this.item,
+                user : this.user,
+            }
+            axios.post('http://49.50.160.174/doctor/hosordersend',{
+                data
+            }).then(res =>{            
+                this.$ons.notification.alert(res.data);
+                this.pop();
+            }).catch(err =>{
+                console.log('catch : '+err);
+            });
+        }
     }
 }
 </script>
+
+<style scoped>
+.list{
+    font-size:18px;
+}
+.list-item__center{
+    display: flex;
+    justify-content: space-between;
+}
+.list-item__center > div:nth-child(2){
+    width:70%;
+    text-align: right;
+}
+</style>

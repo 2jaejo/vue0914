@@ -8,51 +8,52 @@
             <div class="center">{{ title }}</div>
         </v-ons-toolbar>
 
-        <v-ons-row>
-            <v-ons-col class="col" vertical-align="center">
-                기간 : 
-            </v-ons-col>
-            <v-ons-col class="col">
-               <v-ons-input type="date" v-model="sdate" style="margin:5px 0; width:90%;"></v-ons-input>~
-            </v-ons-col>
-            <v-ons-col class="col">
-               <v-ons-input type="date" v-model="edate" style="margin:5px 0; width:90%;"></v-ons-input>
-            </v-ons-col>
-        </v-ons-row>
+        <div class="fixed" style="margin-top:70px;">
+            <v-ons-list>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-input type="date" style="margin:0px 5px; width:95%;" modifier="underbar" v-model="sdate"></v-ons-input>
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-input type="date" style="margin:0px 5px; width:95%;" modifier="underbar" v-model="edate"></v-ons-input>
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                         <v-ons-select style="margin:0px 5px; width:95%;" height="200" v-model="searchSel">
+                            <option v-for="search in searchSelect" :value="search.value" :key="search.text">
+                                {{search.text}}
+                            </option>
+                        </v-ons-select>
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-input placeholder="Search something" style="width:95%;" v-model="keyword" float></v-ons-input>
+                    </div>
+                </v-ons-list-item>
+            </v-ons-list>
+            <v-ons-button modifier="large" style="height:60px;font-size:30px;line-height:60px;" @click="search">검색</v-ons-button>
+            
+        </div>        
 
-        <v-ons-row>
+        <div class="content" style="margin-top:300px;">
+            <v-ons-list>
+                <v-ons-list-item expandable
+                    v-for="sales in salesList" :key="sales.HC_OM_ID"
+                >
+                    <div class="center">
 
-            <v-ons-col class="col" width="30%" vertical-align="center">
-                <v-ons-select style="width:80%;" height="200" v-model="searchSel">
-                    <option v-for="search in searchSelect" :value="search.value" :key="search.text">
-                        {{search.text}}
-                    </option>
-                </v-ons-select>
-            </v-ons-col>
-
-            <v-ons-col class="col">
-                <v-ons-input placeholder="Search something" style="width:95%; margin-top:10px;" v-model="keyword" float></v-ons-input>
-            </v-ons-col>
-
-            <v-ons-col class="col" width="60px"> 
-                <v-ons-button @click="search" style="width:100%;">검색</v-ons-button>
-            </v-ons-col> 
-
-        </v-ons-row>
-
-        <v-ons-list>
-            <v-ons-list-item expandable
-                v-for="sales in salesList" :key="sales.HC_OM_ID"
-            >
-                <div class="center">
-
-                주문번호 {{sales.HC_OM_ID}}
-                </div>
-                <div class="expandable-content">
-                    {{sales}}
-                </div>
-            </v-ons-list-item>
-        </v-ons-list>
+                    주문번호 {{sales.HC_OM_ID}}
+                    </div>
+                    <div class="expandable-content">
+                        {{sales}}
+                    </div>
+                </v-ons-list-item>
+            </v-ons-list>
+        </div>
 
     </v-ons-page>
 </template>
@@ -95,6 +96,7 @@ export default {
                 { text: '상품코드', value: 'PDC_ID' },
             ],
             searchSel: 'HC_OM_ID',
+
             keyword:'',
             sdate:'',
             edate:'',

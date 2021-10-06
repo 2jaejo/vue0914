@@ -13,13 +13,122 @@
             >
                 {{cli.HOS_NM}}
                 <div class="expandable-content">
-                    진료과목 : {{cli.DIRECTOR_SPEC}} <br>
-                    {{cli.DIRECTOR_NM}} 원장 <br>
-                    학력/경력 : {{cli.DIRECTOR_HIS}} <br>
-                    전화 : {{cli.TEL_NBR}} <br>
-                    진료시간 평일 : {{cli.WEEKDAY_STR}} ~ {{cli.WEEKDAY_END}}<br>
-                    진료시간 토요일 : {{cli.WEEKEND_STR}} ~ {{cli.WEEKEND_END}} <br>
-                    일요일 휴무 <br>
+                    <ul class="list">
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>진료과목</div>
+                                <div>{{cli.TREAT_SUB}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>대표의사</div>
+                                <div>{{cli.DIRECTOR_NM}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>학력</div>
+                                <div>{{cli.DIRECTOR_HIS}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>전공</div>
+                                <div>{{cli.DIRECTOR_SPEC}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>대표자명</div>
+                                <div>{{cli.HOS_REG_NM}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>사업자번호</div>
+                                <div>{{cli.HOS_REG_NBR}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>전화</div>
+                                <div>{{cli.TEL_NBR}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>팩스</div>
+                                <div>{{cli.FAX_NBR}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>평일진료</div>
+                                <div>{{cli.WEEKDAY_STR}} ~ {{cli.WEEKDAY_END}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>주말진료</div>
+                                <div>{{cli.WEEKEND_STR}} ~ {{cli.WEEKEND_END}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>점심시간</div>
+                                <div>{{cli.LUNCH_STR}} ~ {{cli.LUNCH_END}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>주소</div>
+                                <div style="width:70%;">{{cli.ADDR_MST}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>우편번호</div>
+                                <div>{{cli.ADDR_POST}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>은행명</div>
+                                <div>{{cli.BANK_NM}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>계좌번호</div>
+                                <div>{{cli.BANK_ACCT_NUM}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>지역</div>
+                                <div>{{cli.LOC_NM}}</div>
+                            </div>      
+                        </li>
+                        <!-- <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>kind_cde</div>
+                                <div>{{cli.KIND_NM}}</div>
+                            </div>      
+                        </li> -->
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>파일경로</div>
+                                <div style="width:70%;">{{cli.HOS_ORI_NM}}</div>
+                            </div>      
+                        </li>
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center">
+                                <div>파일명</div>
+                                <div>{{cli.HOS_SAVE_NM}}</div>
+                            </div>      
+                        </li>              
+                    </ul>
                 </div>
             </v-ons-list-item>
         </v-ons-list>
@@ -53,3 +162,16 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.list{
+    font-size:18px;
+}
+.list-item__center{
+    display: flex;
+    justify-content: space-between;
+}
+.list-item__center > div:nth-child(2){
+    text-align: right;
+}
+</style>
