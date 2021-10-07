@@ -132,7 +132,7 @@
                     </li>              
                 </ul>
                 <br>
-                <v-ons-button modifier="large" @click="pop()">닫기</v-ons-button>
+                <v-ons-button modifier="large" style="width:100%;" @click="pop()">닫기</v-ons-button>
             </v-ons-card>
        </div>
        
@@ -181,4 +181,5 @@ export default {
 .list-item__center > div:nth-child(2){
     text-align: right;
 }
+
 </style>

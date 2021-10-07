@@ -4,7 +4,7 @@
         <div class="left">
             <v-ons-back-button>{{ back }}</v-ons-back-button>
         </div>
-        <div class="center">{{ title }}</div>
+        <div class="center"><b>{{ title }}</b></div>
         </v-ons-toolbar>
 
         <div class="content">

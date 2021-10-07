@@ -5,41 +5,33 @@
             <div class="left">
                 <v-ons-back-button>{{ back }}</v-ons-back-button>
             </div>
-            <div class="center">{{ title }}</div>
+            <div class="center"><b>{{ title }}</b></div>
         </v-ons-toolbar>
 
-        <div class="fixed" style="margin-top:70px;">
+        <div class="content">
             <v-ons-list>
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-input type="date" style="margin:0px 5px; width:95%;" modifier="underbar" v-model="sdate"></v-ons-input>
+                        <v-ons-input type="date" modifier="underbar" v-model="sdate"></v-ons-input>
                     </div>
                 </v-ons-list-item>
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-input type="date" style="margin:0px 5px; width:95%;" modifier="underbar" v-model="edate"></v-ons-input>
+                        <v-ons-input type="date" modifier="underbar" v-model="edate"></v-ons-input>
                     </div>
                 </v-ons-list-item>
                 <v-ons-list-item>
                     <div class="center">
-                         <v-ons-select style="margin:0px 5px; width:95%;" height="200" v-model="searchSel">
-                            <option v-for="search in searchSelect" :value="search.value" :key="search.text">
-                                {{search.text}}
-                            </option>
-                        </v-ons-select>
+                        <input type="text" class="text-input text-input--underbar" placeholder="제품번호 or 제품명"  float v-model="keyword">
                     </div>
                 </v-ons-list-item>
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-input placeholder="Search something" style="width:95%;" v-model="keyword" float></v-ons-input>
+                        <v-ons-button modifier="large" @click="search">검색</v-ons-button>
                     </div>
                 </v-ons-list-item>
-            </v-ons-list>
-            <v-ons-button modifier="large" style="height:60px;font-size:30px;line-height:60px;" @click="search">검색</v-ons-button>
-            
-        </div>        
+            </v-ons-list>     
 
-        <div class="content" style="margin-top:300px;">
             <v-ons-list>
                 <v-ons-list-item expandable
                     v-for="sales in salesList" :key="sales.HC_OM_ID"

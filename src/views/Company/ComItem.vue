@@ -6,51 +6,55 @@
             <div class="left">
                 <v-ons-back-button>{{ back }}</v-ons-back-button>
             </div>
-            <div class="center">{{ title }}</div>
+            <div class="center"><b>{{ title }}</b></div>
         </v-ons-toolbar>
-
-        <v-ons-bottom-toolbar style="height:36px;">
-            <v-ons-button @click="modalVisible = true" modifier="large" style="background-color:#fc4e03;">상품추가</v-ons-button>
-        </v-ons-bottom-toolbar>
-
+           
 <!-- 검색창 -->
-        <div class="fixed" style="margin-top:70px;">
-            <v-ons-list>
-                <v-ons-list-item>
-                    <div class="center">
-                        <v-ons-select style="width:95%;" @change="selectStepOne()" v-model="sel_step1">
-                            <option v-for="Step1 in itemClassOne" :value="Step1.CLS_ID" :key="Step1.CLS_ID">
-                                {{Step1.CLS_NM}}
-                            </option>
-                        </v-ons-select>
-                    </div>
-                </v-ons-list-item>
-                <v-ons-list-item>
-                    <div class="center">
-                        <v-ons-select style="width:95%;" @change="selectStepTwo()" v-model="sel_step2">
-                            <option v-for="Step2 in itemClassTwo" :value="Step2.CLS_ID" :key="Step2.CLS_ID">
-                                {{Step2.CLS_NM}}
-                            </option>
-                        </v-ons-select>
-                    </div>
-                </v-ons-list-item>
-                <v-ons-list-item>
-                    <div class="center">
-                        <v-ons-select style="width:95%" v-model="searchSel">
-                            <option v-for="search in searchSelect" :value="search.value" :key="search.text">
-                                {{search.text}}
-                            </option>
-                        </v-ons-select>
-                    </div>
-                </v-ons-list-item>
-                <v-ons-list-item>
-                    <div class="center">
-                        <v-ons-input placeholder="Search something" style="width:95%;" float v-model="keyword"></v-ons-input>
-                    </div>
-                </v-ons-list-item>
-            </v-ons-list>
-            <v-ons-button modifier="large" style="height:60px;font-size:30px;line-height:60px;" @click="search">검색</v-ons-button>
-        </div>
+    <div class="content">
+        <v-ons-list>
+            <v-ons-list-item>
+                <div class="center">
+                    <select class="long-select select-input select-input--underbar"
+                        @change="selectStepOne()" 
+                        v-model="sel_step1"
+                        style="margin-top:10px;"
+                    >
+                        <option v-for="Step1 in itemClassOne" :value="Step1.CLS_ID" :key="Step1.CLS_ID">
+                            {{Step1.CLS_NM}}
+                        </option>
+                    </select>
+                </div>
+            </v-ons-list-item>
+            <v-ons-list-item>
+                <div class="center">
+                    <select class="long-select select-input select-input--underbar"
+                        @change="selectStepTwo()" 
+                        v-model="sel_step2"
+                    >
+                        <option v-for="Step2 in itemClassTwo" :value="Step2.CLS_ID" :key="Step2.CLS_ID">
+                            {{Step2.CLS_NM}}
+                        </option>
+                    </select>
+                </div>
+            </v-ons-list-item>                   
+            <v-ons-list-item>
+                <div class="center">
+                    <input type="text" class="text-input text-input--underbar" placeholder="제품번호 or 제품명"  float v-model="keyword">
+                </div>
+            </v-ons-list-item>
+            <v-ons-list-item>
+                <div class="center">
+                    <v-ons-button modifier="large" @click="search">검색</v-ons-button>
+                </div>
+            </v-ons-list-item>
+            <v-ons-list-item>
+                <div class="center">
+                   <v-ons-button @click="modalVisible = true" modifier="large" style="background-color:#fc4e03;">상품추가</v-ons-button>
+                </div>
+            </v-ons-list-item>
+
+             
+        </v-ons-list>
 
             
 
@@ -105,10 +109,7 @@
             </div>
         </v-ons-dialog>
 
-    <div class="background"></div> 
-
     <!-- 리스트 -->
-    <div class="content" style="top:360px; margin:5px 0px;">
         <v-ons-list>
             <v-ons-list-item 
                 expandable
@@ -212,10 +213,10 @@ export default {
             sel_step2:'',
             select_step2:true,
             searchSelect: [
-                { text: '상품코드', value: 'PDC_ID' },
                 { text: '상품명', value: 'PDC_NM' },
+                { text: '상품코드', value: 'PDC_ID' },
             ],
-            searchSel:'PDC_ID',
+            searchSel:'PDC_NM',
             keyword:'',
 
             //수정 데이터

@@ -1,10 +1,10 @@
 <template>
     <v-ons-page>
         <v-ons-toolbar>
-        <div class="left">
-            <v-ons-back-button>{{ back }}</v-ons-back-button>
-        </div>
-        <div class="center">{{ item.PDC_NM }}</div>
+            <div class="left">
+                <v-ons-back-button>{{ back }}</v-ons-back-button>
+            </div>
+            <div class="center"><b>{{ item.PDC_NM }}</b></div>
         </v-ons-toolbar>
 
         <!-- 제품 추가 모달창 -->
@@ -59,11 +59,19 @@
         </div>
 
         <v-ons-list>
-            <v-ons-list-item>
+            <v-ons-list-item class="order">
+                <div class="left">
+                    제품번호
+                </div>
+                <div class="center" style="justify-content:right; width:50%;">
+                    {{item.PDC_ID}}
+                </div>
+            </v-ons-list-item>
+            <v-ons-list-item class="order">
                 <div class="left">
                     제품수량
                 </div>
-                <div class="center" style="margin-left:10px; justify-content:right;">
+                <div class="center" style="justify-content:right;">
                     <v-ons-select
                         style="width:30%;"
                         modifier="underbar"
@@ -79,28 +87,28 @@
                     &nbsp; /  {{item.PDC_UNIT}}
                 </div>
             </v-ons-list-item>
-            <v-ons-list-item>
+            <v-ons-list-item class="order">
                 <div class="left">
                     요청사항
                 </div>
-                <div class="center" style="margin-left:10px; justify-content:right;">
-                    <v-ons-input modifier="underbar" v-model="remark"></v-ons-input>
+                <div class="center" style="justify-content:right; width:50%;">
+                    <v-ons-input modifier="underbar" style="width:200px;" v-model="remark"></v-ons-input>
                 </div>
             </v-ons-list-item>
-
-            <v-ons-list-item>
+            <v-ons-list-item class="order">
                 <div class="left">
                     거래처정보
                 </div>
-                <div class="center" style="margin-left: 10px; justify-content:right;">
-                    <v-ons-button modifier="cta" style="width:50%; text-align:center;" @click="getComInfo"> 보기 </v-ons-button>
+                <div class="center" style="justify-content:right;"> 
+                    <button class="button button--outline" style="width:100px; font-size:18px; text-align:center; border-radius:10px;" @click="getComInfo">보기</button>
+                </div>
+            </v-ons-list-item>
+            <v-ons-list-item class="order" >
+                <div class="center" style="justify-content:space-between;">
+                    <v-ons-button modifier="large" style="width:100%;" @click="order">주문</v-ons-button>
                 </div>
             </v-ons-list-item>
         </v-ons-list>
- 
-        <div class="submit">
-            <v-ons-button modifier="large" style="height: 60px;font-size:30px;line-height:50px;" @click="order">주문</v-ons-button>
-        </div>
 
     </v-ons-page>
 </template>
@@ -230,5 +238,13 @@ export default {
 .list-item__center > div:nth-child(2){
     width:70%;
     text-align: right;
+}
+.order{
+    margin:0px;
+    padding:0px 5px 0px 5px;
+    
+}
+.left {
+    font-weight: bold;
 }
 </style>

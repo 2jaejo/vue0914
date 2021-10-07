@@ -1,7 +1,7 @@
 <template>
     <v-ons-page>
        <v-ons-toolbar>
-            <div class="center">Hospital</div>
+            <div class="center"><b>Hospital</b></div>
         </v-ons-toolbar>
 
         <!-- 캐러셀 -->

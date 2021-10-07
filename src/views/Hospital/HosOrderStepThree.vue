@@ -4,7 +4,7 @@
         <div class="left">
             <v-ons-back-button>{{ back }}</v-ons-back-button>
         </div>
-        <div class="center">{{ title }}</div>
+        <div class="center"><b>{{ title }}</b></div>
         </v-ons-toolbar>
 
         <div class="content">
@@ -15,7 +15,7 @@
                     v-for="item in itemList" :key="item.PDC_ID"
                     @click="getItemInfo(item)"
                 >
-                    {{item.PDC_ID}} / {{item.PDC_NM}}
+                    {{item.PDC_NM}}
                 </v-ons-list-item>
             </v-ons-list>
         </div>

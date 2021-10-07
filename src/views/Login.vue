@@ -1,35 +1,46 @@
 <template>
     <v-ons-page>      
-        <div class="title" style="margin: 10px 10px;">
-            <h2>메디퍼</h2>
-        </div>
+        <v-ons-toolbar>
+            <div class="left">
+                
+            </div>
+            <div class="center"><b>메디퍼</b></div>
+        </v-ons-toolbar>
         
-        <div class="login">
-            
-                <div>
-                    <v-ons-input placeholder="Username" 
-                        float 
-                        type="text" 
-                        v-model="id" 
-                        style="width: 94%; margin: 10px 10px;"
-                    >
-                    </v-ons-input>
-                </div>
-                <br />
-                <div>
-                    <v-ons-input placeholder="Password" 
-                        float 
-                        type="password" 
-                        v-model="pw" 
-                        style="width: 94%; margin: 10px 10px;"
-                    >
-                    </v-ons-input>
-                </div>
-                <br />
-                <div>
-                    <button class="button--large--cta" @click="login" style="width: 95%; margin: 0 auto;">로그인</button>
-                </div>
-           
+        <div class="fixed" style="margin-top:50%;">
+            <v-ons-list>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-input placeholder="Username" 
+                            float 
+                            type="text" 
+                            v-model="id" 
+                            style="width: 96%; margin:10px auto; "
+                        >
+                        </v-ons-input>
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-input placeholder="Password" 
+                            float 
+                            type="password" 
+                            v-model="pw" 
+                            style="width:96%; margin:10px auto; "
+                        >
+                        </v-ons-input>
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-button modifier="large--cta" @click="login">로그인</v-ons-button>
+                    </div>
+                </v-ons-list-item>
+            </v-ons-list>                   
+        </div>
+
+        <div class="content">
+
         </div>
 
     </v-ons-page>
@@ -98,3 +109,4 @@ export default {
     }
 }
 </script>
+

@@ -1,0 +1,41 @@
+
+.button--large{
+    height:50px;
+    width:96%;
+    margin:auto;
+    font-size:24px;
+    line-height:50px;
+    border-radius:10px;
+}
+.list-item{
+    margin:0px;
+    padding:0px;
+    width:100%;
+}
+.list-item--chevron__center{
+    padding-left:2%;
+    height:50px;
+    font-size:18px;
+}
+.long-select{
+    width:96%; 
+    margin:auto; 
+    font-size:18spx; 
+}
+.text-input--underbar{
+    width:96%;
+    margin:0px auto;
+}
+ons-button, ons-input[type="date"]{
+    margin:0px auto;
+    width:96%;
+}
+ons-card{
+    margin:0px auto;
+    width:96%;    
+}
+input[type='date']{
+    height:50px;
+    font-size:22px;
+    
+}

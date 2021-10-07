@@ -3,32 +3,34 @@
         :infinite-scroll="loadMore"
     >
         <v-ons-toolbar>
-        <div class="left">
-            <v-ons-back-button>{{ back }}</v-ons-back-button>
-        </div>
-        <div class="center">{{ title }}</div>
+            <div class="left">
+                <v-ons-back-button>{{ back }}</v-ons-back-button>
+            </div>
+            <div class="center">{{ title }}</div>
         </v-ons-toolbar>
 
-        <div class="fixed" style="margin-top:56px;">
+        <div class="content">
             <v-ons-list>
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-input type="date" style="margin:5px 5px; width:90%;" modifier="underbar" v-model="sdate"></v-ons-input>
+                        <v-ons-input type="date" modifier="underbar" v-model="sdate"></v-ons-input>
                     </div>
                 </v-ons-list-item>
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-input type="date" style="margin:5px 5px; width:90%;" modifier="underbar" v-model="edate"></v-ons-input>
+                        <v-ons-input type="date" modifier="underbar" v-model="edate"></v-ons-input>
                     </div>
                 </v-ons-list-item>
-            </v-ons-list>                   
-            <v-ons-button modifier="large" style="height:60px;font-size:30px;line-height:60px;" @click="search">검색</v-ons-button>
-        </div>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-button modifier="large" @click="search">검색</v-ons-button>
+                    </div>
+                </v-ons-list-item>
+            </v-ons-list>  
 
-        <div class="content" style="top:250px;">
             <v-ons-card
-                v-for="(list,i) in monthList" :key="i+list.HC_OM_ID"
-                style="border-radius:10px;"                
+                style="border-radius:10px;"
+                v-for="(list,i) in monthList" :key="i+list.HC_OM_ID"               
             >  
                 <div class="title">
                     주문번호 / {{list.HC_OM_ID}}

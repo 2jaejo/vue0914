@@ -1,7 +1,7 @@
 <template>
     <v-ons-page>
         <v-ons-toolbar>
-            <div class="center">Store</div>
+            <div class="center"><b>Store</b></div>
         </v-ons-toolbar>
 
         <!-- 캐러셀 -->

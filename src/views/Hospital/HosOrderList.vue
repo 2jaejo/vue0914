@@ -2,101 +2,108 @@
     <v-ons-page 
         :infinite-scroll="loadMore"
     >
+<!-- 툴바 -->
         <v-ons-toolbar>
-        <div class="left">
-            <v-ons-back-button>{{ back }}</v-ons-back-button>
-        </div>
-        <div class="center">{{ title }}</div>
+            <div class="left">
+                <v-ons-back-button>{{ back }}</v-ons-back-button>
+            </div>
+            <div class="center"><b>{{ title }}</b></div>
         </v-ons-toolbar>
 
-        <div class="fixed" style="margin-top:56px;">
+
+
+        <div class="content">
+<!-- 검색창 -->
             <v-ons-list>
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-input type="date" style="margin:5px 5px; width:90%;" modifier="underbar" v-model="sdate"></v-ons-input>
+                        <v-ons-input type="date" modifier="underbar" v-model="sdate"></v-ons-input>
                     </div>
                 </v-ons-list-item>
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-input type="date" style="margin:5px 5px; width:90%;" modifier="underbar" v-model="edate"></v-ons-input>
+                        <v-ons-input type="date" modifier="underbar" v-model="edate"></v-ons-input>
                     </div>
                 </v-ons-list-item>
-            </v-ons-list>                   
-            <v-ons-button modifier="large" style="height:60px;font-size:30px;line-height:60px;" @click="search">검색</v-ons-button>
-        </div>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-button modifier="large" @click="search">검색</v-ons-button>
+                    </div>
+                </v-ons-list-item>
+            </v-ons-list>   
 
-        <div class="content" style="top:250px;">
-            <v-ons-card
-                v-for="(list,i) in orderList" :key="i+list.HC_OM_ID"
-                style="border-radius:10px;"                
-            >  
-                <div class="title">
-                    {{list.OM_ORDER_DT}}
-                </div>
-                <div class="content">
-                    <v-ons-list>
-                        <v-ons-list-item expandable>
-                            <div style="display:flex; justify-content: space-between;">
-                                <div>{{list.PDC_NM}}</div>
-                            </div>
-                            <div class="expandable-content">
-                                <ul class="list">
-                                    <li class="list-item list-item--tappable">
-                                        <div class="list-item__center">
-                                            <div>주문자</div>
-                                            <div>{{list.OM_NM}}</div>
-                                        </div>      
-                                    </li>
-                                    <li class="list-item list-item--tappable">
-                                        <div class="list-item__center">
-                                            <div>연락처</div>
-                                            <div>{{list.OM_TEL}}</div>
-                                        </div>      
-                                    </li>
-                                    <li class="list-item list-item--tappable">
-                                        <div class="list-item__center">
-                                            <div>요청사항</div>
-                                            <div>{{list.OM_REMARK}}</div>
-                                        </div>      
-                                    </li>
-                                    <li class="list-item list-item--tappable">
-                                        <div class="list-item__center">
-                                            <div>업체명</div>
-                                            <div>{{list.CUS_NM}}</div>
-                                        </div>      
-                                    </li>
-                                    <li class="list-item list-item--tappable">
-                                        <div class="list-item__center">
-                                            <div>제품명</div>
-                                            <div>{{list.PDC_NM}}</div>
-                                        </div>      
-                                    </li>
-                                    <li class="list-item list-item--tappable">
-                                        <div class="list-item__center">
-                                            <div>가격</div>
-                                            <div>{{list.PDC_PRICE}}</div>
-                                        </div>      
-                                    </li>
-                                    <li class="list-item list-item--tappable">
-                                        <div class="list-item__center">
-                                            <div>수량</div>
-                                            <div>{{list.OM_NUM}}</div>
-                                        </div>      
-                                    </li>
-                                    <li class="list-item list-item--tappable">
-                                        <div class="list-item__center">
-                                            <div>합계</div>
-                                            <div>{{list.OM_NUM * list.PDC_PRICE}}</div>
-                                        </div>      
-                                    </li>
-                                </ul>    
-                            </div>
-                        </v-ons-list-item>
-                    </v-ons-list>  
-                </div>
-            </v-ons-card>
+<!-- 리스트 -->
+        <v-ons-card 
+            v-for="(list,i) in orderList" :key="i+list.HC_OM_ID"
+            style="border-radius: 10px;"
+        >  
+            <div class="title">
+                {{list.OM_ORDER_DT}}
+            </div>
+            <div class="content">
+                <v-ons-list >
+                    <v-ons-list-item expandable>
+                        <div style="display:flex; justify-content: space-between; ">
+                            <div>{{list.PDC_NM}}</div>
+                        </div>
+                        <div class="expandable-content">
+                            <ul class="list">
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>주문자</div>
+                                        <div>{{list.OM_NM}}</div>
+                                    </div>      
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>연락처</div>
+                                        <div>{{list.OM_TEL}}</div>
+                                    </div>      
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>요청사항</div>
+                                        <div>{{list.OM_REMARK}}</div>
+                                    </div>      
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>업체명</div>
+                                        <div>{{list.CUS_NM}}</div>
+                                    </div>      
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>제품명</div>
+                                        <div>{{list.PDC_NM}}</div>
+                                    </div>      
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>가격</div>
+                                        <div>{{list.PDC_PRICE}}</div>
+                                    </div>      
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>수량</div>
+                                        <div>{{list.OM_NUM}}</div>
+                                    </div>      
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>합계</div>
+                                        <div>{{list.OM_NUM * list.PDC_PRICE}}</div>
+                                    </div>      
+                                </li>
+                            </ul>    
+                        </div>
+                    </v-ons-list-item>
+                </v-ons-list>  
+            </div>
+        </v-ons-card>
 
-            <!-- 무한스크롤 로딩바 -->
+<!-- 무한스크롤 로딩바 -->
             <div class="after-list" style="text-align:center; padding:10px;">
                 <div class="true" v-if="show">
                     <v-ons-icon icon="fa-spinner" size="36px" spin></v-ons-icon>

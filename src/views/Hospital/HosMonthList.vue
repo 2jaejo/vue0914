@@ -9,30 +9,30 @@
         <div class="center">{{ title }}</div>
         </v-ons-toolbar>
 
-        <v-ons-list style="margin-top:56px;">
+    <div class="content">
+        <v-ons-list>
             <v-ons-list-item>
-                <div class="center">
-                    <v-ons-select modifier="underbar" style="width:95%;"
+                <div class="center" style="padding-top:28px;">
+                    <select class="long-select select-input select-input--underbar"
                         v-model="selectYear"
                         @change="changeYear"
                     >
                         <option v-for="year in years" :key="year" :value="year">{{year}} 년</option>
-                    </v-ons-select>
+                    </select>
                 </div>
             </v-ons-list-item>
             <v-ons-list-item>
                 <div class="center">
-                    <v-ons-select modifier="underbar" style="width:95%;"
+                    <select class="long-select select-input select-input--underbar"
                         v-model="selectMonth"
                         @change="changeMonth"
                     >
                         <option v-for="mon in month" :key="mon" :value="mon">{{mon}} 월</option>
-                    </v-ons-select>
+                    </select>
                 </div>
             </v-ons-list-item>
         </v-ons-list>
 
-        <div class="content" style="top:170px;">
             <v-ons-card
                 v-for="(list,i) in monthList" :key="i+list.HC_OM_ID"
                 style="border-radius:10px;"                

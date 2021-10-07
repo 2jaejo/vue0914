@@ -4,12 +4,13 @@
         <div class="left">
             <v-ons-back-button>{{ back }}</v-ons-back-button>
         </div>
-        <div class="center">{{ title }}</div>
+        <div class="center"><b>{{ title }}</b></div>
         </v-ons-toolbar>
         <v-ons-list>
             
             <v-ons-list-item expandable
                 v-for="cli in clientList" :key="cli.HOS_iD"
+                style="padding-left:2%;"
             >
                 {{cli.HOS_NM}}
                 <div class="expandable-content">
@@ -168,6 +169,7 @@ export default {
     font-size:18px;
 }
 .list-item__center{
+    padding-left: 2%;
     display: flex;
     justify-content: space-between;
 }
