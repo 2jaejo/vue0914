@@ -33,19 +33,16 @@
             </v-ons-list>   
 
 <!-- 리스트 -->
-        <v-ons-card 
-            v-for="(list,i) in orderList" :key="i+list.HC_OM_ID"
-            style="border-radius: 10px;"
-        >  
+        <v-ons-card v-for="(list,i) in orderList" :key="i+list.HC_OM_ID">  
             <div class="title">
                 {{list.OM_ORDER_DT}}
             </div>
             <div class="content">
                 <v-ons-list >
                     <v-ons-list-item expandable>
-                        <div style="display:flex; justify-content: space-between; ">
-                            <div>{{list.PDC_NM}}</div>
-                        </div>
+                        
+                        <b>{{list.PDC_NM}}</b>
+               
                         <div class="expandable-content">
                             <ul class="list">
                                 <li class="list-item list-item--tappable">

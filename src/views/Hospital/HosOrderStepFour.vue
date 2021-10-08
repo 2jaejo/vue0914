@@ -7,109 +7,108 @@
             <div class="center"><b>{{ item.PDC_NM }}</b></div>
         </v-ons-toolbar>
 
-        <!-- 제품 추가 모달창 -->
-        <v-ons-dialog :visible.sync="modalVisible" >
+<!-- 제품 추가 모달창 -->
+        <v-ons-dialog :visible.sync="modalVisible" style="border-radius:10px;">
 
-               <ul class="list">
-                    <h3 style="text-align:center;">거래처정보</h3>
-                    <li class="list-item list-item--tappable">
-                        <div class="list-item__center">
-                            <div><b>거래처명</b></div>
-                            <div>{{comInfo.CUS_NM}}</div>
-                        </div>      
-                    </li>
-                    <li class="list-item list-item--tappable">
-                        <div class="list-item__center">
-                            <div><b>대표</b></div>
-                            <div>{{comInfo.CEO_NM}}</div>
-                        </div>      
-                    </li>
-                    <li class="list-item list-item--tappable">
-                        <div class="list-item__center">
-                            <div><b>전화</b></div>
-                            <div>{{comInfo.TEL_NBR}}</div>
-                        </div>      
-                    </li>
-                    <li class="list-item list-item--tappable">
-                        <div class="list-item__center">
-                            <div><b>주소</b></div>
-                            <div>{{comInfo.ADDR_MST}}</div>
-                        </div>      
-                    </li>
-               </ul>       
- 
-            <v-ons-button modifier="large" @click="modalVisible = false">닫기</v-ons-button>         
+            <ul class="list">
+                <h3 style="text-align:center;">거래처정보</h3>
+                <li class="list-item list-item--tappable">
+                    <div class="list-item__center">
+                        <div><b>거래처명</b></div>
+                        <div>{{comInfo.CUS_NM}}</div>
+                    </div>      
+                </li>
+                <li class="list-item list-item--tappable">
+                    <div class="list-item__center">
+                        <div><b>대표</b></div>
+                        <div>{{comInfo.CEO_NM}}</div>
+                    </div>      
+                </li>
+                <li class="list-item list-item--tappable">
+                    <div class="list-item__center">
+                        <div><b>전화</b></div>
+                        <div>{{comInfo.TEL_NBR}}</div>
+                    </div>      
+                </li>
+                <li class="list-item list-item--tappable">
+                    <div class="list-item__center">
+                        <div><b>주소</b></div>
+                        <div>{{comInfo.ADDR_MST}}</div>
+                    </div>      
+                </li>
+                <li class="list-item list-item--tappable">
+                    <div class="list-item__center">
+                        <v-ons-button modifier="large" @click="modalVisible = false">닫기</v-ons-button> 
+                    </div>      
+                </li>
+            </ul>                  
         </v-ons-dialog>
 
-        <!-- 캐러셀 -->
-        <div style="position:relative;">
-            <v-ons-carousel swipeable auto-scroll overscrollable
-                :index.sync="carouselIndex"
-            >
-                <v-ons-carousel-item v-for="(value, index) in items" :key="index" :style="{backgroundColor: value}">
-                    <div style="height:200px; text-align:center; font-size: 50px; padding-top: 20px; color: #fff;">{{index}}</div>
-                </v-ons-carousel-item>
-            </v-ons-carousel>
+        <div class="content">
+<!-- 캐러셀 -->
+            <div style="position:relative;">
+                <v-ons-carousel swipeable auto-scroll overscrollable
+                    :index.sync="carouselIndex"
+                >
+                    <v-ons-carousel-item v-for="(value, index) in items" :key="index" :style="{backgroundColor: value}">
+                        <div style="height:200px; text-align:center; font-size: 50px; padding-top: 20px; color: #fff;">{{index}}</div>
+                    </v-ons-carousel-item>
+                </v-ons-carousel>
 
-            <div :style="dots">
-                <span :index="dotIndex - 1" v-for="dotIndex in Object.keys(items).length" :key="dotIndex" style="cursor: pointer" @click="carouselIndex = dotIndex - 1">
-                    {{ carouselIndex === dotIndex - 1 ? '\u25CF' : '\u25CB' }}
-                </span>
+                <div :style="dots">
+                    <span :index="dotIndex - 1" v-for="dotIndex in Object.keys(items).length" :key="dotIndex" style="cursor: pointer" @click="carouselIndex = dotIndex - 1">
+                        {{ carouselIndex === dotIndex - 1 ? '\u25CF' : '\u25CB' }}
+                    </span>
+                </div>
             </div>
+
+            <div>
+                <ul class="list">
+                    <li class="list-item list-item--tappable" style="margin-top:10px;">
+                        <div class="list-item__center">
+                            <div>제품번호</div>
+                            <div>{{item.PDC_ID}}</div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center">
+                            <div>제품수량</div>
+                            <div>
+                                <select class="long-select select-input select-input--underbar"  
+                                    v-model="pdc_cnt"
+                                >
+                                    <option v-for="cnt in count" :key="cnt" :value="cnt">
+                                        {{cnt}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center">
+                            <div>요청사항</div>
+                            <div>
+                                <input type="text" class="text-input text-input--underbar" v-model="remark">
+                            </div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center">
+                            <div>거래처정보</div>
+                            <div>
+                                <button class="button button--outline" @click="getComInfo">보기</button>
+                            </div>
+                        </div>      
+                    </li>
+                    <li class="list-item list-item--tappable">
+                        <div class="list-item__center">
+                            <v-ons-button modifier="large" @click="order()">주문</v-ons-button>
+                        </div>       
+                    </li>
+                </ul>
+            </div>
+
         </div>
-
-        <v-ons-list>
-            <v-ons-list-item class="order">
-                <div class="left">
-                    제품번호
-                </div>
-                <div class="center" style="justify-content:right; width:50%;">
-                    {{item.PDC_ID}}
-                </div>
-            </v-ons-list-item>
-            <v-ons-list-item class="order">
-                <div class="left">
-                    제품수량
-                </div>
-                <div class="center" style="justify-content:right;">
-                    <v-ons-select
-                        style="width:30%;"
-                        modifier="underbar"
-                        v-model="pdc_cnt"
-                    >
-                        <option 
-                            v-for="cnt in count" :key="cnt" 
-                            :value="cnt"
-                        >
-                            {{cnt}}
-                        </option>
-                    </v-ons-select>
-                    &nbsp; /  {{item.PDC_UNIT}}
-                </div>
-            </v-ons-list-item>
-            <v-ons-list-item class="order">
-                <div class="left">
-                    요청사항
-                </div>
-                <div class="center" style="justify-content:right; width:50%;">
-                    <v-ons-input modifier="underbar" style="width:200px;" v-model="remark"></v-ons-input>
-                </div>
-            </v-ons-list-item>
-            <v-ons-list-item class="order">
-                <div class="left">
-                    거래처정보
-                </div>
-                <div class="center" style="justify-content:right;"> 
-                    <button class="button button--outline" style="width:100px; font-size:18px; text-align:center; border-radius:10px;" @click="getComInfo">보기</button>
-                </div>
-            </v-ons-list-item>
-            <v-ons-list-item class="order" >
-                <div class="center" style="justify-content:space-between;">
-                    <v-ons-button modifier="large" style="width:100%;" @click="order">주문</v-ons-button>
-                </div>
-            </v-ons-list-item>
-        </v-ons-list>
-
     </v-ons-page>
 </template>
 
@@ -227,24 +226,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.list{
-    font-size:18px;
-}
-.list-item__center{
-    display: flex;
-    justify-content: space-between;
-}
-.list-item__center > div:nth-child(2){
-    width:70%;
-    text-align: right;
-}
-.order{
-    margin:0px;
-    padding:0px 5px 0px 5px;
-    
-}
-.left {
-    font-weight: bold;
-}
-</style>

@@ -7,15 +7,28 @@
     line-height:50px;
     border-radius:10px;
 }
+.button--outline{
+    width:96%;
+    border-radius:10px;
+}
 .list-item{
     margin:0px;
     padding:0px;
     width:100%;
 }
-.list-item--chevron__center{
+.list-item--chevron__center, .list-item__center{
+    width: 96%;
     padding-left:2%;
-    height:50px;
     font-size:18px;
+}
+.list-item__center > div:nth-child(1){
+    width:30%;
+    text-align: left;
+    font-weight: bold;
+}
+.list-item__center > div:nth-child(2){
+    width:70%;
+    text-align: right;
 }
 .long-select{
     width:96%; 
@@ -31,8 +44,9 @@ ons-button, ons-input[type="date"]{
     width:96%;
 }
 ons-card{
+    border-radius: 10xp;
     margin:0px auto;
-    width:96%;    
+    width:96%;
 }
 input[type='date']{
     height:50px;

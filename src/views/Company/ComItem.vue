@@ -39,7 +39,7 @@
             </v-ons-list-item>                   
             <v-ons-list-item>
                 <div class="center">
-                    <input type="text" class="text-input text-input--underbar" placeholder="제품번호 or 제품명"  float v-model="keyword">
+                    <input type="text" class="text-input text-input--underbar" placeholder="제품번호 or 제품명"  float v-model="keyword" @keyup.enter="search">
                 </div>
             </v-ons-list-item>
             <v-ons-list-item>
@@ -55,9 +55,6 @@
 
              
         </v-ons-list>
-
-            
-
 
 <!-- 제품 추가 모달창 -->
         <v-ons-dialog :visible.sync="modalVisible" >
@@ -109,58 +106,58 @@
             </div>
         </v-ons-dialog>
 
-    <!-- 리스트 -->
-        <v-ons-list>
-            <v-ons-list-item 
-                expandable
-                modifier="tappable longdivider"
-                v-for="item in list" :key="item.PDC_ID"
-            >
-                {{item.PDC_ID}} / {{item.PDC_NM}}
-               
-                <div class="expandable-content">
-                    <v-ons-row>
-                        <h3>제품분류 : {{item.CLS_ID}}</h3>
-                    </v-ons-row>
-                    <v-ons-row>
-                        <v-ons-col>제품수량</v-ons-col>
-                        <v-ons-col>{{item.PDC_UNIT}}</v-ons-col>
-                        <v-ons-col><input type="text" v-model="modData.PDC_UNIT"></v-ons-col>
-                    </v-ons-row>
-                    <v-ons-row>
-                        <v-ons-col>제품금액</v-ons-col>
-                        <v-ons-col>{{item.PDC_UNIT_PRICE}}</v-ons-col>
-                        <v-ons-col><input type="text" v-model="modData.PDC_UNIT_PRICE"></v-ons-col>
-                    </v-ons-row>
-                    <v-ons-row>
-                        <v-ons-col>할인금액</v-ons-col>
-                        <v-ons-col>{{item.PDC_SALE_PRICE}}</v-ons-col>
-                        <v-ons-col><input type="text" v-model="modData.PDC_SALE_PRICE"></v-ons-col>
-                    </v-ons-row>
-                    <v-ons-row>
-                        <v-ons-col>내용</v-ons-col>
-                        <v-ons-col>{{item.CONTENT}}</v-ons-col>
-                        <v-ons-col><input type="text" v-model="modData.CONTENT"></v-ons-col>
-                    </v-ons-row>
-                    <v-ons-row>
-                        <v-ons-col>내용코드</v-ons-col>
-                        <v-ons-col>{{item.CONTENT_CDE}}</v-ons-col>
-                        <v-ons-col><input type="text" v-model="modData.CONTENT_CDE"></v-ons-col>
-                    </v-ons-row>
-                    <v-ons-row>
-                        <v-ons-col>상태코드</v-ons-col>
-                        <v-ons-col>{{item.PDC_STATE_CDE}}</v-ons-col>
-                        <v-ons-col><input type="text" v-model="modData.PDC_STATE_CDE"></v-ons-col>
-                    </v-ons-row>
-                    <v-ons-row style="margin-top:5px;">
-                        <v-ons-col><v-ons-button @click="del(item)">삭제</v-ons-button></v-ons-col>
-                        <v-ons-col></v-ons-col>
-                        <v-ons-col><v-ons-button @click="mod(item)">수정</v-ons-button></v-ons-col>
-                    </v-ons-row>
-                    {{item}}                 
-                </div>
-            </v-ons-list-item>
-        </v-ons-list>
+<!-- 목록 -->
+        <v-ons-card v-for="item in list" :key="item.PDC_ID">  
+            <div class="title">
+                {{item.PDC_NM}}
+            </div>
+            <div class="content">
+                <v-ons-list>
+                    <v-ons-list-item expandable>
+                        <div class="center">
+                            {{item.PDC_ID}}
+                        </div>
+                        <div class="expandable-content">
+                            <v-ons-row>
+                                <v-ons-col>제품수량</v-ons-col>
+                                <v-ons-col>{{item.PDC_UNIT}}</v-ons-col>
+                                <v-ons-col><input type="text" v-model="modData.PDC_UNIT"></v-ons-col>
+                            </v-ons-row>
+                            <v-ons-row>
+                                <v-ons-col>제품금액</v-ons-col>
+                                <v-ons-col>{{item.PDC_UNIT_PRICE}}</v-ons-col>
+                                <v-ons-col><input type="text" v-model="modData.PDC_UNIT_PRICE"></v-ons-col>
+                            </v-ons-row>
+                            <v-ons-row>
+                                <v-ons-col>할인금액</v-ons-col>
+                                <v-ons-col>{{item.PDC_SALE_PRICE}}</v-ons-col>
+                                <v-ons-col><input type="text" v-model="modData.PDC_SALE_PRICE"></v-ons-col>
+                            </v-ons-row>
+                            <v-ons-row>
+                                <v-ons-col>내용</v-ons-col>
+                                <v-ons-col>{{item.CONTENT}}</v-ons-col>
+                                <v-ons-col><input type="text" v-model="modData.CONTENT"></v-ons-col>
+                            </v-ons-row>
+                            <v-ons-row>
+                                <v-ons-col>내용코드</v-ons-col>
+                                <v-ons-col>{{item.CONTENT_CDE}}</v-ons-col>
+                                <v-ons-col><input type="text" v-model="modData.CONTENT_CDE"></v-ons-col>
+                            </v-ons-row>
+                            <v-ons-row>
+                                <v-ons-col>상태코드</v-ons-col>
+                                <v-ons-col>{{item.PDC_STATE_CDE}}</v-ons-col>
+                                <v-ons-col><input type="text" v-model="modData.PDC_STATE_CDE"></v-ons-col>
+                            </v-ons-row>
+                            <v-ons-row style="margin-top:5px;">
+                                <v-ons-col><v-ons-button @click="del(item)">삭제</v-ons-button></v-ons-col>
+                                <v-ons-col></v-ons-col>
+                                <v-ons-col><v-ons-button @click="mod(item)">수정</v-ons-button></v-ons-col>
+                            </v-ons-row>      
+                        </div>
+                    </v-ons-list-item>
+                </v-ons-list>
+            </div>
+        </v-ons-card>    
     </div>
 
     </v-ons-page>
@@ -256,6 +253,7 @@ export default {
                 keyword:this.keyword,
             };
             this.$store.dispatch('companyStore/searchItem', data);
+            this.keyword= '';
         },
 
         //대분류 change event

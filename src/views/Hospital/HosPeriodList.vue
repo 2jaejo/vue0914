@@ -28,19 +28,16 @@
                 </v-ons-list-item>
             </v-ons-list>  
 
-            <v-ons-card
-                style="border-radius:10px;"
-                v-for="(list,i) in monthList" :key="i+list.HC_OM_ID"               
-            >  
+            <v-ons-card v-for="(list,i) in monthList" :key="i+list.HC_OM_ID">  
                 <div class="title">
-                    주문번호 / {{list.HC_OM_ID}}
+                    주문번호 : {{list.HC_OM_ID}}
                 </div>
                 <div class="content">
                     <v-ons-list>
                         <v-ons-list-item expandable>
-                            <div style="display:flex; justify-content: space-between;">
-                                <div>{{list.PDC_NM}}</div>
-                            </div>
+                            
+                            <b>{{list.PDC_NM}}</b>
+                        
                             <div class="expandable-content">
                                 <ul class="list">
                                     <li class="list-item list-item--tappable">

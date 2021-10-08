@@ -15,7 +15,6 @@
                 <div class="center" style="padding-top:28px;">
                     <select class="long-select select-input select-input--underbar"
                         v-model="selectYear"
-                        @change="changeYear"
                     >
                         <option v-for="year in years" :key="year" :value="year">{{year}} 년</option>
                     </select>
@@ -25,27 +24,28 @@
                 <div class="center">
                     <select class="long-select select-input select-input--underbar"
                         v-model="selectMonth"
-                        @change="changeMonth"
                     >
                         <option v-for="mon in month" :key="mon" :value="mon">{{mon}} 월</option>
                     </select>
                 </div>
             </v-ons-list-item>
+            <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-button modifier="large" @click="getMonthList()">검색</v-ons-button>
+                    </div>
+            </v-ons-list-item>
         </v-ons-list>
 
-            <v-ons-card
-                v-for="(list,i) in monthList" :key="i+list.HC_OM_ID"
-                style="border-radius:10px;"                
-            >  
+            <v-ons-card v-for="(list,i) in monthList" :key="i+list.HC_OM_ID">  
                 <div class="title">
                     주문번호 / {{list.HC_OM_ID}}
                 </div>
                 <div class="content">
                     <v-ons-list>
                         <v-ons-list-item expandable>
-                            <div style="display:flex; justify-content: space-between;">
-                                <div>{{list.PDC_NM}}</div>
-                            </div>
+                           
+                            <b>{{list.PDC_NM}}</b>
+                         
                             <div class="expandable-content">
                                 <ul class="list">
                                     <li class="list-item list-item--tappable">
@@ -176,14 +176,13 @@ export default {
         changeYear(){
             this.selectMonth= '01';
             this.monthList.splice(0);
-            this.getMonthList();
         },
         changeMonth(){
             this.monthList.splice(0);
-            this.getMonthList();
         },
 
         getMonthList(){
+            this.monthList.splice(0);
             let data ={
                 nbr:this.nbr,
                 sdate:this.selectYear+this.selectMonth+'01',

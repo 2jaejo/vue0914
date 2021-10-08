@@ -10,6 +10,7 @@
         </v-ons-toolbar>
      
         <div class="content">
+<!-- 검색 -->
             <v-ons-list>
                 <v-ons-list-item>
                     <div class="center">
@@ -22,20 +23,19 @@
                     </div>
                 </v-ons-list-item>
                 <v-ons-list-item>
-                    <div class="left" style="width:25%;margin-left:2%;">
-                        상태 : 
-                    </div>
                     <div class="center">
-                        <v-ons-select style="width:95%" v-model="stateSel">
-                            <option v-for="state in stateSelect" :value="state.value" :key="state.text">
-                                {{state.text}}
-                            </option>
-                        </v-ons-select>
-                    </div>
-                </v-ons-list-item>
-                <v-ons-list-item>
-                    <div class="center">
-                        <input type="text" class="text-input text-input--underbar" placeholder="제품번호 or 제품명"  float v-model="keyword">
+                        <div style="margin-left:2%;width:20%;">
+                            상태 : 
+                        </div>
+                        <div style="width:76%;">
+                            <select class="long-select select-input select-input--underbar"  
+                                v-model="stateSel"
+                            >
+                                <option v-for="state in stateSelect" :value="state.value" :key="state.text">
+                                    {{state.text}}
+                                </option>
+                            </select>
+                        </div>
                     </div>
                 </v-ons-list-item>
                 <v-ons-list-item>
@@ -44,20 +44,28 @@
                     </div>
                 </v-ons-list-item>
             </v-ons-list>
-            <v-ons-list>
-                <v-ons-list-item expandable
-                    v-for="order in orderList" :key="order.HC_OM_ID"
-                >
-                    <div class="center">
 
-                    주문번호 {{order.HC_OM_ID}}
-                    </div>
-                    <div class="expandable-content">
-                        {{order}}
-                    </div>
-                </v-ons-list-item>
-            </v-ons-list>
+ <!-- 목록 -->
+            <v-ons-card v-for="order in orderList" :key="order.HC_OM_ID">  
+                <div class="title">
+                    {{order.HC_OM_ID}}
+                </div>
+                <div class="content">
+                    <v-ons-list>
+                        <v-ons-list-item expandable>
+                            <div class="center">
+                                주문번호 {{order.HC_OM_ID}}
+                            </div>
+                            <div class="expandable-content">
+                                {{order}}
+                            </div>
+                        </v-ons-list-item>
+                    </v-ons-list>
+                </div>
+            </v-ons-card>
+
         </div>
+
         <!-- 로딩바 -->
         <!-- <div class="after-list" style="text-align:center; padding:10px;">
 			<v-ons-icon v-if="show" icon="fa-spinner" size="26px" spin></v-ons-icon>
@@ -165,9 +173,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.col{
-    
-}
 
-</style>

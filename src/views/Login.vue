@@ -15,7 +15,8 @@
                             float 
                             type="text" 
                             v-model="id" 
-                            style="width: 96%; margin:10px auto; "
+                            style="width: 96%; margin:10px auto;"
+                            @keyup.enter="login"
                         >
                         </v-ons-input>
                     </div>
@@ -26,7 +27,8 @@
                             float 
                             type="password" 
                             v-model="pw" 
-                            style="width:96%; margin:10px auto; "
+                            style="width:96%; margin:10px auto;"
+                            @keyup.enter="login"
                         >
                         </v-ons-input>
                     </div>
