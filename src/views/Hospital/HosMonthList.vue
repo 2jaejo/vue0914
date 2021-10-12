@@ -38,20 +38,30 @@
 
             <v-ons-card v-for="(list,i) in monthList" :key="i+list.HC_OM_ID">  
                 <div class="title">
-                    주문번호 / {{list.HC_OM_ID}}
+                    <div>{{list.OM_ORDER_DT}}</div>
                 </div>
                 <div class="content">
+                    <div class="list-item__center">
+                        <div>주문번호</div>
+                        <div>{{list.HC_OM_ID}}</div>
+                    </div>
+
                     <v-ons-list>
                         <v-ons-list-item expandable>
                            
-                            <b>{{list.PDC_NM}}</b>
+                            <li class="list-item list-item--tappable">
+                                <div class="list-item__center" style="padding-left:0px;">
+                                    <div>주문자</div>
+                                    <div>{{list.OM_NM}}</div>
+                                </div>      
+                            </li>
                          
                             <div class="expandable-content">
                                 <ul class="list">
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
-                                            <div>주문자</div>
-                                            <div>{{list.OM_NM}}</div>
+                                            <div>상태</div>
+                                            <div>{{list.OM_STATE_NM}}</div>
                                         </div>      
                                     </li>
                                     <li class="list-item list-item--tappable">
@@ -81,7 +91,7 @@
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
                                             <div>가격</div>
-                                            <div>{{list.PDC_PRICE}}</div>
+                                            <div>{{list.PDC_SALE_PRICE}}</div>
                                         </div>      
                                     </li>
                                     <li class="list-item list-item--tappable">
@@ -93,7 +103,7 @@
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
                                             <div>합계</div>
-                                            <div>{{list.OM_NUM * list.PDC_PRICE}}</div>
+                                            <div>{{list.TOTAL_PRICE}}</div>
                                         </div>      
                                     </li>
                                 </ul>    
@@ -128,16 +138,14 @@ export default {
     created(){
         this.selectYear = dayjs().format("YYYY");
         let year = this.selectYear;
-        //현재년도부터 2년전까지
-        for( let i = year; i > (year -3); i --){
+        //2년전부터 현재년도까지
+        for( let i = year-2; i <= year; i++){
             this.years.push(i);
         }
 
-        let month = dayjs().format("M");
-        month <10 ? this.selectMonth = '0'+month : this.selectMonth = month;
-
-        //현재월부터 1월까지
-        for( let i = month; i >= 1; i --){
+        this.selectMonth = dayjs().format("MM");
+        //1월부터 12월까지
+        for( let i = 1; i <= 12; i++ ){
             i < 10 ? i='0'+i : i ;
             this.month.push(i);
         }

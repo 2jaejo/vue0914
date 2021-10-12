@@ -36,20 +36,28 @@
                         </option>
                     </select>
                 </div>
-            </v-ons-list-item>                   
+            </v-ons-list-item>
             <v-ons-list-item>
                 <div class="center">
-                    <input type="text" class="text-input text-input--underbar" placeholder="제품번호 or 제품명"  float v-model="keyword" @keyup.enter="search">
+                    <v-ons-input placeholder="제품번호 or 제품명" 
+                            float 
+                            type="text" 
+                            style="width:96%; margin:10px auto;"
+                            modifier="underbar"
+                            v-model="keyword"
+                            @keyup.enter="search"
+                        >
+                        </v-ons-input>
                 </div>
             </v-ons-list-item>
             <v-ons-list-item>
                 <div class="center">
-                    <v-ons-button modifier="large" @click="search">검색</v-ons-button>
+                    <v-ons-button class="search-btn-large" modifier="large" @click="search">검색</v-ons-button>
                 </div>
             </v-ons-list-item>
             <v-ons-list-item>
                 <div class="center">
-                   <v-ons-button @click="modalVisible = true" modifier="large" style="background-color:#fc4e03;">상품추가</v-ons-button>
+                   <v-ons-button class="add-btn-large" @click="addModalVisible = true" modifier="large">상품추가</v-ons-button>
                 </div>
             </v-ons-list-item>
 
@@ -57,52 +65,114 @@
         </v-ons-list>
 
 <!-- 제품 추가 모달창 -->
-        <v-ons-dialog :visible.sync="modalVisible" >
-            <div class="addData">
+        <v-ons-dialog :visible.sync="addModalVisible">
+            <div class="showModal">
                 <div class="title">
                     <h1>상품추가</h1>
                 </div>
                 <v-ons-row>
-                    <v-ons-col>제품분류</v-ons-col>
-                    <v-ons-col><v-ons-input type="text" v-model="addData.CLS_ID"></v-ons-input></v-ons-col>
+                    <v-ons-col>
+                        <select class="long-select select-input select-input--underbar"
+                            @change="selectStepOne()" 
+                            v-model="sel_step1"
+                            style="width:100%;"
+                        >
+                            <option v-for="Step1 in itemClassOne" :value="Step1.CLS_ID" :key="Step1.CLS_ID">
+                                {{Step1.CLS_NM}}
+                            </option>
+                        </select>
+                    </v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
-                    <v-ons-col>제품명</v-ons-col>
-                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_NM"></v-ons-input></v-ons-col>
+                    <v-ons-col>
+                        <select class="long-select select-input select-input--underbar"
+                            @change="selectStepTwo()" 
+                            v-model="sel_step2"
+                            style="width:100%;"
+                        >
+                            <option v-for="Step2 in itemClassTwo" :value="Step2.CLS_ID" :key="Step2.CLS_ID">
+                                {{Step2.CLS_NM}}
+                            </option>
+                        </select>
+                    </v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
-                    <v-ons-col>제품규격</v-ons-col>
-                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_STD"></v-ons-input></v-ons-col>
+                    <v-ons-col>상품명</v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="addData.PDC_NM"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
-                    <v-ons-col>제품수량</v-ons-col>
-                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_UNIT"></v-ons-input></v-ons-col>
+                    <v-ons-col>상품규격</v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="addData.PDC_STD"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
-                    <v-ons-col>제품금액</v-ons-col>
-                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_UNIT_PRICE"></v-ons-input></v-ons-col>
+                    <v-ons-col>상품수량</v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="addData.PDC_UNIT"></v-ons-input></v-ons-col>
+                </v-ons-row>
+                <v-ons-row>
+                    <v-ons-col>상품금액</v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="addData.PDC_UNIT_PRICE"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>할인금액</v-ons-col>
-                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_SALE_PRICE"></v-ons-input></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="addData.PDC_SALE_PRICE"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>내용</v-ons-col>
-                    <v-ons-col><v-ons-input type="text" v-model="addData.CONTENT"></v-ons-input></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="addData.CONTENT"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>내용코드</v-ons-col>
-                    <v-ons-col><v-ons-input type="text" v-model="addData.CONTENT_CDE"></v-ons-input></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="addData.CONTENT_CDE"></v-ons-input></v-ons-col>
                 </v-ons-row>
                 <v-ons-row>
                     <v-ons-col>상태코드</v-ons-col>
-                    <v-ons-col><v-ons-input type="text" v-model="addData.PDC_STATE_CDE"></v-ons-input></v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="addData.PDC_STATE_CDE"></v-ons-input></v-ons-col>
+                </v-ons-row>
+                <v-ons-row style="margin-top:10px;">
+                    <v-ons-col><v-ons-button class="cancel-btn" @click="addModalVisible = false; cleanAdd(); ">취소</v-ons-button></v-ons-col>
+                    <v-ons-col><v-ons-button class="add-btn" @click="add">추가</v-ons-button></v-ons-col>
                 </v-ons-row>
             </div>
-            <div class="submit">
-                <v-ons-button style="width:30%; margin:5px;" @click="modalVisible = false">취소</v-ons-button>
+        </v-ons-dialog>
 
-                <v-ons-button style="width:60%; margin:5px; background-color:#fc4e03;" @click="add">추가</v-ons-button>
+<!-- 제품 수정 모달창 -->
+        <v-ons-dialog :visible.sync="modModalVisible">
+            <div class="showModal">
+                <div class="title">
+                    <h1>상품수정</h1>
+                </div>
+                <v-ons-row>
+                    <v-ons-col><p><b>상품코드</b></p></v-ons-col>
+                    <v-ons-col><p><b>{{modData.PDC_ID}}</b></p></v-ons-col>
+                </v-ons-row>
+                <v-ons-row>
+                    <v-ons-col>상품수량</v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="modData.PDC_UNIT"></v-ons-input></v-ons-col>
+                </v-ons-row>
+                <v-ons-row>
+                    <v-ons-col>상품금액</v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="modData.PDC_UNIT_PRICE"></v-ons-input></v-ons-col>
+                </v-ons-row>
+                <v-ons-row>
+                    <v-ons-col>할인금액</v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="modData.PDC_SALE_PRICE"></v-ons-input></v-ons-col>
+                </v-ons-row>
+                <v-ons-row>
+                    <v-ons-col>내용</v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="modData.CONTENT"></v-ons-input></v-ons-col>
+                </v-ons-row>
+                <v-ons-row>
+                    <v-ons-col>내용코드</v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="modData.CONTENT_CDE"></v-ons-input></v-ons-col>
+                </v-ons-row>
+                <v-ons-row>
+                    <v-ons-col>상태코드</v-ons-col>
+                    <v-ons-col><v-ons-input type="text" modifier="underbar" v-model="modData.PDC_STATE_CDE"></v-ons-input></v-ons-col>
+                </v-ons-row>
+                <v-ons-row style="margin-top:10px;">
+                    <v-ons-col><v-ons-button class="cancel-btn" @click="modModalVisible = false;">취소</v-ons-button></v-ons-col>
+                    <v-ons-col><v-ons-button class="mod-btn" @click="mod()">수정</v-ons-button></v-ons-col>
+                </v-ons-row>       
             </div>
         </v-ons-dialog>
 
@@ -114,45 +184,57 @@
             <div class="content">
                 <v-ons-list>
                     <v-ons-list-item expandable>
-                        <div class="center">
-                            {{item.PDC_ID}}
+                      
+                        <div class="list-item__center" style="padding-left:0px;">
+                            <div>상품코드</div>
+                            <div>{{item.PDC_ID}}</div>
                         </div>
+
                         <div class="expandable-content">
-                            <v-ons-row>
-                                <v-ons-col>제품수량</v-ons-col>
-                                <v-ons-col>{{item.PDC_UNIT}}</v-ons-col>
-                                <v-ons-col><input type="text" v-model="modData.PDC_UNIT"></v-ons-col>
-                            </v-ons-row>
-                            <v-ons-row>
-                                <v-ons-col>제품금액</v-ons-col>
-                                <v-ons-col>{{item.PDC_UNIT_PRICE}}</v-ons-col>
-                                <v-ons-col><input type="text" v-model="modData.PDC_UNIT_PRICE"></v-ons-col>
-                            </v-ons-row>
-                            <v-ons-row>
-                                <v-ons-col>할인금액</v-ons-col>
-                                <v-ons-col>{{item.PDC_SALE_PRICE}}</v-ons-col>
-                                <v-ons-col><input type="text" v-model="modData.PDC_SALE_PRICE"></v-ons-col>
-                            </v-ons-row>
-                            <v-ons-row>
-                                <v-ons-col>내용</v-ons-col>
-                                <v-ons-col>{{item.CONTENT}}</v-ons-col>
-                                <v-ons-col><input type="text" v-model="modData.CONTENT"></v-ons-col>
-                            </v-ons-row>
-                            <v-ons-row>
-                                <v-ons-col>내용코드</v-ons-col>
-                                <v-ons-col>{{item.CONTENT_CDE}}</v-ons-col>
-                                <v-ons-col><input type="text" v-model="modData.CONTENT_CDE"></v-ons-col>
-                            </v-ons-row>
-                            <v-ons-row>
-                                <v-ons-col>상태코드</v-ons-col>
-                                <v-ons-col>{{item.PDC_STATE_CDE}}</v-ons-col>
-                                <v-ons-col><input type="text" v-model="modData.PDC_STATE_CDE"></v-ons-col>
-                            </v-ons-row>
-                            <v-ons-row style="margin-top:5px;">
-                                <v-ons-col><v-ons-button @click="del(item)">삭제</v-ons-button></v-ons-col>
-                                <v-ons-col></v-ons-col>
-                                <v-ons-col><v-ons-button @click="mod(item)">수정</v-ons-button></v-ons-col>
-                            </v-ons-row>      
+                            <ul class="list">
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>상품수량</div>
+                                        <div>{{item.PDC_UNIT}}</div>
+                                    </div>      
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>상품금액</div>
+                                        <div>{{item.PDC_UNIT_PRICE}}</div>
+                                    </div>
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>할인금액</div>
+                                        <div>{{item.PDC_SALE_PRICE}}</div>
+                                    </div>
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>내용</div>
+                                        <div>{{item.CONTENT}}</div>
+                                    </div>
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>내용코드</div>
+                                        <div>{{item.CONTENT_CDE}}</div>
+                                    </div>
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div>상태코드</div>
+                                        <div>{{item.PDC_STATE_CDE}}</div>
+                                    </div>
+                                </li>
+                                <li class="list-item list-item--tappable">
+                                    <div class="list-item__center">
+                                        <div><v-ons-button class="del-btn" @click="del(item)">삭제</v-ons-button></div>
+                                        <div><v-ons-button class="mod-btn" @click="modModalOpen(item)">수정</v-ons-button></div>
+                                    </div>
+                                </li>
+                            </ul>   
                         </div>
                     </v-ons-list-item>
                 </v-ons-list>
@@ -201,7 +283,8 @@ export default {
     },
     data(){
         return{
-            modalVisible:false,
+            addModalVisible:false,
+            modModalVisible:false,
             timeoutID:0,
             list:[],
             itemClassOne:[],
@@ -218,6 +301,8 @@ export default {
 
             //수정 데이터
             modData:{
+                CUS_ID:'',
+                PDC_ID:'',
                 PDC_UNIT:'',
                 PDC_UNIT_PRICE:'',
                 PDC_SALE_PRICE:'',
@@ -271,14 +356,26 @@ export default {
             this.search();
             this.keyword = '';
         },
+        //수정 모달 열기
+        modModalOpen(item){
+            this.modData.CUS_ID = item.CUS_ID;
+            this.modData.PDC_ID = item.PDC_ID;
+            this.modData.PDC_UNIT = item.PDC_UNIT;
+            this.modData.PDC_UNIT_PRICE = item.PDC_UNIT_PRICE;
+            this.modData.PDC_SALE_PRICE = item.PDC_SALE_PRICE;
+            this.modData.CONTENT = item.CONTENT;
+            this.modData.CONTENT_CDE = item.CONTENT_CDE;
+            this.modData.PDC_STATE_CDE = item.PDC_STATE_CDE;
 
+            this.modModalVisible = true;
+        },
         //수정
-        mod(item){
+        mod(){
             let con = confirm("수정하시겠습니까?");
             if(con){
                 let data = {
-                    item: item,
-                    modData: this.modData
+                    modData: this.modData,
+                    nbr:this.nbr
                 }
     
                 axios.post('http://49.50.160.174/store/itemmodify',{
@@ -286,13 +383,8 @@ export default {
                 })
                 .then(res => {
                     alert(res.data.list);
+                    this.modModalVisible = false;
                     this.search();
-                    this.modData.PDC_UNIT='';
-                    this.modData.PDC_UNIT_PRICE='';
-                    this.modData.PDC_SALE_PRICE='';
-                    this.modData.CONTENT='';
-                    this.modData.CONTENT_CDE='';
-                    this.modData.PDC_STATE_CDE='';
                 })
                 .catch( error => {
                     console.log('catch : ' + error);
@@ -328,6 +420,7 @@ export default {
         //추가
         add(){
             let data = this.addData;
+            this.sel_step2 == '0' ? data.CLS_ID = this.sel_step1 : data.CLS_ID = this.sel_step2;
             data.nbr = this.nbr;  
 
             for (let k in data){
@@ -342,25 +435,28 @@ export default {
                 })
                 .then(res => {
                     alert(res.data.list);
+                    this.addModalVisible = false;
                     this.search();
-                    this.addData.CLS_ID='',
-                    this.addData.PDC_NM='',
-                    this.addData.PDC_STD='',
-                    this.addData.PDC_UNIT='';
-                    this.addData.PDC_UNIT_PRICE='';
-                    this.addData.PDC_SALE_PRICE='';
-                    this.addData.CONTENT='';
-                    this.addData.CONTENT_CDE='';
-                    this.addData.PDC_STATE_CDE='';
+                    this.cleanAdd();
                 })
                 .catch( error => {
                     console.log('catch : ' + error);
                 });
             
         },
+        cleanAdd(){
+            this.addData.CLS_ID='',
+            this.addData.PDC_NM='',
+            this.addData.PDC_STD='',
+            this.addData.PDC_UNIT='';
+            this.addData.PDC_UNIT_PRICE='';
+            this.addData.PDC_SALE_PRICE='';
+            this.addData.CONTENT='';
+            this.addData.CONTENT_CDE='';
+            this.addData.PDC_STATE_CDE='';
+        },
 
     }
 }
-
 
 </script>

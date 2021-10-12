@@ -16,6 +16,7 @@
                             type="text" 
                             v-model="id" 
                             style="width: 96%; margin:10px auto;"
+                            modifier="underbar"
                             @keyup.enter="login"
                         >
                         </v-ons-input>
@@ -28,6 +29,7 @@
                             type="password" 
                             v-model="pw" 
                             style="width:96%; margin:10px auto;"
+                            modifier="underbar"
                             @keyup.enter="login"
                         >
                         </v-ons-input>

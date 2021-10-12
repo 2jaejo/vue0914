@@ -1,4 +1,24 @@
+:root{
+    --red:#fc4e03;
+    --blue:#0076ff;
+    --black:#444444;
+}
+.search-btn-large, .cancel-btn{
+    background-color: var(--blue);
+    text-align: center;
+}
+.add-btn-large, .add-btn, .mod-btn{
+    background-color: var(--red);
+    text-align: center;
+}
+.del-btn{
+    background-color: var(--black);
+    text-align: center;
+}
 
+.showModal{
+    padding:10px;
+}
 .button--large{
     height:50px;
     width:96%;
@@ -16,6 +36,9 @@
     padding:0px;
     width:100%;
 }
+.list-item__top{
+    padding:0px;
+}
 .list-item--chevron__center, .list-item__center{
     width: 96%;
     padding-left:2%;
@@ -29,15 +52,29 @@
 .list-item__center > div:nth-child(2){
     width:70%;
     text-align: right;
+    font-weight: 300;
 }
 .long-select{
     width:96%; 
     margin:auto; 
-    font-size:18spx; 
+    font-size:18px; 
 }
 .text-input--underbar{
     width:96%;
     margin:0px auto;
+}
+.center input[type='text']{
+    font-size:18px;
+}
+
+ons-row{
+    margin:15px 0px;
+}
+ons-row > ons-col:nth-child(2){
+    text-align:right;
+}
+ons-col input[type='text']{
+    text-align:right;
 }
 ons-button, ons-input[type="date"]{
     margin:0px auto;
