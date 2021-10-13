@@ -38,7 +38,7 @@
 
             <v-ons-card v-for="(list,i) in monthList" :key="i+list.HC_OM_ID">  
                 <div class="title">
-                    <div>{{list.OM_ORDER_DT}}</div>
+                    <b>{{list.OM_ORDER_DT.substr(0,4)}}-{{list.OM_ORDER_DT.substr(4,2)}}-{{list.OM_ORDER_DT.substr(6,2)}}</b>
                 </div>
                 <div class="content">
                     <div class="list-item__center">

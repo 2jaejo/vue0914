@@ -3,11 +3,40 @@
     --blue:#0076ff;
     --black:#444444;
 }
+.bg{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    font-weight:bold;
+    border: 2px solid white;
+    border-radius: 10px;
+    height:100px;
+    margin:5px;
+}
+.mint{
+    background-color: #b2dfdb;
+}
+.puple{
+    background-color: #e1bee7;
+}
+.orange{
+    background-color: #ffe0b2;
+}
+.green{
+    background-color: #dcedc8;
+}
+.blue{
+    background-color: #bbdefb;
+}
+.skyblue{
+    background-color: #e1f5fe;
+}
+
 .search-btn-large, .cancel-btn{
     background-color: var(--blue);
     text-align: center;
 }
-.add-btn-large, .add-btn, .mod-btn{
+.add-btn-large, .add-btn, .mod-btn, .order-btn{
     background-color: var(--red);
     text-align: center;
 }
@@ -26,6 +55,7 @@
     font-size:24px;
     line-height:50px;
     border-radius:10px;
+    
 }
 .button--outline{
     width:96%;

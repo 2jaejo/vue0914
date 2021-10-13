@@ -64,13 +64,13 @@
 
             <div>
                 <ul class="list">
-                    <li class="list-item list-item--tappable" style="margin-top:10px;">
+                    <li class="list-item" style="margin-top:10px;">
                         <div class="list-item__center">
                             <div>제품번호</div>
                             <div>{{item.PDC_ID}}</div>
                         </div>      
                     </li>
-                    <li class="list-item list-item--tappable">
+                    <li class="list-item">
                         <div class="list-item__center">
                             <div>제품수량</div>
                             <div>
@@ -84,15 +84,15 @@
                             </div>
                         </div>      
                     </li>
-                    <li class="list-item list-item--tappable">
+                    <li class="list-item">
                         <div class="list-item__center">
                             <div>요청사항</div>
                             <div>
-                                <input type="text" class="text-input text-input--underbar" v-model="remark">
+                                <input type="text" class="text-input text-input--underbar" maxlength="50" v-model="remark">
                             </div>
                         </div>      
                     </li>
-                    <li class="list-item list-item--tappable">
+                    <li class="list-item">
                         <div class="list-item__center">
                             <div>거래처정보</div>
                             <div>
@@ -102,7 +102,7 @@
                     </li>
                     <li class="list-item list-item--tappable">
                         <div class="list-item__center">
-                            <v-ons-button modifier="large" @click="order()">주문</v-ons-button>
+                            <v-ons-button modifier="large" class="order-btn" style="margin:0px; width:100%;" @click="order()">주문</v-ons-button>
                         </div>       
                     </li>
                 </ul>
@@ -148,7 +148,7 @@ export default {
             },
             dots: {
                 textAlign: 'center',
-                fontSize: '30px',
+                fontSize: '20px',
                 color: '#fff',
                 position: 'absolute',
                 bottom: '30px',

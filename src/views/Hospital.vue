@@ -25,7 +25,7 @@
         <!-- 로그인정보 -->
         <v-ons-row>
             <v-ons-col><div class="bg" style="height:70px;">{{user.kor_nm}}병원 로그인하셨습니다.</div></v-ons-col>
-            <v-ons-col width="80px"><div class="bg" @click="logout" style="height:70px;">로그아웃</div></v-ons-col>
+            <v-ons-col width="90px"><div class="bg" @click="logout" style="height:70px;">로그아웃</div></v-ons-col>
         </v-ons-row>
 
         <!-- 그리드 -->
@@ -88,7 +88,7 @@ export default {
             },
             dots: {
                 textAlign: 'center',
-                fontSize: '30px',
+                fontSize: '20px',
                 color: '#fff',
                 position: 'absolute',
                 bottom: '30px',
@@ -131,40 +131,17 @@ export default {
         },
 
         logout(){
-            this.$store.dispatch('procLogoutData');
+            let con = confirm("로그아웃 하시겠습니까?");
+            if(con){
+                this.$store.dispatch('procLogoutData');
+            }
         },
     }
 }
 </script>
 
 <style scoped>
-
-.bg{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight:bold;
-    border: 1px solid white;
-    border-radius: 10px;
-    height:100px;
-    margin:5px;
-}
-.mint{
-    background-color: #b2dfdb;
-}
-.puple{
-    background-color: #e1bee7;
-}
-.orange{
-    background-color: #ffe0b2;
-}
-.green{
-    background-color: #dcedc8;
-}
-.blue{
-    background-color: #bbdefb;
-}
-.skyblue{
-    background-color: #e1f5fe;
-}
+    ons-row{
+        margin:4px auto 0px auto;
+    }
 </style>

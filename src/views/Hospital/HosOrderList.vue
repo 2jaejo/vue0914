@@ -35,22 +35,28 @@
 <!-- 리스트 -->
         <v-ons-card v-for="(list,i) in orderList" :key="i+list.HC_OM_ID">  
             <div class="title">
-                {{list.OM_ORDER_DT}}
+                <b>{{list.OM_ORDER_DT.substr(0,4)}}-{{list.OM_ORDER_DT.substr(4,2)}}-{{list.OM_ORDER_DT.substr(6,2)}}</b>
             </div>
             <div class="content">
+                
+                <div class="list-item__center">
+                    <div>주문번호</div>
+                    <div>{{list.HC_OM_ID}}</div>
+                </div>
+
                 <v-ons-list >
                     <v-ons-list-item expandable>
                         
-                        <b>{{list.PDC_NM}}</b>
-               
+                        <li class="list-item list-item--tappable">
+                            <div class="list-item__center" style="padding-left:0px;">
+                                <div>주문자</div>
+                                <div>{{list.OM_NM}}</div>
+                            </div>      
+                        </li>
+
                         <div class="expandable-content">
                             <ul class="list">
-                                <li class="list-item list-item--tappable">
-                                    <div class="list-item__center">
-                                        <div>주문자</div>
-                                        <div>{{list.OM_NM}}</div>
-                                    </div>      
-                                </li>
+                                
                                 <li class="list-item list-item--tappable">
                                     <div class="list-item__center">
                                         <div>연락처</div>
@@ -78,7 +84,7 @@
                                 <li class="list-item list-item--tappable">
                                     <div class="list-item__center">
                                         <div>가격</div>
-                                        <div>{{list.PDC_PRICE}}</div>
+                                        <div>{{list.PDC_SALE_PRICE}}</div>
                                     </div>      
                                 </li>
                                 <li class="list-item list-item--tappable">
@@ -90,7 +96,7 @@
                                 <li class="list-item list-item--tappable">
                                     <div class="list-item__center">
                                         <div>합계</div>
-                                        <div>{{list.OM_NUM * list.PDC_PRICE}}</div>
+                                        <div>{{list.TOTAL_PRICE}}</div>
                                     </div>      
                                 </li>
                             </ul>    

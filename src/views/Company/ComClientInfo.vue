@@ -136,22 +136,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 export default {
     components: { 
         
     },
     created(){
-        let data = {
-            nbr : this.nbr
-        }
-        this.$store.dispatch('hospitalStore/hosInfo', data);
+   
     },
     computed:{
-        ...mapState({
-            hospitalInfo: state => state.hospitalStore.hospitalInfo,
-        })
+        
     },
     data(){
         return{

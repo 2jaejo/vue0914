@@ -30,9 +30,10 @@
 
             <v-ons-card v-for="(list,i) in monthList" :key="i+list.HC_OM_ID">  
                 <div class="title">
-                    <div>{{list.OM_ORDER_DT}}</div>
+                    <b>{{list.OM_ORDER_DT.substr(0,4)}}-{{list.OM_ORDER_DT.substr(4,2)}}-{{list.OM_ORDER_DT.substr(6,2)}}</b>
                 </div>
                 <div class="content">
+                    
                     <div class="list-item__center">
                         <div>주문번호</div>
                         <div>{{list.HC_OM_ID}}</div>
@@ -105,7 +106,7 @@
                 </div>
             </v-ons-card>
 
-            <!-- 무한스크롤 로딩바 -->
+<!-- 무한스크롤 로딩바 -->
             <div class="after-list" style="text-align:center; padding:10px;">
                 <div class="true" v-if="show">
                     <v-ons-icon icon="fa-spinner" size="36px" spin></v-ons-icon>
