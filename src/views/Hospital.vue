@@ -10,8 +10,10 @@
                 
                 :index.sync="carouselIndex"
             >
-                <v-ons-carousel-item v-for="(value, index) in items" :key="index" :style="{backgroundColor: value}">
-                    <div style="height:200px; text-align: center; font-size: 50px; padding-top: 20px; color: #fff;">{{index}}</div>
+                <v-ons-carousel-item v-for="(value, index) in items" :key="index">
+                    <div style="height:300px; text-align: center; font-size: 50px; color: #fff;">
+                        <img :src="'http://49.50.160.174/public/_Upload/hos/'+value" onerror="this.src='http://www.mediper.net:8080/images/none_image.png'" style="width:100%;height:100%;"/>
+                    </div>
                 </v-ons-carousel-item>
             </v-ons-carousel>
 
@@ -65,6 +67,11 @@ export default {
     },
     created() {
        this.nbr = this.user.relater_nbr;
+       this.items = {
+            BLUE: this.user.hcrm_id+'/carousel/hos1.jpg',
+            DARK: this.user.hcrm_id+'/carousel/hos2.jpg',
+            ORANGE: this.user.hcrm_id+'/carousel/hos3.jpg'
+       }
     },
     computed:{
         ...mapState({
@@ -82,16 +89,16 @@ export default {
             nbr:'',
             carouselIndex: 0,
             items: {
-                BLUE: '#085078',
-                DARK: '#373B44',
-                ORANGE: '#D38312'
+                BLUE: '',
+                DARK: '',
+                ORANGE: ''
             },
             dots: {
                 textAlign: 'center',
                 fontSize: '20px',
                 color: '#fff',
                 position: 'absolute',
-                bottom: '30px',
+                bottom: '10px',
                 left: 0,
                 right: 0
             }

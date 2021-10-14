@@ -185,6 +185,7 @@
                     <b>{{item.PDC_NM}}</b>
                 </div>
                 <div class="content">
+
                     <v-ons-list>
                         <v-ons-list-item expandable>
                         
@@ -194,6 +195,28 @@
                             </div>
 
                             <div class="expandable-content">
+<!-- 캐러셀 -->
+                                <div style="position:relative;">
+                                    <v-ons-carousel 
+                                        swipeable 
+                                        auto-scroll 
+                                        overscrollable    
+                                        :index.sync="carouselIndex"
+                                    >
+                                        <v-ons-carousel-item v-for="(value, index) in items" :key="index">
+                                            <div style="height:300px; text-align: center; font-size: 50px; color: #fff;">
+                                                <img :src="value" onerror="this.src='http://www.mediper.net:8080/images/none_image.png'" style="width:100%;height:100%;"/>
+                                            </div>
+                                        </v-ons-carousel-item>
+                                    </v-ons-carousel>
+
+                                    <div :style="dots">
+                                        <span :index="dotIndex - 1" v-for="dotIndex in Object.keys(items).length" :key="dotIndex" style="cursor: pointer" @click="carouselIndex = dotIndex - 1">
+                                            {{ carouselIndex === dotIndex - 1 ? '\u25CF' : '\u25CB' }}
+                                        </span>
+                                    </div>
+                                </div>
+
                                 <ul class="list">
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
@@ -237,7 +260,8 @@
                                             <div><v-ons-button class="mod-btn" @click="modModalOpen(item)">수정</v-ons-button></div>
                                         </div>
                                     </li>
-                                </ul>   
+                                </ul> 
+
                             </div>
                         </v-ons-list-item>
                     </v-ons-list>
@@ -265,7 +289,8 @@ import axios from "axios"
 import { mapState } from 'vuex'
 export default {
     created(){  
-        this.$store.commit('companyStore/itemSelectStepOne');  
+        this.$store.commit('companyStore/itemSelectStepOne'); 
+
     },
     mounted(){
         this.getItemList();
@@ -292,6 +317,24 @@ export default {
     },
     data(){
         return{
+            //캐러셀
+            carouselIndex: 0,
+            items: {
+                BLUE: '#085078',
+                DARK: '#373B44',
+                ORANGE: '#D38312'
+            },
+            dots: {
+                textAlign: 'center',
+                fontSize: '20px',
+                color: '#fff',
+                position: 'absolute',
+                bottom: '10px',
+                left: 0,
+                right: 0
+            },
+
+
             addModalVisible:false,
             modModalVisible:false,
 
@@ -337,6 +380,11 @@ export default {
         }
     },
     methods: {
+        upload(e){
+            var file = e.target.files;
+            let url = URL.createObjectURL(file[0]);
+            this.image = url;
+        },
         //대분류 change event
         selectStepOne(){    
             //this.itemClassTwo.splice();

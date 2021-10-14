@@ -8,11 +8,17 @@
     align-items:center;
     justify-content: center;
     font-weight:bold;
-    border: 2px solid white;
+    border: 1px solid white;
     border-radius: 10px;
     height:100px;
     margin:5px;
+    box-shadow: -0.5px -1px 4px 1px rgb(0, 0, 0, 0.2) inset;
+ 
 }
+.bg:active{
+    box-shadow:none;
+}
+
 .mint{
     background-color: #b2dfdb;
 }

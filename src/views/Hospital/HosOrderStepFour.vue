@@ -50,8 +50,10 @@
                 <v-ons-carousel swipeable auto-scroll overscrollable
                     :index.sync="carouselIndex"
                 >
-                    <v-ons-carousel-item v-for="(value, index) in items" :key="index" :style="{backgroundColor: value}">
-                        <div style="height:200px; text-align:center; font-size: 50px; padding-top: 20px; color: #fff;">{{index}}</div>
+                    <v-ons-carousel-item v-for="(value, index) in items" :key="index" >
+                        <div style="height:300px; text-align: center; font-size: 50px; color: #fff;">
+                        <img :src="'http://49.50.160.174/public/_Upload/items/'+value" onerror="this.src='http://www.mediper.net:8080/images/none_image.png'" style="width:100%;height:100%;"/>
+                    </div>
                     </v-ons-carousel-item>
                 </v-ons-carousel>
 
@@ -136,6 +138,12 @@ export default {
         for( let i =1; i <= cnt; i++){
             this.count.push(i);
         }
+
+        this.items = {
+                BLUE: this.item.CUS_ID+'/'+this.item.PDC_ID+'/item1.jpg',
+                DARK: this.item.CUS_ID+'/'+this.item.PDC_ID+'/item2.jpg',
+                ORANGE: this.item.CUS_ID+'/'+this.item.PDC_ID+'/item3.jpg'
+        }
     },
     data(){
         return{
@@ -151,7 +159,7 @@ export default {
                 fontSize: '20px',
                 color: '#fff',
                 position: 'absolute',
-                bottom: '30px',
+                bottom: '10px',
                 left: 0,
                 right: 0
             },

@@ -51,19 +51,14 @@
                    <b>{{order.OM_ORDER_DT.substr(0,4)}}-{{order.OM_ORDER_DT.substr(4,2)}}-{{order.OM_ORDER_DT.substr(6,2)}}</b>
                 </div>
                 <div class="content">
-                              
-                    <div class="list-item__center">
-                        <div>주문번호</div>
-                        <div>{{order.HC_OM_ID}}</div>
-                    </div>
-                   
                     <v-ons-list>
-                        <v-ons-list-item expandable> 
-                            <li class="list-item list-item--tappable">
+                        <v-ons-list-item expandable>
+                             
+                            <li class="list-item list-item--tappable">           
                                 <div class="list-item__center" style="padding-left:0px;">
-                                    <div>주문자</div>
-                                    <div>{{order.OM_NM}}</div>
-                                </div>      
+                                    <div>주문번호</div>
+                                    <div>{{order.HC_OM_ID}}</div>
+                                </div>
                             </li>
 
                             <div class="expandable-content">
@@ -72,6 +67,12 @@
                                         <div class="list-item__center">
                                             <div>상태</div>
                                             <div>{{order.OM_STATE_NM}}</div>
+                                        </div>      
+                                    </li>
+                                    <li class="list-item list-item--tappable">
+                                        <div class="list-item__center">
+                                            <div>주문자</div>
+                                            <div>{{order.OM_NM}}</div>
                                         </div>      
                                     </li>
                                     <li class="list-item list-item--tappable">
