@@ -227,13 +227,13 @@
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
                                             <div>상품금액</div>
-                                            <div>{{item.PDC_UNIT_PRICE}}</div>
+                                            <div>{{item.PDC_UNIT_PRICE | getComma }}</div>
                                         </div>
                                     </li>
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
                                             <div>할인금액</div>
-                                            <div>{{item.PDC_SALE_PRICE}}</div>
+                                            <div>{{item.PDC_SALE_PRICE | getComma }}</div>
                                         </div>
                                     </li>
                                     <li class="list-item list-item--tappable">
@@ -289,6 +289,7 @@ import axios from "axios"
 import { mapState } from 'vuex'
 export default {
     created(){  
+        this.$store.dispatch('chkLoginData');
         this.$store.commit('companyStore/itemSelectStepOne'); 
 
     },
@@ -377,6 +378,11 @@ export default {
 			itemList:[],
             comItemList:[],
 
+        }
+    },
+    filters:{
+        getComma: function (val){
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
     },
     methods: {

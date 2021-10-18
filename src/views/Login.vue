@@ -53,6 +53,7 @@
 import { mapState } from 'vuex'
 import Company from './Company.vue'
 import Hospital from './Hospital.vue'
+import axios from 'axios'
 export default {
     data(){
         return{
@@ -72,16 +73,41 @@ export default {
     watch:{
         user(newVal){
             if(newVal){
-                this.push(newVal.relater_div_cde);
+                if(newVal.is_login){
+                    this.push(newVal.relater_div_cde);
+                }
             }
         }
     },
-    methods:{
+    methods:{   
         login(){
-            let data = {id:this.id, pw:this.pw};
-            this.$store.dispatch('procLoginData', data);
+            let data = {
+                id:this.id, 
+                pw:this.pw
+            };
+
             this.id = '';
             this.pw='';
+   
+            axios.post('http://49.50.160.174/comm/login',{
+                data
+            })
+            .then(res => {
+
+                if(res.data.status == '000'){
+                    //alert('로그인 성공');
+                    this.$store.commit('procLoginData', res.data);
+                }else{
+                    //로그인실패
+                    this.$ons.notification.alert({
+                        title: "로그인",
+                        message: "로그인 실패"
+                    });
+                }     
+            })
+            .catch(err => {
+                console.log('catch : '+err);
+            });
            
         },
         logout(){

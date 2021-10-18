@@ -52,6 +52,7 @@ export default {
         
     },
     created(){
+        this.$store.dispatch('chkLoginData');
         this.getClientList();       
     },
     data(){
@@ -65,6 +66,11 @@ export default {
 			show:false,
 			clientList:[],
             
+        }
+    },
+    filters:{
+        getComma: function (val){
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
     },
     methods: {

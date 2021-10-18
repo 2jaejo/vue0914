@@ -12,7 +12,7 @@
             >
                 <v-ons-carousel-item v-for="(value, index) in items" :key="index">
                     <div style="height:300px; text-align: center; font-size: 50px; color: #fff;">
-                        <img :src="'http://49.50.160.174/public/_Upload/sto/'+value" onerror="this.src='http://49.50.160.174/public/_Upload/imgError.jpg'" style="width:100%;height:100%;"/>
+                        <img :src="'http://www.mediper.net:8080/_Upload/cus/'+value" onerror="this.src='http://www.mediper.net:8080/images/none_image.png'" style="width:100%;height:100%;"/>
                     </div>
                 </v-ons-carousel-item>
             </v-ons-carousel>
@@ -45,6 +45,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import axios from 'axios'
 
 import ComItem from './Company/ComItem.vue'
 import ComOrderList from './Company/ComOrderList.vue'
@@ -58,12 +59,19 @@ export default {
 
     },
     created() {
-       this.nbr = this.user.relater_nbr;
-       this.items = {
-            BLUE: this.user.hcrm_id+'/carousel/sto1.jpg',
-            DARK: this.user.hcrm_id+'/carousel/sto2.jpg',
-            ORANGE: this.user.hcrm_id+'/carousel/sto3.jpg'
-       }
+        axios.get('http://49.50.160.174/comm/getImage',{
+    
+            })
+            .then(res => {
+                this.items = {
+                     BLUE: this.user.hcrm_id+'/view/'+ res.data.list.image1,
+                     DARK: this.user.hcrm_id+'/view/'+ res.data.list.image2,
+                     ORANGE: this.user.hcrm_id+'/view/'+ res.data.list.image3
+                }
+            })
+            .catch(err => {
+                console.log('catch : '+err);
+            });
     },
     computed:{
         ...mapState({
@@ -114,14 +122,14 @@ export default {
                         return Page11;        
                 }
             }
-            let nbr = this.nbr;
+            //let nbr = this.nbr;
             var pageToPush = {
                 extends: getMenu(e),
                 data(){
                     return{
                         title: e,
                         back:'',
-                        nbr : nbr,
+                        //nbr : nbr,
                     }
                 }
             }
@@ -130,10 +138,21 @@ export default {
         },
 
         logout(){
-            let con = confirm("로그아웃 하시겠습니까?");
-            if(con){
-                this.$store.dispatch('procLogoutData');
-            }
+            this.$ons.notification.confirm({
+                title: '로그아웃',
+                message: '로그아웃 하시겠습니까??',
+                buttonLabels: ['취소', '확인'],
+                animation: 'default',
+                primaryButtonIndex: 1,
+                cancelable: true,
+                callback: function (index) {
+                    return index;  
+                }
+            }).then(result =>{
+                if(result == 1){
+                    this.$store.dispatch('procLogoutData');
+                }
+            });
             
         },
     }

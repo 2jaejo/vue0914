@@ -51,6 +51,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import axios from 'axios'
 
 import HosInfo from './Hospital/HosInfo.vue'
 import HosOrder from './Hospital/HosOrder.vue'
@@ -67,11 +68,17 @@ export default {
     },
     created() {
        this.nbr = this.user.relater_nbr;
-       this.items = {
-            BLUE: this.user.hcrm_id+'/carousel/hos1.jpg',
-            DARK: this.user.hcrm_id+'/carousel/hos2.jpg',
-            ORANGE: this.user.hcrm_id+'/carousel/hos3.jpg'
-       }
+       axios.get('http://49.50.160.174/comm/getImage')
+            .then(res => {
+                this.items = {
+                     BLUE: this.user.hcrm_id+'/view/'+ res.data.list.image1,
+                     DARK: this.user.hcrm_id+'/view/'+ res.data.list.image2,
+                     ORANGE: this.user.hcrm_id+'/view/'+ res.data.list.image3
+                }
+            })
+            .catch(err => {
+                console.log('catch : '+err);
+            });
     },
     computed:{
         ...mapState({
@@ -138,10 +145,22 @@ export default {
         },
 
         logout(){
-            let con = confirm("로그아웃 하시겠습니까?");
-            if(con){
-                this.$store.dispatch('procLogoutData');
-            }
+            this.$ons.notification.confirm({
+                title: '로그아웃',
+                message: '로그아웃 하시겠습니까??',
+                buttonLabels: ['취소', '확인'],
+                animation: 'default',
+                primaryButtonIndex: 1,
+                cancelable: true,
+                callback: function (index) {
+                    return index;  
+                }
+            }).then(result =>{
+                if(result == 1){
+                    this.$store.dispatch('procLogoutData');
+                }
+            })
+            
         },
     }
 }

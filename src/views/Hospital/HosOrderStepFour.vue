@@ -52,7 +52,7 @@
                 >
                     <v-ons-carousel-item v-for="(value, index) in items" :key="index" >
                         <div style="height:300px; text-align: center; font-size: 50px; color: #fff;">
-                        <img :src="'http://49.50.160.174/public/_Upload/items/'+value" onerror="this.src='http://www.mediper.net:8080/images/none_image.png'" style="width:100%;height:100%;"/>
+                        <img :src="'http://www.mediper.net:8080/_Upload/cus/'+value" onerror="this.src='http://www.mediper.net:8080/images/none_image.png'" style="width:100%;height:100%;"/>
                     </div>
                     </v-ons-carousel-item>
                 </v-ons-carousel>
@@ -72,18 +72,34 @@
                             <div>{{item.PDC_ID}}</div>
                         </div>      
                     </li>
-                    <li class="list-item">
+                    <li class="list-item" style="margin-top:10px;">
+                        <div class="list-item__center">
+                            <div>제품가격</div>
+                            <div>{{item.PDC_SALE_PRICE | getComma }} 원</div>
+                        </div>      
+                    </li>
+                    <li class="list-item" style="margin-top:10px;">
                         <div class="list-item__center">
                             <div>제품수량</div>
                             <div>
-                                <select class="long-select select-input select-input--underbar"  
+                            
+                                <select class="select-input select-input--underbar"  
                                     v-model="pdc_cnt"
+                                    style="width:20%; vertical-align:middle;"
                                 >
                                     <option v-for="cnt in count" :key="cnt" :value="cnt">
                                         {{cnt}}
                                     </option>
-                                </select>
+                                </select> 
+                              
+                                <span>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;{{item.PDC_UNIT}}</span>
                             </div>
+                        </div>      
+                    </li>
+                    <li class="list-item" style="margin-top:10px;">
+                        <div class="list-item__center">
+                            <div>합계</div>
+                            <div>{{item.PDC_SALE_PRICE * pdc_cnt | getComma }} 원</div>
                         </div>      
                     </li>
                     <li class="list-item">
@@ -140,9 +156,9 @@ export default {
         }
 
         this.items = {
-                BLUE: this.item.CUS_ID+'/'+this.item.PDC_ID+'/item1.jpg',
-                DARK: this.item.CUS_ID+'/'+this.item.PDC_ID+'/item2.jpg',
-                ORANGE: this.item.CUS_ID+'/'+this.item.PDC_ID+'/item3.jpg'
+            BLUE: this.item.CUS_ID+'/'+this.item.PDC_ID+'/'+this.item.SAVE_NM,
+            DARK: this.item.CUS_ID+'/'+this.item.PDC_ID+'/'+this.item.SAVE_NM,
+            ORANGE: this.item.CUS_ID+'/'+this.item.PDC_ID+'/'+this.item.SAVE_NM
         }
     },
     data(){
@@ -150,9 +166,9 @@ export default {
             //캐러셀 변수
             carouselIndex: 0,
             items: {
-                BLUE: '#085078',
-                DARK: '#373B44',
-                ORANGE: '#D38312'
+                BLUE: '',
+                DARK: '',
+                ORANGE: ''
             },
             dots: {
                 textAlign: 'center',
@@ -172,13 +188,17 @@ export default {
 
         }
     },
-    
+    filters:{
+        getComma: function (val){
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    },
     methods: {
         pop() {
             //this.$emit('pop');
             this.$store.dispatch('navigator/popPage');
         },
-
+        
         getComInfo(){
             let data = {
                 cus_id : this.item.CUS_ID
@@ -223,10 +243,15 @@ export default {
             }
             axios.post('http://49.50.160.174/doctor/hosordersend',{
                 data
-            }).then(res =>{            
-                this.$ons.notification.alert(res.data);
-                this.pop();
-            }).catch(err =>{
+            }).then(res =>{
+                if(res.data.status =='000'){
+                    this.$ons.notification.alert("주문 성공!");
+                    this.pop();
+                }else{
+                    this.$ons.notification.alert("주문 실패!");
+                }    
+
+            }).catch(err =>{        
                 console.log('catch : '+err);
             });
         }

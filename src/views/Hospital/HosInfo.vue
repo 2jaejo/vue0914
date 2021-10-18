@@ -147,10 +147,11 @@ export default {
         
     },
     created(){
-        let data = {
-            nbr : this.nbr
-        }
-        this.$store.dispatch('hospitalStore/hosInfo', data);
+        this.$store.dispatch('chkLoginData');      
+        this.$store.dispatch('hospitalStore/hosInfo');        
+    },
+    mounted() {
+
     },
     computed:{
         ...mapState({

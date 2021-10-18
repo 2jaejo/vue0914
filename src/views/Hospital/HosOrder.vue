@@ -32,6 +32,9 @@ export default {
         
     },
     created(){
+        //세션확인
+        this.$store.dispatch('chkLoginData');
+        
         axios.get('http://49.50.160.174/doctor/hositemstepone',{
                 
             }).then(res =>{            
@@ -60,7 +63,7 @@ export default {
                 let leng = res.data.list.length; 
           
                 const getMenu = (leng)=>{
-                    if(leng >0){
+                    if(leng > 0){
                         return HosOrderStepTwo;
                     }else{
                         return HosOrderStepThree;     

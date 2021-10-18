@@ -15,9 +15,9 @@ const hospitalStore = {
     },
 
     actions:{
-        hosInfo:({ commit }, data) => {
+        hosInfo:({ commit }) => {
             axios.post('http://49.50.160.174/doctor/hosinfo',{
-                data
+       
             }).then(res =>{
                 commit('hosInfo',res.data.list[0]);
             }).catch(err =>{

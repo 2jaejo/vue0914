@@ -91,7 +91,7 @@
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
                                             <div>가격</div>
-                                            <div>{{list.PDC_SALE_PRICE}}</div>
+                                            <div>{{list.PDC_SALE_PRICE | getComma }}</div>
                                         </div>      
                                     </li>
                                     <li class="list-item list-item--tappable">
@@ -103,7 +103,7 @@
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
                                             <div>합계</div>
-                                            <div>{{list.TOTAL_PRICE}}</div>
+                                            <div>{{list.TOTAL_PRICE | getComma}}</div>
                                         </div>      
                                     </li>
                                 </ul>    
@@ -136,6 +136,9 @@ export default {
 
     },
     created(){
+        //세션확인
+        this.$store.dispatch('chkLoginData');
+
         this.selectYear = dayjs().format("YYYY");
         let year = this.selectYear;
         //2년전부터 현재년도까지
@@ -174,6 +177,11 @@ export default {
 			count:0,
 			show:false,
 			monthList:[],
+        }
+    },
+    filters:{
+        getComma: function (val){
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
     },
     methods: {

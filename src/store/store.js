@@ -59,13 +59,11 @@ export default new Vuex.Store({
     },
     state:{ //data
         user :{
-            is_login:false, 
+            is_login:'', 
             user_id:'',
             kor_nm:'',
             relater_div_cde:'',
-            relater_nbr:'',
-        },
-        session:'',       
+        },   
     },
     mutations:{
         //로그인 데이터 저장
@@ -78,8 +76,6 @@ export default new Vuex.Store({
             state.user.user_id='';
             state.user.kor_nm='';
             state.user.relater_div_cde='';
-            state.user.relater_nbr='';
-
         },
         //로그인 데이터 확인
         chkLoginData:(state, payload ) => {
@@ -87,26 +83,6 @@ export default new Vuex.Store({
         }
     },
     actions:{
-
-        procLoginData:({ commit },data) => {
-            axios.post('http://49.50.160.174/comm/login',{
-                data
-            })
-            .then(res => {
-
-                if(res.data.status == '000'){
-                    //alert('로그인 성공');
-                    commit('procLoginData', res.data);
-                }else{
-                    alert('로그인 실패');
-                }     
-            })
-            .catch(err => {
-                console.log('catch : '+err);
-            });
-
-        },
-
         procLogoutData:({ commit }) => {
             axios.get('http://49.50.160.174/comm/logout',{
     
@@ -133,14 +109,20 @@ export default new Vuex.Store({
     
             })
             .then(res => {
-                console.log('세션 확인');
-                console.log(res.data);
+                //console.log('세션 확인');
+                //console.log(res.data.user);
 
-                if(res.data.user.is_login) {
-                    commit('chkLoginData',res.data);
+                if(res.data.user.is_login == true) {
+                    commit('chkLoginData',res.data.user.is_login);
                 } else {
-                    //TO-DO 로그아웃 페이지로 이동
-                    commit('navigator/splicePage');
+                    
+                    //state.user 초기화
+                    commit('procLogoutData');
+                    //새로고침
+                    window.location.reload();
+
+                    //첫번째 스택 이동  (로그인화면)
+                    //commit('navigator/splicePage');
                 }
   
             })

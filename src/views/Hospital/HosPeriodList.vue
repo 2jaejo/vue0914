@@ -84,7 +84,7 @@
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
                                             <div>가격</div>
-                                            <div>{{list.PDC_SALE_PRICE}}</div>
+                                            <div>{{list.PDC_SALE_PRICE | getComma }}</div>
                                         </div>      
                                     </li>
                                     <li class="list-item list-item--tappable">
@@ -96,7 +96,7 @@
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
                                             <div>합계</div>
-                                            <div>{{list.TOTAL_PRICE}}</div>
+                                            <div>{{list.TOTAL_PRICE | getComma }}</div>
                                         </div>      
                                     </li>
                                 </ul>    
@@ -129,6 +129,9 @@ export default {
 
     },
     created(){
+        //세션확인
+        this.$store.dispatch('chkLoginData');
+        
         this.sdate = dayjs().format("YYYY-MM-DD");
         this.edate = dayjs().format("YYYY-MM-DD");
     },
@@ -155,6 +158,11 @@ export default {
 			monthList:[],
         }
     },
+    filters:{
+        getComma: function (val){
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    },
     methods: {
         pop() {
             this.$store.dispatch('navigator/popPage');
@@ -167,7 +175,6 @@ export default {
 
         getMonthList(){
             let data ={
-                nbr:this.nbr,
                 sdate:this.sdate,
                 edate:this.edate,
             }

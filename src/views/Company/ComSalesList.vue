@@ -98,7 +98,7 @@
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
                                             <div>가격</div>
-                                            <div>{{sales.PDC_SALE_PRICE}}</div>
+                                            <div>{{sales.PDC_SALE_PRICE | getComma }}</div>
                                         </div>      
                                     </li>
                                     <li class="list-item list-item--tappable">
@@ -110,7 +110,7 @@
                                     <li class="list-item list-item--tappable">
                                         <div class="list-item__center">
                                             <div>합계</div>
-                                            <div>{{sales.TOTAL_PRICE}}</div>
+                                            <div>{{sales.TOTAL_PRICE | getComma }}</div>
                                         </div>      
                                     </li>
                                 </ul>    
@@ -146,6 +146,7 @@ export default {
     },
 
     created(){
+        this.$store.dispatch('chkLoginData');
         //dayjs 플러그인사용
         this.sdate = dayjs().format("YYYY-MM-DD");
         this.edate = dayjs().format("YYYY-MM-DD");
@@ -171,6 +172,11 @@ export default {
 			show:false,
 			salesList:[],
 
+        }
+    },
+    filters:{
+        getComma: function (val){
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
     },
     methods: {
