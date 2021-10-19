@@ -1,12 +1,12 @@
 <template>
     <v-ons-page>      
         <v-ons-toolbar>
-            <div class="left">
-                
-            </div>
             <div class="center"><b>메디퍼</b></div>
         </v-ons-toolbar>
-        
+         <div class="background">
+             <img src="http://49.50.160.174/public/_Upload/bg_login.png" width="100%" height="100%">
+             <!-- <img :src="require('@/assets/images/bg_login.png')" width="100%" height="100%"> -->
+        </div>
         <div class="fixed" style="margin-top:50%;">
             <v-ons-list>
                 <v-ons-list-item>
