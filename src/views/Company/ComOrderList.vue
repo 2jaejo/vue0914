@@ -48,7 +48,7 @@
 <!-- 목록 -->
             <v-ons-card v-for="order in orderList" :key="order.HC_OM_ID">  
                 <div class="title">
-                   <b>{{order.OM_ORDER_DT.substr(0,4)}}-{{order.OM_ORDER_DT.substr(4,2)}}-{{order.OM_ORDER_DT.substr(6,2)}}</b>
+                   <b>{{order.OM_ORDER_DT | dateFormat }}</b>
                 </div>
                 <div class="content">
                     <v-ons-list>
@@ -206,6 +206,9 @@ export default {
     filters:{
         getComma: function (val){
             return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
+        dateFormat: function (val){
+            return dayjs(val).format("YYYY-MM-DD");
         }
     },
     methods: {

@@ -1,59 +1,69 @@
 <template>
     <v-ons-page>
         <!-- 툴바 -->
-        <custom-toolbar></custom-toolbar>
+        <v-ons-toolbar>
+            <div class="center"><b>User</b></div>
+        </v-ons-toolbar>
  
-        <!-- 캐러셀 -->
-        <div style="position:relative;">
-            <v-ons-carousel swipeable auto-scroll overscrollable
-                
-                :index.sync="carouselIndex"
-            >
-                <v-ons-carousel-item v-for="(value, index) in items" :key="index" :style="{backgroundColor: value}">
-                    <div style="height:200px; text-align: center; font-size: 50px; padding-top: 20px; color: #fff;">{{index}}</div>
-                </v-ons-carousel-item>
-            </v-ons-carousel>
-
-            <div :style="dots">
-                <span :index="dotIndex - 1" v-for="dotIndex in Object.keys(items).length" :key="dotIndex" style="cursor: pointer" @click="carouselIndex = dotIndex - 1">
-                    {{ carouselIndex === dotIndex - 1 ? '\u25CF' : '\u25CB' }}
-                </span>
-            </div>
+        <div class="background">
+            
         </div>
 
-        <!-- 그리드 -->
-        <v-ons-row>
-            <v-ons-col width="66.6%"><div class="bg mint" @click="push('UserReserve','진료예약')">진료예약</div></v-ons-col>
-            <v-ons-col><div class="bg puple" @click="push('UserFormula')">서식신청</div></v-ons-col>
-        </v-ons-row>
-        <v-ons-row>
-            <v-ons-col><div class="bg orange" @click="push('UserSearchReserve','예약조회')">예약조회</div></v-ons-col>
-            <v-ons-col><div class="bg green" @click="push('UserSearchHospital','병원찾기')">병원찾기</div></v-ons-col>
-            <v-ons-col><div class="bg blue" @click="push('UserOrder','상품주문')">상품주문</div></v-ons-col>
-        </v-ons-row>
+        <div class="content">
+    <!-- 캐러셀 -->
+            <div style="position:relative;">
+                <v-ons-carousel swipeable auto-scroll overscrollable
+                    
+                    :index.sync="carouselIndex"
+                >
+                    <v-ons-carousel-item v-for="(value, index) in items" :key="index">
+                        <div style="height:300px; text-align: center; font-size: 50px; color: #fff;">
+                            <img :src="'http://www.mediper.net:8080/_Upload/cus/'+value" onerror="this.src='http://www.mediper.net:8080/images/none_image.png'" style="width:100%;height:100%;"/>
+                        </div>
+                    </v-ons-carousel-item>
+                </v-ons-carousel>
 
-        <!-- 리스트 -->
-        <v-ons-list>
-            <v-ons-list-item modifier="longdivider">
-                <div class="center">예약된 병원이 없습니다.</div>
-            </v-ons-list-item>
-            <v-ons-list-item modifier="longdivider">
-                <div class="center">테스트여부</div>
-            </v-ons-list-item>
-        </v-ons-list>
+                <div :style="dots">
+                    <span :index="dotIndex - 1" v-for="dotIndex in Object.keys(items).length" :key="dotIndex" style="cursor: pointer" @click="carouselIndex = dotIndex - 1">
+                        {{ carouselIndex === dotIndex - 1 ? '\u25CF' : '\u25CB' }}
+                    </span>
+                </div>
+            </div>
 
-        <!-- 버튼 -->
-        <v-ons-row>
-            <v-ons-col><div class="bg skyblue" @click="push('Page11','로그아웃')">로그아웃</div></v-ons-col>
-            <v-ons-col><div class="bg skyblue" @click="push('Page11','나의정보')">나의정보</div></v-ons-col>
-            <v-ons-col><div class="bg skyblue" @click="push('Page11','환경설정')">환경설정</div></v-ons-col>
-        </v-ons-row>
+            <!-- 그리드 -->
+            <v-ons-row>
+                <v-ons-col width="66.6%"><div class="bg mint" @click="push('UserReserve','진료예약')">진료예약</div></v-ons-col>
+                <v-ons-col><div class="bg puple" @click="push('UserFormula','서식신청')">서식신청</div></v-ons-col>
+            </v-ons-row>
+            <v-ons-row>
+                <v-ons-col><div class="bg orange" @click="push('UserSearchReserve','예약조회')">예약조회</div></v-ons-col>
+                <v-ons-col><div class="bg green" @click="push('UserSearchHospital','병원찾기')">병원찾기</div></v-ons-col>
+                <v-ons-col><div class="bg blue" @click="push('UserOrder','상품주문')">상품주문</div></v-ons-col>
+            </v-ons-row>
+
+            <!-- 리스트 -->
+            <v-ons-list>
+                <v-ons-list-item modifier="longdivider">
+                    <div class="center">예약된 병원이 없습니다.</div>
+                </v-ons-list-item>
+                <v-ons-list-item modifier="longdivider">
+                    <div class="center">테스트여부</div>
+                </v-ons-list-item>
+            </v-ons-list>
+
+            <!-- 버튼 -->
+            <v-ons-row>
+                <v-ons-col><div class="bg skyblue" @click="logout">로그아웃</div></v-ons-col>
+                <v-ons-col><div class="bg skyblue" @click="push('Page11','나의정보')">나의정보</div></v-ons-col>
+                <v-ons-col><div class="bg skyblue" @click="push('Page11','환경설정')">환경설정</div></v-ons-col>
+            </v-ons-row>
+        </div>
         
     </v-ons-page>
 </template>
 
 <script>
-import customToolbar from '../components/Toolbar.vue'
+import axios from 'axios'
 
 import UserReserve from './User/UserReserve.vue'
 import UserFormula from './User/UserFormula.vue'
@@ -65,25 +75,42 @@ import Page11 from './Page11.vue'
 
 export default {
     components: { 
-        customToolbar,
+
+    },
+    created() {
+        axios.get('http://49.50.160.174/comm/getImage',{
+    
+        })
+        .then(res => {
+            this.items = {
+                    BLUE: this.user.hcrm_id+'/view/'+ res.data.list.image1,
+                    DARK: this.user.hcrm_id+'/view/'+ res.data.list.image2,
+                    ORANGE: this.user.hcrm_id+'/view/'+ res.data.list.image3
+            }
+        })
+        .catch(err => {
+            console.log('catch : '+err);
+        });
     },
     data(){
         return{
+            title:'Store',
+            nbr:'',
             carouselIndex: 0,
             items: {
-                BLUE: '#085078',
-                DARK: '#373B44',
-                ORANGE: '#D38312'
+                BLUE: '',
+                DARK: '',
+                ORANGE: ''
             },
             dots: {
                 textAlign: 'center',
-                fontSize: '30px',
+                fontSize: '20px',
                 color: '#fff',
                 position: 'absolute',
-                bottom: '30px',
+                bottom: '10px',
                 left: 0,
                 right: 0
-            }
+            },
         }
     },
     methods: {
@@ -116,39 +143,36 @@ export default {
             }
             //this.$emit('push',pageToPush);
             this.$store.dispatch('navigator/pushPage',pageToPush);
-        }
+        },
+        logout(){
+            this.$ons.notification.confirm({
+                title: '로그아웃',
+                message: '로그아웃 하시겠습니까??',
+                buttonLabels: ['취소', '확인'],
+                animation: 'default',
+                primaryButtonIndex: 1,
+                cancelable: true,
+                callback: function (index) {
+                    return index;  
+                }
+            }).then(result =>{
+                if(result == 1){
+                    this.$store.dispatch('procLogoutData');
+                }
+            })
+            
+        },
     }
 }
 </script>
 
 <style scoped>
-
-.bg{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight:bold;
-    border: 1px solid white;
-    border-radius: 10px;
-    height:100px;
-    margin:5px;
-}
-.mint{
-    background-color: #b2dfdb;
-}
-.puple{
-    background-color: #e1bee7;
-}
-.orange{
-    background-color: #ffe0b2;
-}
-.green{
-    background-color: #dcedc8;
-}
-.blue{
-    background-color: #bbdefb;
-}
-.skyblue{
-    background-color: #e1f5fe;
-}
+    ons-row{
+        margin-top:00px;
+        margin-bottom:0px;
+    }
+    ons-list{
+        margin-top:4px;
+        margin-bottom:4px;
+    }
 </style>

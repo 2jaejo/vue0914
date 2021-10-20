@@ -1,15 +1,13 @@
 <template>
-    <v-ons-page>      
-        <v-ons-toolbar>
-            <div class="left">
-                
-            </div>
-            <div class="center"><b>메디퍼</b></div>
-        </v-ons-toolbar>
-        
-        <div class="fixed" style="margin-top:50%;">
+    <v-ons-page>
+              
+        <div class="background">
+            <img :src="require('@/assets/images/bg_user_login.png')" width="100%" height="100%">
+        </div>
+
+        <div class="content" style="margin-top:70%;">
             <v-ons-list>
-                <v-ons-list-item>
+                <v-ons-list-item style="margin-top:20px;">
                     <div class="center">
                         <v-ons-input placeholder="Username" 
                             float 
@@ -37,22 +35,31 @@
                 </v-ons-list-item>
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-button modifier="large--cta" @click="login">로그인</v-ons-button>
+                        <v-ons-button modifier="large" @click="login">로그인</v-ons-button>
                     </div>
-                </v-ons-list-item>
-            </v-ons-list>                   
-        </div>
+                </v-ons-list-item>        
+            </v-ons-list>  
 
-        <div class="content">
-
+            <v-ons-row style="width:90%; margin:20px auto;">
+                <v-ons-col width="70%">
+                    <a href="javascript:void(0);" style="color:#eee;">아이디</a> 
+                    <span style="color:#eee;"> &#47; </span> 
+                    <a href="javascript:void(0);" style="color:#eee;">비밀번호 찾기</a>
+                </v-ons-col>
+                <v-ons-col>
+                    <a href="javascript:void(0);" style="color:#eee;" @click="push('회원가입')">회원가입</a>
+                </v-ons-col>
+            </v-ons-row>                 
         </div>
 
     </v-ons-page>
 </template>
 <script>
 import { mapState } from 'vuex'
-import Company from './Company.vue'
-import Hospital from './Hospital.vue'
+
+import User from './User.vue'
+import Join from './Join/RegisterAgree.vue'
+
 import axios from 'axios'
 export default {
     data(){
@@ -117,13 +124,12 @@ export default {
         push(e){         
             const getMenu = (type)=>{
                  switch(type){
-                    case '3002':
-                        return Company;
-                    case '3001':
-                        return Hospital;     
+                    case '3003':
+                        return User; 
+                    case '회원가입':
+                        return Join;        
                 }
             }
-
             var pageToPush = {
                 extends: getMenu(e),
                 data(){
@@ -132,8 +138,7 @@ export default {
                         back:'',
                     }
                 }
-            }
-          
+            }        
             this.$store.dispatch('navigator/pushPage',pageToPush);
         }
     }

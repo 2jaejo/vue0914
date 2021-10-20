@@ -20,6 +20,5 @@ new Vue({
   router,
   store,
   VueOnsen,
-
   render: h => h(App),
 }).$mount('#app')

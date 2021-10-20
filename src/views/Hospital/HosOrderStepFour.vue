@@ -132,7 +132,7 @@
 
 <script>
 import axios from 'axios'
-import {mapState} from 'vuex'
+
 
 export default {
     components: { 
@@ -140,9 +140,7 @@ export default {
     },
 
     computed:{
-        ...mapState({
-            user: state => state.user
-        })
+
     },
 
     created(){
@@ -239,7 +237,6 @@ export default {
                 pdc_cnt : this.pdc_cnt,
                 remark : this.remark,
                 item : this.item,
-                user : this.user,
             }
             axios.post('http://49.50.160.174/doctor/hosordersend',{
                 data

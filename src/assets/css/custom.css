@@ -50,6 +50,9 @@
     background-color: var(--black);
     text-align: center;
 }
+.outline-btn{
+    border:1px solid var(--blue);
+}
 
 .showModal{
     padding:10px;
@@ -81,12 +84,12 @@
     font-size:18px;
 }
 .list-item__center > div:nth-child(1){
-    width:30%;
+    width:40%;
     text-align: left;
     font-weight: bold;
 }
 .list-item__center > div:nth-child(2){
-    width:70%;
+    width:60%;
     text-align: right;
     font-weight: 300;
 }
@@ -123,6 +126,6 @@ ons-card{
 }
 input[type='date']{
     height:50px;
-    font-size:22px;
+    font-size:18px;
     
 }

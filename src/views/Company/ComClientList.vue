@@ -68,11 +68,6 @@ export default {
             
         }
     },
-    filters:{
-        getComma: function (val){
-            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-    },
     methods: {
         getClientInfo(cli){
             var pageToPush = {
