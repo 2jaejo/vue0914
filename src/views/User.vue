@@ -42,20 +42,32 @@
             </v-ons-row>
 
             <!-- 리스트 -->
-            <v-ons-list>
-                <v-ons-list-item modifier="longdivider">
-                    <div class="center">예약된 병원이 없습니다.</div>
-                </v-ons-list-item>
-                <v-ons-list-item modifier="longdivider">
-                    <div class="center">테스트여부</div>
-                </v-ons-list-item>
-            </v-ons-list>
+            <ul class="list list--inset">
+                <li class="list-header">
+                    알림
+                </li>
+                <li class="list-item list-item--longdivider">
+                    <div class="list-item__center list-item--longdivider__center">
+                        예약된 병원이 없습니다.              
+                    </div>
+                </li>
+                <li class="list-item list-item--longdivider">
+                    <div class="list-item__center list-item--longdivider__center">
+                        테스트
+                    </div>      
+                </li>
+                <li class="list-item list-item--longdivider">
+                    <div class="list-item__center list-item--longdivider__center">
+                        테스트
+                    </div>      
+                </li>
+            </ul>        
 
             <!-- 버튼 -->
             <v-ons-row>
                 <v-ons-col><div class="bg skyblue" @click="logout">로그아웃</div></v-ons-col>
-                <v-ons-col><div class="bg skyblue" @click="push('Page11','나의정보')">나의정보</div></v-ons-col>
-                <v-ons-col><div class="bg skyblue" @click="push('Page11','환경설정')">환경설정</div></v-ons-col>
+                <v-ons-col><div class="bg skyblue" @click="$ons.notification.alert('준비중입니다.',{title:'나의정보'})">나의정보</div></v-ons-col>
+                <v-ons-col><div class="bg skyblue" @click="$ons.notification.alert('준비중입니다.',{title:'환경설정'})">환경설정</div></v-ons-col>
             </v-ons-row>
         </div>
         
@@ -83,9 +95,9 @@ export default {
         })
         .then(res => {
             this.items = {
-                    BLUE: this.user.hcrm_id+'/view/'+ res.data.list.image1,
-                    DARK: this.user.hcrm_id+'/view/'+ res.data.list.image2,
-                    ORANGE: this.user.hcrm_id+'/view/'+ res.data.list.image3
+                    BLUE: res.data.list.hcrm_id+'/view/'+ res.data.list.image1,
+                    DARK: res.data.list.hcrm_id+'/view/'+ res.data.list.image2,
+                    ORANGE: res.data.list.hcrm_id+'/view/'+ res.data.list.image3
             }
         })
         .catch(err => {

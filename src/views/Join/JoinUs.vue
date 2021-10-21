@@ -60,14 +60,7 @@
                             <div>혈액형</div>
                             <div>
                                 <select class="select-input select-input--underbar" v-model="bloodtype" style="width: 96%;padding-left:2px; vertical-align: bottom;">
-                                    <option value="1"> Rh+ A 형</option>
-                                    <option value="2"> Rh- A 형</option>
-                                    <option value="3"> Rh+ B 형</option>
-                                    <option value="4"> Rh- B 형</option>
-                                    <option value="5"> Rh+ AB 형</option>
-                                    <option value="6"> Rh- AB 형</option>
-                                    <option value="7"> Rh+ O 형</option>
-                                    <option value="8"> Rh- O 형</option>
+                                    <option v-for="blood in bloodlist" :key="blood.CDE" :value="blood.CDE"> {{blood.KOR_NM}} 형</option>
                                 </select>
                             </div>
                         </div>      
@@ -100,7 +93,16 @@ import axios from 'axios'
 export default {
     components: { 
         
-        },
+    },
+    created(){
+        axios.get('http://49.50.160.174/user/bloodlist',{
+            
+            }).then(res =>{
+                this.bloodlist = res.data.list;
+            }).catch(err =>{
+                console.log('catch : '+err);
+            });
+    },
     data(){
         return{
             kor_nm:'',
@@ -108,6 +110,7 @@ export default {
             passwd:'',
             pw_chk:'',
             gender:'M',
+            bloodlist:{},
             bloodtype:'1',
             bthdy:''
         
@@ -150,7 +153,7 @@ export default {
             }
             
 
-            axios.post('http://49.50.160.174/comm/joinus',{
+            axios.post('http://49.50.160.174/user/joinus',{
                 data
             }).then(res =>{
 
