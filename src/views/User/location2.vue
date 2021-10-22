@@ -7,23 +7,25 @@
         <div class="center">{{ title }}</div>
         </v-ons-toolbar>
 
-        <ul class="list">
-            <li class="list-item list-item--chevron"
-                v-for="loc in locationlist" :key="loc.LOC_CDE"
-                @click="push(loc)"
-            >   
-                <div class="list-item__center list-item--chevron__center">
-                    {{loc.LOC_NM}}
-                </div>
-            </li>
-            
-        </ul>
+        <div class="content">
+            <ul class="list">
+                <li class="list-item list-item--chevron"
+                    v-for="loc in locationlist" :key="loc.LOC_CDE"
+                    @click="push(loc)"
+                >   
+                    <div class="list-item__center list-item--chevron__center">
+                        {{loc.LOC_NM}}
+                    </div>
+                </li>    
+            </ul>
+        </div>
     
     </v-ons-page>
 </template>
 
 <script>
 import axios from 'axios'
+import location3 from './location3.vue'
 
 export default {
     components: { 
@@ -33,7 +35,7 @@ export default {
         let data ={
             loc_cde: this.loc.LOC_CDE
         }
-        axios.post('http://49.50.160.174/user/hoslist',{
+        axios.post('http://49.50.160.174/user/guloclist',{
             data
         })
         .then(res => {
@@ -55,7 +57,7 @@ export default {
         push(loc) {
 
             var pageToPush = {
-                extends: loc,
+                extends: location3,
                 data(){
                     return{
                         title: loc.LOC_NM,

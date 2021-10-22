@@ -33,6 +33,10 @@ const navigator = {
         splicePage:(state) =>{
             state.pageStack.splice(1);
         },
+        //메인화면
+        splicePage2:(state) =>{
+            state.pageStack.splice(2);
+        }, 
     },
     actions:{
         pushPage:({ commit }, page) => {
@@ -43,6 +47,9 @@ const navigator = {
         },
         splicePage:({ commit }) => {
             commit('splicePage');
+        },
+        splicePage2:({ commit }) => {
+            commit('splicePage2');
         },
     },
 }

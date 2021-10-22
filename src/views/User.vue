@@ -81,7 +81,8 @@ import UserReserve from './User/UserReserve.vue'
 import UserFormula from './User/UserFormula.vue'
 import UserSearchReserve from './User/UserSearchReserve.vue'
 import UserSearchHospital from './User/UserSearchHospital.vue'
-import UserOrder from './User/UserOrder.vue'
+//import UserOrder from './User/UserOrder.vue'
+import location from './User/location.vue'
 
 import Page11 from './Page11.vue'
 
@@ -138,7 +139,7 @@ export default {
                     case 'UserSearchHospital':
                         return UserSearchHospital;
                     case 'UserOrder':
-                        return UserOrder;        
+                        return location;        
                     case 'Page11':
                         return Page11;
                 }

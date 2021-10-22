@@ -28,6 +28,7 @@
                     <div class="center">
                         <select class="long-select select-input select-input--underbar"     
                             v-model="sel_step2"
+                            @change="getItemList()" 
                         >
                             <option v-for="Step2 in itemClassTwo" :value="Step2.CLS_ID" :key="Step2.CLS_ID">
                                 {{Step2.CLS_NM}}
@@ -35,13 +36,40 @@
                         </select>
                     </div>
                 </v-ons-list-item>
-          
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-button class="search-btn-large" modifier="large">검색</v-ons-button>
+                        <v-ons-input placeholder="제품명" 
+                            float 
+                            type="text" 
+                            style="width:96%; margin:10px auto;"
+                            modifier="underbar"
+                            v-model="keyword"
+                            @keyup.enter="search()"
+                            maxlength="50"
+                        >
+                        </v-ons-input>
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-button class="search-btn-large" modifier="large" @click="pop()">취소</v-ons-button>
+                    </div>
+                </v-ons-list-item>
+
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-button class="search-btn-large" modifier="large" @click="search()">검색</v-ons-button>
                     </div>
                 </v-ons-list-item>
             </v-ons-list>
+            <v-ons-card v-for="item in itemList" :key="item.PDC_ID">  
+                <div class="title">
+                    <b>{{item.PDC_NM}}</b>
+                </div>
+                <div class="content">
+                    <v-ons-button modifier="large-cta" @click="push(item)">구매</v-ons-button>
+                </div>
+            </v-ons-card>       
         </div>
 
     </v-ons-page>
@@ -68,7 +96,11 @@ export default {
         .catch(err => {
             console.log('catch : '+err);
         });
-
+   
+        
+    },
+    mounted(){
+    
     },
     data(){
         return{
@@ -78,26 +110,29 @@ export default {
             itemClassTwo:[],
             sel_step2:'',
 
+            itemList:[],
+            keyword:'',
+
         }
     },
     methods: {
         pop() {
-            this.$store.dispatch('navigator/popPage');
+            this.$store.dispatch('navigator/splicePage2');
         },
-        push(list) {
-            this.itemClassTwo = [];
+        push(item) {
             var pageToPush = {
                 extends: UserOrder2,
                 data(){
                     return{
-                        title: list.CLS_NM,  
-                        list:list            
+                        title: item.PDC_NM,  
+                        item:item,            
                     }
                 }
             }
             //this.$emit('push',pageToPush);
             this.$store.dispatch('navigator/pushPage',pageToPush);
         },
+
         orderSubList(){
 
             let data = {
@@ -119,19 +154,42 @@ export default {
                     //배열 맨앞에 '전체' 추가
                     this.itemClassTwo.unshift(base);
                     this.sel_step2 = base.CLS_ID;
-
                 }else{
                     for(let i = 0; i < res.data.length; i++){
                         this.itemClassTwo.push(res.data[i]);
                     }
                     this.sel_step2 = res.data[0].CLS_ID;
                 }
+
+                this.getItemList();
  
             })
             .catch(err => {
                 console.log('catch : '+err);
             });
 
+        },
+
+        search(){
+            this.getItemList();
+        },
+
+        getItemList(){
+            let data = {
+                step1:this.sel_step1,
+                step2:this.sel_step2,
+                keyword:this.keyword,
+                hos_id:this.hos.HOS_ID
+            }
+
+            axios.post('http://49.50.160.174/user/orderitemlist',{
+                data
+            }).then(res =>{           
+                this.itemList = res.data;
+
+            }).catch(err =>{
+                console.log('catch : '+err);
+            });
         },
         
     }

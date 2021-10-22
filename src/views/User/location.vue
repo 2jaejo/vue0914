@@ -8,8 +8,10 @@
         </v-ons-toolbar>
 
         <div class="content">
-
             <ul class="list">
+                <li class="list-header">
+                    지역
+                </li>    
                 <li class="list-item list-item--chevron"
                     v-for="loc in locationlist" :key="loc.LOC_CDE"
                     @click="push(loc)"
@@ -26,7 +28,7 @@
 
 <script>
 import axios from 'axios'
-import UserSearchHospitalTwo from './UserSearchHospitalTwo.vue'
+import location2 from './location2.vue'
 
 export default {
     components: { 
@@ -46,7 +48,7 @@ export default {
     },
     data(){
         return{
-            locationlist:{},
+            locationlist:[],
         }
     },
     methods: {
@@ -56,7 +58,7 @@ export default {
         push(loc) {
 
             var pageToPush = {
-                extends: UserSearchHospitalTwo,
+                extends: location2,
                 data(){
                     return{
                         title: loc.LOC_NM,  

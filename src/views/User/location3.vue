@@ -7,24 +7,25 @@
         <div class="center">{{ title }}</div>
         </v-ons-toolbar>
 
-        <ul class="list">
-            <li class="list-item list-item--chevron"
-                v-for="loc in locationlist" :key="loc.LOC_CDE"
-                @click="push(loc)"
-            >   
-                <div class="list-item__center list-item--chevron__center">
-                    {{loc.LOC_NM}}
-                </div>
-            </li>
-            
-        </ul>
+        <div class="content">
+            <ul class="list">
+                <li class="list-item list-item--chevron"
+                    v-for="hos in hospitallist" :key="hos.HOS_ID"
+                    @click="push(hos)"
+                >   
+                    <div class="list-item__center list-item--chevron__center">
+                        {{hos.HOS_NM}}
+                    </div>
+                </li>   
+            </ul>
+        </div>
     
     </v-ons-page>
 </template>
 
 <script>
 import axios from 'axios'
-
+import UserOrder from './UserOrder.vue'
 
 export default {
     components: { 
@@ -34,11 +35,11 @@ export default {
         let data ={
             loc_cde: this.loc.LOC_CDE
         }
-        axios.post('http://49.50.160.174/user/guloclist',{
+        axios.post('http://49.50.160.174/user/hoslist',{
             data
         })
         .then(res => {
-            this.locationlist = res.data.list;
+            this.hospitallist = res.data.list;
         })
         .catch(err => {
             console.log('catch : '+err);
@@ -46,25 +47,23 @@ export default {
     },
     data(){
         return{
-            locationlist:{},
+            hospitallist:{},
         }
     },
     methods: {
         pop() {
             this.$store.dispatch('navigator/popPage');
         },
-        push(loc) {
-
+        push(hos) {
             var pageToPush = {
-                extends: loc,
+                extends: UserOrder,
                 data(){
                     return{
-                        title: loc.LOC_NM,
-                        loc:loc
+                        title: hos.HOS_NM,
+                        hos:hos
                     }
                 }
             }
-            //this.$emit('push',pageToPush);
             this.$store.dispatch('navigator/pushPage',pageToPush);
         },
     }
