@@ -69,7 +69,26 @@
                                  
                 </ul>
                 <br>
-                <v-ons-button modifier="large" style="width:100%;" @click="pop()">닫기</v-ons-button>
+                <div v-if="menu=='병원찾기'">
+                    <v-ons-button  class="order-btn" modifier="large" style="width:100%; margin:5px 0px;" @click="push('진료예약')">진료예약</v-ons-button>
+                    <v-ons-button class="order-btn" modifier="large" style="width:100%; margin:5px 0px;" @click="push('서식신청')">서식신청</v-ons-button>
+                    <v-ons-button class="order-btn" modifier="large" style="width:100%; margin:5px 0px;" @click="push('상품주문')">상품주문</v-ons-button>
+                </div>
+
+                <div v-else-if="menu =='진료예약'">
+                    <v-ons-button  class="order-btn" modifier="large" style="width:100%; margin:5px 0px;" @click="push('진료예약')">진료예약</v-ons-button>
+                </div>
+
+                <div v-else-if="menu =='서식신청'">
+                    <v-ons-button class="order-btn" modifier="large" style="width:100%; margin:5px 0px;" @click="push('서식신청')">서식신청</v-ons-button>
+                </div>
+                <div v-else>
+                    <v-ons-button class="order-btn" modifier="large" style="width:100%; margin:5px 0px;" @click="push('상품주문')">상품주문</v-ons-button>
+                </div>
+
+                <div>
+                    <v-ons-button modifier="large" style="width:100%; margin:5px 0px;" @click="pop()">닫기</v-ons-button>
+                </div>
             </v-ons-card>
         
         </div>
@@ -79,6 +98,9 @@
 
 <script>
 import axios from 'axios'
+import UserReserve from './UserReserve.vue'
+import UserFormula from './UserFormula.vue'
+import UserOrder from './UserOrder.vue'
 
 export default {
     components: { 
@@ -107,14 +129,24 @@ export default {
         pop() {
             this.$store.dispatch('navigator/popPage');
         },
-        push(loc) {
+        push(e) {
+            const getMenu = (type)=>{
+                switch(type){
+                    case '진료예약':
+                        return UserReserve;
+                    case '서식신청':
+                        return UserFormula;
+                    case '상품주문':
+                        return UserOrder;
+                }
+            }
 
             var pageToPush = {
-                extends: loc,
+                extends: getMenu(e),
                 data(){
                     return{
-                        title: loc.LOC_NM,
-                        loc:loc
+                        title: e,
+                        menu: this.menu
                     }
                 }
             }

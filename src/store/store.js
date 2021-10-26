@@ -34,7 +34,7 @@ const navigator = {
             state.pageStack.splice(1);
         },
         //메인화면
-        splicePage2:(state) =>{
+        mainPage:(state) =>{
             state.pageStack.splice(2);
         }, 
     },
@@ -48,8 +48,8 @@ const navigator = {
         splicePage:({ commit }) => {
             commit('splicePage');
         },
-        splicePage2:({ commit }) => {
-            commit('splicePage2');
+        mainPage:({ commit }) => {
+            commit('mainPage');
         },
     },
 }

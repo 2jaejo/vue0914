@@ -59,8 +59,6 @@ import HosOrderList from './Hospital/HosOrderList.vue'
 import HosMonthList from './Hospital/HosMonthList.vue'
 import HosPeriodList from './Hospital/HosPeriodList.vue'
 
-import Page11 from './Page11.vue'
-
 export default {
 
     components: { 
@@ -125,8 +123,6 @@ export default {
                         return HosMonthList;
                     case '기간내역':
                         return HosPeriodList;        
-                    case 'Page11':
-                        return Page11;
                 }
             }
             let nbr = this.nbr; 

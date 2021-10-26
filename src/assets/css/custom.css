@@ -21,21 +21,27 @@
 
 .mint{
     background-color: #b2dfdb;
+    color: black;
 }
 .puple{
     background-color: #e1bee7;
+    color: black;
 }
 .orange{
     background-color: #ffe0b2;
+    color: black;
 }
 .green{
     background-color: #dcedc8;
+    color: black;
 }
 .blue{
     background-color: #bbdefb;
+    color: black;
 }
 .skyblue{
     background-color: #e1f5fe;
+    color: black;
 }
 
 .search-btn-large, .cancel-btn{

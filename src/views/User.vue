@@ -77,14 +77,12 @@
 <script>
 import axios from 'axios'
 
-import UserReserve from './User/UserReserve.vue'
-import UserFormula from './User/UserFormula.vue'
+//import UserReserve from './User/UserReserve.vue'
+//import UserFormula from './User/UserFormula.vue'
 import UserSearchReserve from './User/UserSearchReserve.vue'
-import UserSearchHospital from './User/UserSearchHospital.vue'
+//import UserSearchHospital from './User/UserSearchHospital.vue'
 //import UserOrder from './User/UserOrder.vue'
-import location from './User/location.vue'
-
-import Page11 from './Page11.vue'
+import Location from './User/Location.vue'
 
 export default {
     components: { 
@@ -131,17 +129,15 @@ export default {
             const getMenu = (type)=>{
                 switch(type){
                     case 'UserReserve':
-                        return UserReserve;
+                        return Location;
                     case 'UserFormula':
-                        return UserFormula;
+                        return Location;
                     case 'UserSearchReserve':
                         return UserSearchReserve;
                     case 'UserSearchHospital':
-                        return UserSearchHospital;
+                        return Location;
                     case 'UserOrder':
-                        return location;        
-                    case 'Page11':
-                        return Page11;
+                        return Location;
                 }
             }
 
@@ -150,7 +146,8 @@ export default {
                 data(){
                     return{
                         title: t,
-                        back:'사용자' 
+                        back:'사용자',
+                        menu: t 
                     }
                 }
             }
@@ -181,7 +178,7 @@ export default {
 
 <style scoped>
     ons-row{
-        margin-top:00px;
+        margin-top:0px;
         margin-bottom:0px;
     }
     ons-list{

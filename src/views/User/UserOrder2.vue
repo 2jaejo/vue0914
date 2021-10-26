@@ -77,7 +77,7 @@
                     </li>
                     <li class="list-item list-item--tappable">
                         <div class="list-item__center">
-                            <v-ons-button modifier="large" class="order-btn" style="margin:0px; width:100%;" @click="order()">주문</v-ons-button>
+                            <v-ons-button modifier="large" class="order-btn" style="margin:0px; width:100%;" @click="order()">주문하기</v-ons-button>
                         </div>       
                     </li>
                 </ul>
@@ -176,7 +176,7 @@ export default {
                 remark : this.remark,
                 item : this.item,
             }
-            axios.post('http://49.50.160.174/doctor/hosordersend',{
+            axios.post('http://49.50.160.174/user/ordersend',{
                 data
             }).then(res =>{
                 if(res.data.status =='000'){

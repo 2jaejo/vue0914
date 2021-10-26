@@ -11,7 +11,34 @@
             <v-ons-list>
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-input placeholder="Search somthing" 
+                        <select class="long-select select-input select-input--underbar"
+                            @change="getSubLoc()" 
+                            v-model="sel_loc"
+                            style="margin-top:10px;"
+                        >
+                            <option v-for="loc in locList" :value="loc.LOC_CDE" :key="loc.LOC_CDE">
+                                {{loc.LOC_NM}}
+                            </option>
+                        </select>
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                        <select class="long-select select-input select-input--underbar"     
+                            v-model="sel_subloc"
+                            @change="search()" 
+                        >
+                            <option v-for="loc in locSubList" :value="loc.LOC_CDE" :key="loc.LOC_CDE">
+                                {{loc.LOC_NM}}
+                            </option>
+                        </select>
+                    </div>
+                </v-ons-list-item>
+
+
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-input placeholder="병원명" 
                             float 
                             type="text" 
                             style="width:96%; margin:20px auto 0px auto;"
@@ -51,19 +78,56 @@
 
 <script>
 import axios from 'axios'
-import UserSearchHospitalTwo from './UserSearchHospitalTwo.vue'
+import Location2 from './Location2.vue'
 
 export default {
     components: { 
 
     },
     created(){
-      
+        this.menu = this.title;
+
+        axios.get('http://49.50.160.174/user/siloclist',{
+            
+        })
+        .then(res => {
+            this.locList = res.data.list;
+            this.sel_loc = res.data.list[0].C;
+
+            let data = {
+                loc_cde : res.data.list[0].C
+            }
+            axios.post('http://49.50.160.174/user/guloclist',{
+                data
+            })
+            .then(res => {
+                this.locSubList = res.data.list;
+                this.sel_subloc = res.data.list[0].LOC_CDE;
+                this.search();
+            })
+            .catch(err => {
+                console.log('catch : '+err);
+            });
+
+        })
+        .catch(err => {
+            console.log('catch : '+err);
+        });
+
+
     },
     data(){
         return{
-           keyword:'',
-           hoslist:{},
+            menu:'',
+
+            locList:[],
+            sel_loc:'',
+
+            locSubList:[],
+            sel_subloc:'',
+
+            keyword:'',
+            hoslist:{},
         }
     },
     methods: {
@@ -71,21 +135,42 @@ export default {
             this.$store.dispatch('navigator/popPage');
         },
         push(hos) {
+            let menu = this.menu;
 
             var pageToPush = {
-                extends: UserSearchHospitalTwo,
+                extends: Location2,
                 data(){
                     return{
                         title: hos.HOS_NM,  
-                        hos:hos    
+                        hos:hos,
+                        menu: menu 
                     }
                 }
             }
             //this.$emit('push',pageToPush);
             this.$store.dispatch('navigator/pushPage',pageToPush);
         },
+
+        getSubLoc(){
+            let data ={
+                loc_cde : this.sel_loc
+            }
+            axios.post('http://49.50.160.174/user/guloclist',{
+                data
+            })
+            .then(res => {
+                this.locSubList = res.data.list;
+                this.sel_subloc = res.data.list[0].LOC_CDE;
+                this.search();
+            })
+            .catch(err => {
+                console.log('catch : '+err);
+            });
+        },
+
         search(){
             let data = {
+                loc_cde:this.sel_subloc,
                 keyword:this.keyword
             };
             axios.post('http://49.50.160.174/user/searchhos',{
@@ -97,9 +182,7 @@ export default {
             .catch(err => {
                 console.log('catch : '+err);
             });
-
-
-        }
+        },
     }
 }
 </script>

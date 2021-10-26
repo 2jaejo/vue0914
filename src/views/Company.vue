@@ -51,8 +51,6 @@ import ComItem from './Company/ComItem.vue'
 import ComOrderList from './Company/ComOrderList.vue'
 import ComClientList from './Company/ComClientList.vue'
 import ComSalesList from './Company/ComSalesList.vue'
-import Page11 from './Page11.vue'
-
 
 export default {
     components: { 
@@ -117,9 +115,7 @@ export default {
                     case '거래처조회':
                         return ComClientList;
                     case '판매현황':
-                        return ComSalesList;
-                    case 'test':
-                        return Page11;        
+                        return ComSalesList;    
                 }
             }
             //let nbr = this.nbr;

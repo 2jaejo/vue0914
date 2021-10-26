@@ -8,7 +8,8 @@ import App from './App.vue'
 import router from './router/router'
 import store from './store/store'
 import VueOnsen from 'vue-onsenui'; // This imports 'onsenui', so no need to import it separately
-
+import VueTheMask from 'vue-the-mask'
+Vue.use(VueTheMask);
 
 Vue.use(VueOnsen);
 
