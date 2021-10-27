@@ -36,7 +36,7 @@
                 <v-ons-col><div class="bg puple" @click="push('UserFormula','서식신청')">서식신청</div></v-ons-col>
             </v-ons-row>
             <v-ons-row>
-                <v-ons-col><div class="bg orange" @click="push('UserSearchReserve','예약조회')">예약조회</div></v-ons-col>
+                <v-ons-col><div class="bg orange" @click="push('UserReserveList','예약조회')">예약조회</div></v-ons-col>
                 <v-ons-col><div class="bg green" @click="push('UserSearchHospital','병원찾기')">병원찾기</div></v-ons-col>
                 <v-ons-col><div class="bg blue" @click="push('UserOrder','상품주문')">상품주문</div></v-ons-col>
             </v-ons-row>
@@ -79,7 +79,7 @@ import axios from 'axios'
 
 //import UserReserve from './User/UserReserve.vue'
 //import UserFormula from './User/UserFormula.vue'
-import UserSearchReserve from './User/UserSearchReserve.vue'
+import UserReserveList from './User/UserReserveList.vue'
 //import UserSearchHospital from './User/UserSearchHospital.vue'
 //import UserOrder from './User/UserOrder.vue'
 import Location from './User/Location.vue'
@@ -132,8 +132,8 @@ export default {
                         return Location;
                     case 'UserFormula':
                         return Location;
-                    case 'UserSearchReserve':
-                        return UserSearchReserve;
+                    case 'UserReserveList':
+                        return UserReserveList;
                     case 'UserSearchHospital':
                         return Location;
                     case 'UserOrder':

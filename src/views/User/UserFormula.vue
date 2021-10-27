@@ -33,7 +33,7 @@
                         </div>
                         <div>
                             <select class="select-input select-input--underbar"  
-                                v-model="pdc_cnt"
+                                v-model="for_num"
                                 style="width:70%; vertical-align:middle;"
                             >
                                 <option v-for="cnt in count" :key="cnt" :value="cnt">
@@ -55,7 +55,7 @@
                                 v-model="sel_rec"
                                 @change="clean()"
                             >
-                                <option v-for="list in forReceiptList" :value="list.CDE" :key="list.CDE">
+                                <option v-for="list in comforReceiptList" :value="list.CDE" :key="list.CDE">
                                     {{list.KOR_NM}}
                                 </option>
                             </select>
@@ -95,7 +95,7 @@
                             <select class="long-select select-input select-input--underbar" 
                                 v-model="sel_pay"
                             >
-                                <option v-for="list in forPayTypeList" :value="list.CDE" :key="list.CDE">
+                                <option v-for="list in comforPayTypeList" :value="list.CDE" :key="list.CDE">
                                     {{list.KOR_NM}}
                                 </option>
                             </select>
@@ -120,6 +120,51 @@
                     </div>       
                 </li>
             </ul>
+
+            <v-ons-list>
+                <v-ons-list-item 
+                    expandable
+                    v-for="formula in formulaList" :key="formula.FOR_ID"
+                >
+    
+                    <div class="list-item__title">
+                        {{formula.FOR_DT}}
+                    </div>
+                    <div class="list-item__subtitle" style="text-align: left;">
+                        {{formula.HOS_NM}}
+                    </div>
+               
+                    <div class="expandable-content">
+                        <ul class="list">
+                            <li class="list-item list-item">
+                                <div class="list-item__center">
+                                    <div>신청번호</div>
+                                    <div>{{formula.FOR_ID}}</div>
+                                </div>      
+                            </li>
+                            <li class="list-item list-item">
+                                <div class="list-item__center">
+                                    <div>서식명</div>
+                                    <div>{{formula.KOR_NM}}</div>
+                                </div>      
+                            </li>
+                            <li class="list-item list-item">
+                                <div class="list-item__center">
+                                    <div>수량</div>
+                                    <div>{{formula.FOR_NUM}}</div>
+                                </div>      
+                            </li>
+                        </ul>
+                        <ul class="list">
+                            <li class="list-item list-item">
+                                <div class="list-item__center">
+                                    <v-ons-button class="del-btn" style="width:100%;" @click="formulaCancel(formula)">서식신청 취소</v-ons-button>
+                                </div>      
+                            </li>
+                        </ul>   
+                    </div>
+                </v-ons-list-item>
+            </v-ons-list>
         </div>
     
     </v-ons-page>
@@ -127,40 +172,34 @@
 
 <script>
 import axios from 'axios'
+import dayjs from 'dayjs'
 
 export default {
     components: { 
 
     },
+    computed:{
+        //수령방법 제한
+        comforReceiptList: function (){
+            return this.forReceiptList.filter( i => i.CDE == '01')
+        },
+        //결제방법 제한
+        comforPayTypeList: function (){
+            return this.forPayTypeList.filter( i => i.CDE == '1' )
+        }
+        
+    },
     created(){
         //제품수량 10개까지 선택
         //let cnt = this.item.PDC_UNIT;
         //if(cnt > 10 ){
-          let  cnt = 10;
+            let  cnt = 10;
         //}
         for( let i =1; i <= cnt; i++){
             this.count.push(i);
         }
 
-        axios.get('http://49.50.160.174/user/formulalist',{
-            
-        })
-        .then(res => {
-            this.forDocCdeList = res.data.forDocList;
-            this.sel_doc = res.data.forDocList[0].CDE;
-
-            this.forReceiptList = res.data.forRecList;
-            this.sel_rec = res.data.forRecList[0].CDE;
-
-            this.forPayTypeList = res.data.forPayList;
-            this.sel_pay = res.data.forPayList[0].CDE;
-
-        })
-        .catch(err => {
-            console.log('catch : '+err);
-        });
-
-
+        this.getFormulaList();
     },
     data(){
         return{
@@ -173,8 +212,10 @@ export default {
             forPayTypeList:[],
             sel_pay:'',
 
+            formulaList:[],
+
             count:[],
-            pdc_cnt:'1',
+            for_num:'1',
 
             email:'',
             fax:'',
@@ -183,19 +224,54 @@ export default {
         }
     },
     methods: {
-        pop() {
-            this.$store.dispatch('navigator/popPage');
+        popMain() {
+            this.$store.dispatch('navigator/mainPage');
+        },
+
+        clean(){
+            this.email='';
+            this.fax='';
+        },
+
+        getFormulaList(){
+            let today = dayjs().format('YYYY-MM-DD');
+            let data = {
+                hos_id:this.hos.HOS_ID,
+                for_dt:today
+            }
+            axios.post('http://49.50.160.174/user/formulalist',{
+                data
+            })
+            .then(res => {
+                this.forDocCdeList = res.data.forDocList;
+                this.sel_doc = res.data.forDocList[0].CDE;
+
+                this.forReceiptList = res.data.forRecList;
+                this.sel_rec = res.data.forRecList[0].CDE;
+
+                this.forPayTypeList = res.data.forPayList;
+                this.sel_pay = res.data.forPayList[0].CDE;
+
+                this.formulaList = res.data.formulaList;
+
+            })
+            .catch(err => {
+                console.log('catch : '+err);
+            });
         },
 
         formulaSend(){
+            let for_dt = dayjs().format('YYYY-MM-DD');
             let data = {
-                sel_doc: this.sel_doc,
-                sel_rec: this.sel_rec,
-                sel_pay: this.sel_pay,
-                pdc_cnt: this.pdc_cnt,
+                for_doc_cde: this.sel_doc,
+                for_receipt_cde: this.sel_rec,
+                for_pay_type: this.sel_pay,
+                for_num: this.for_num,
                 email: this.email,
                 fax: this.fax,
-                remark: this.remark
+                remrk: this.remark,
+                hos_id:this.hos.HOS_ID,
+                for_dt:for_dt
             };
 
             if(data.sel_rec == '02' && data.email == ''){
@@ -232,15 +308,37 @@ export default {
                 data
             })
             .then(res => {
-                console.log(res.data);
+                if(res.data.status =='000'){
+                    this.$ons.notification.alert("서식신청 성공!");
+                    this.getFormulaList();
+                }else{
+                    this.$ons.notification.alert("서식신청 실패!");
+                }    
             })
             .catch(err => {
                 console.log('catch : '+err);
             });
         },
-        clean(){
-            this.email='';
-            this.fax='';
+
+        formulaCancel(formula){
+            let data = {
+                for_id:formula.FOR_ID
+            }
+            axios.post('http://49.50.160.174/user/formulacancel',{
+                data
+            })
+            .then(res => {
+                if(res.data.status =='000'){
+                    this.$ons.notification.alert("신청 취소!");
+                    this.getFormulaList();
+                }else{
+                    this.$ons.notification.alert("취소 실패!");
+                }    
+                this.search();
+            })
+            .catch(err => {
+                console.log('catch : '+err);
+            });
         }
     }
 }

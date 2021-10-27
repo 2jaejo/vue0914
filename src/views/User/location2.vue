@@ -9,7 +9,7 @@
         
         <div class="content">
             <v-ons-card>
-               <ul class="list">
+                <ul class="list">
                     <li class="list-item list-item--tappable">
                         <div class="list-item__center">
                             <div>진료과목</div>

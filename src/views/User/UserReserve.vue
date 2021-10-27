@@ -63,7 +63,7 @@
                 <li class="list-item" style="margin-top:10px;">
                     <div class="list-item__center">
                         <div>
-                            예약사유
+                            증상
                         </div>
                         <div>
                             <input type="text" class="text-input text-input--underbar" maxlength="50" v-model="res_remark" >
@@ -94,7 +94,6 @@ export default {
     },
     created(){
 ///        
-
         for(let i = 0; i < 7; i++){
             let today = dayjs();
             today = today.add(i,'day');
@@ -113,23 +112,15 @@ export default {
             hos_id: this.hos.HOS_ID,
         }
 
-        axios.post('http://49.50.160.174/user/treatlist',{
+        axios.post('http://49.50.160.174/user/createdlist',{
             data
         })
         .then(res => {
-            this.treatList = res.data.list;
-            this.tre_id = res.data.list[0].TRE_ID;
-        })
-        .catch(err => {
-            console.log('catch : '+err);
-        });
-///
-        axios.post('http://49.50.160.174/user/restimelist',{
-            data
-        })
-        .then(res => {
-            this.resTimeList = res.data.list;
-            this.res_time = res.data.list[0].TIME_STR;
+            this.treatList = res.data.treatList;
+            this.tre_id = res.data.treatList[0].TRE_ID;
+
+            this.resTimeList = res.data.resTimeList;
+            this.res_time = res.data.resTimeList[0].TIME_STR;
         })
         .catch(err => {
             console.log('catch : '+err);
@@ -145,21 +136,23 @@ export default {
             res_date:'',
             resTimeList:[],
             res_time:'',
+            res_treatList:[],
+            res_treat:'',
             res_remark:'',
         }
     },
     methods: {
-        pop() {
-            this.$store.dispatch('navigator/popPage');
+        popMain() {
+            this.$store.dispatch('navigator/mainPage');
         },
 
         careReservation(){
             let data = {
                 hos_id:this.hos.HOS_ID,
                 tre_id:this.tre_id,
-                res_date:this.res_date,
+                res_dt:this.res_date,
                 res_time:this.res_time,
-                res_remark:this.res_remark
+                remrk:this.res_remark
             }
 
             axios.post('http://49.50.160.174/user/carereserve',{
@@ -168,7 +161,7 @@ export default {
             .then(res => {
                 if(res.data.status =='000'){
                     this.$ons.notification.alert("예약 성공!");
-                    this.pop();
+                    this.popMain();
                 }else{
                     this.$ons.notification.alert("예약 실패!");
                 }    

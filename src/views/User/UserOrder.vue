@@ -55,6 +55,11 @@
                         <v-ons-button class="search-btn-large" modifier="large" @click="search()">검색</v-ons-button>
                     </div>
                 </v-ons-list-item>
+                <v-ons-list-item>
+                    <div class="center">
+                        <v-ons-button class="search-btn-large" modifier="large" @click="search()">주문목록</v-ons-button>
+                    </div>
+                </v-ons-list-item>
             </v-ons-list>
 
             <v-ons-list>
