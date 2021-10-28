@@ -57,7 +57,7 @@
                 </v-ons-list-item>
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-button class="search-btn-large" modifier="large" @click="search()">주문목록</v-ons-button>
+                        <v-ons-button class="search-btn-large" modifier="large" @click="pushOrderList()">주문목록</v-ons-button>
                     </div>
                 </v-ons-list-item>
             </v-ons-list>
@@ -84,48 +84,20 @@
 <script>
 import axios from 'axios'
 import UserOrder2 from './UserOrder2.vue'
+import UserOrderList from './UserOrderList.vue'
 
 export default {
     components: { 
 
     },
     created(){
-        axios.get('http://49.50.160.174/user/orderlist',{
-            
-        })
-        .then(res => {
+        axios.get('http://49.50.160.174/user/orderlist').then(res => {
             this.orderList = res.data.list;
             this.selList = res.data.list[0].CLS_ID;
-
-            let data = {
-                cls_id : res.data.list[0].CLS_ID
-            }
-            axios.post('http://49.50.160.174/user/ordersublist',{
-                data
-            })
-            .then(res => {
-                if (res.data.list.length < 1){
-                    let base = {
-                        CLS_NM:'전체',
-                        CLS_ID:'0',
-                    }
-                    //배열 맨앞에 '전체' 추가
-                    res.data.list.push(base);
-                }
-                this.orderSubList = res.data.list;
-                this.selSubList = res.data.list[0].CLS_ID;
-                this.search();
-            })
-            .catch(err => {
-                console.log('catch : '+err);
-            });
-
-        })
-        .catch(err => {
+            this.getSubList();
+        }).catch(err => {
             console.log('catch : '+err);
         });
-
-
     },
     data(){
         return{
@@ -158,6 +130,19 @@ export default {
             //this.$emit('push',pageToPush);
             this.$store.dispatch('navigator/pushPage',pageToPush);
         },
+        pushOrderList() {
+
+            var pageToPush = {
+                extends: UserOrderList,
+                data(){
+                    return{
+                        title: '주문목록',
+                    }
+                }
+            }
+            //this.$emit('push',pageToPush);
+            this.$store.dispatch('navigator/pushPage',pageToPush);
+        },
 
         getSubList(){
             let data ={
@@ -165,13 +150,19 @@ export default {
             }
             axios.post('http://49.50.160.174/user/ordersublist',{
                 data
-            })
-            .then(res => {
+            }).then(res => {
+                if (res.data.list.length < 1){
+                    let base = {
+                        CLS_NM:'전체',
+                        CLS_ID:'0',
+                    }
+                    //배열 맨앞에 '전체' 추가
+                    res.data.list.push(base);
+                }
                 this.orderSubList = res.data.list;
                 this.selSubList = res.data.list[0].CLS_ID;
                 this.search();
-            })
-            .catch(err => {
+            }).catch(err => {
                 console.log('catch : '+err);
             });
         },

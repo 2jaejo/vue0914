@@ -156,14 +156,14 @@ export default {
             axios.post('http://49.50.160.174/user/joinus',{
                 data
             }).then(res =>{
-
-                this.$ons.notification.alert({
-                    title: "CODE : "+res.data.status,
-                    message: res.data.message
-                });     
-                
                 if(res.data.status == '000'){
+                    this.$ons.notification.alert({
+                        title: "CODE : "+res.data.status,
+                        message: res.data.message
+                    });     
                     this.$store.dispatch('navigator/splicePage');
+                }else{
+                    this.$ons.notification.alert("실패!");
                 }
 
             }).catch(err =>{

@@ -69,6 +69,25 @@
                     </li>
                     <li class="list-item">
                         <div class="list-item__center">
+                            <div>주문자명</div>
+                            <div>
+                                <input type="text" class="text-input text-input--underbar" maxlength="20" v-model="om_nm">
+                            </div>
+                        </div>      
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item__center">
+                            <div>연락처</div>
+                            <div>
+                                <input type="text" class="text-input text-input--underbar" maxlength="11" 
+                                    v-model="om_tel"
+                                    oninput="javascript: this.value = this.value.replace(/[^0-9]/g, '');"
+                                >
+                            </div>
+                        </div>      
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item__center">
                             <div>요청사항</div>
                             <div>
                                 <input type="text" class="text-input text-input--underbar" maxlength="50" v-model="remark">
@@ -132,6 +151,8 @@ export default {
 
             count:[],
             pdc_cnt:'1',
+            om_nm:'',
+            om_tel:'',
             remark:'',
             comInfo:{},
 
@@ -171,16 +192,32 @@ export default {
         },
 
         orderSend(){
+            if(this.om_nm.length < 1 ){
+                this.$ons.notification.alert({title:'입력확인',message:"주문자를 입력하세요."});
+                return false;
+            }
+            if(this.om_tel < 1){
+                this.$ons.notification.alert({title:'입력확인',message:"연락처를 입력하세요."});
+                return false;
+            }
+            let om_order_dt = dayjs().format('YYYYMMDD');
             let data = {
                 pdc_cnt : this.pdc_cnt,
+                om_nm:this.om_nm,
+                om_tel:this.om_tel,
+                om_order_dt:om_order_dt,
                 remark : this.remark,
                 item : this.item,
             }
             axios.post('http://49.50.160.174/user/ordersend',{
                 data
             }).then(res =>{
+               
                 if(res.data.status =='000'){
-                    this.$ons.notification.alert("주문 성공!");
+                    this.$ons.notification.alert({
+                        title: "CODE : "+res.data.status,
+                        message: res.data.message
+                    }); 
                     this.pop();
                 }else{
                     this.$ons.notification.alert("주문 실패!");

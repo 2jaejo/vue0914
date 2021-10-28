@@ -10,9 +10,6 @@
         <div class="content">
 
             <v-ons-list>
-                <v-ons-list-header>
-                    서식신청리스트
-                </v-ons-list-header>
                 <v-ons-list-item 
                     expandable
                     v-for="formula in formulaList" :key="formula.FOR_ID"

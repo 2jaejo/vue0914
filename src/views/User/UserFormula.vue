@@ -122,6 +122,9 @@
             </ul>
 
             <v-ons-list>
+                <v-ons-list-header>
+                    나의 서식신청 내역
+                </v-ons-list-header>
                 <v-ons-list-item 
                     expandable
                     v-for="formula in formulaList" :key="formula.FOR_ID"
