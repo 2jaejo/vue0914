@@ -1,10 +1,10 @@
 <template>
     <v-ons-page>
         <v-ons-toolbar>
-        <div class="left">
-            <v-ons-back-button></v-ons-back-button>
-        </div>
-        <div class="center">{{ title }}</div>
+            <div class="left">
+                <v-ons-back-button></v-ons-back-button>
+            </div>
+            <div class="center">{{ title }}</div>
         </v-ons-toolbar>
         
         <div class="content">

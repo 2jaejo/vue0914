@@ -9,7 +9,7 @@
         
         <div class="content">
             <v-ons-card>
-               <ul class="list">
+                <ul class="list">
                     <li class="list-item list-item--tappable">
                         <div class="list-item__center">
                             <div>진료과목</div>
@@ -27,12 +27,6 @@
                         <div class="list-item__center">
                             <div>전공</div>
                             <div>{{hospitalInfo.DIRECTOR_SPEC}}</div>
-                        </div>      
-                    </li>
-                    <li class="list-item list-item--tappable">
-                        <div class="list-item__center">
-                            <div>대표자명</div>
-                            <div>{{hospitalInfo.HOS_REG_NM}}</div>
                         </div>      
                     </li>
                
@@ -87,7 +81,7 @@
                 </div>
 
                 <div>
-                    <v-ons-button modifier="large" style="width:100%; margin:5px 0px;" @click="pop()">닫기</v-ons-button>
+                    <v-ons-button modifier="large" style="width:100%; margin:5px 0px;" @click="popMain()">닫기</v-ons-button>
                 </div>
             </v-ons-card>
         
@@ -126,8 +120,8 @@ export default {
         }
     },
     methods: {
-        pop() {
-            this.$store.dispatch('navigator/popPage');
+        popMain() {
+            this.$store.dispatch('navigator/mainPage');
         },
         push(e) {
             const getMenu = (type)=>{
@@ -140,13 +134,16 @@ export default {
                         return UserOrder;
                 }
             }
-
+            let hos = this.hospitalInfo;
+            let menu = this.menu;
             var pageToPush = {
                 extends: getMenu(e),
                 data(){
                     return{
-                        title: e,
-                        menu: this.menu
+                        title: hos.HOS_NM,
+                        back:'',
+                        hos: hos,
+                        menu: menu
                     }
                 }
             }

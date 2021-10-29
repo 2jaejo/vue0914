@@ -18,7 +18,8 @@
                 >
                     <v-ons-carousel-item v-for="(value, index) in items" :key="index">
                         <div style="height:300px; text-align: center; font-size: 50px; color: #fff;">
-                            <img :src="'http://www.mediper.net:8080/_Upload/cus/'+value" onerror="this.src='http://www.mediper.net:8080/images/none_image.png'" style="width:100%;height:100%;"/>
+                            <img :src="'http://www.mediper.net:8080/_Upload/hos/'+value.HOS_ID+'/view/'+value.SAVE_NM" 
+                                onerror="this.src='http://www.mediper.net:8080/images/none_image.png'" style="width:100%;height:100%;"/>
                         </div>
                     </v-ons-carousel-item>
                 </v-ons-carousel>
@@ -46,28 +47,22 @@
                 <li class="list-header">
                     알림
                 </li>
-                <li class="list-item list-item--longdivider">
-                    <div class="list-item__center list-item--longdivider__center">
-                        예약된 병원이 없습니다.              
+                <li class="list-item list-item--longdivider list-item--tappable"
+                    v-for="list in notice" :key="list.WR_ID"
+                >
+                    <div class="list-item__center list-item--longdivider__center"
+                        @click="pushNotice(list)"
+                    >
+                        {{list.WR_SUBJECT}}         
                     </div>
-                </li>
-                <li class="list-item list-item--longdivider">
-                    <div class="list-item__center list-item--longdivider__center">
-                        테스트
-                    </div>      
-                </li>
-                <li class="list-item list-item--longdivider">
-                    <div class="list-item__center list-item--longdivider__center">
-                        테스트
-                    </div>      
                 </li>
             </ul>        
 
             <!-- 버튼 -->
             <v-ons-row>
                 <v-ons-col><div class="bg skyblue" @click="logout">로그아웃</div></v-ons-col>
-                <v-ons-col><div class="bg skyblue" @click="$ons.notification.alert('준비중입니다.',{title:'나의정보'})">나의정보</div></v-ons-col>
-                <v-ons-col><div class="bg skyblue" @click="$ons.notification.alert('준비중입니다.',{title:'환경설정'})">환경설정</div></v-ons-col>
+                <v-ons-col><div class="bg skyblue" @click="push('UserMyInfo','나의정보')">나의정보</div></v-ons-col>
+                <v-ons-col><div class="bg skyblue" @click="push('UserSetting','환경설정')">환경설정</div></v-ons-col>
             </v-ons-row>
         </div>
         
@@ -77,12 +72,16 @@
 <script>
 import axios from 'axios'
 
+import UserReserveList from './User/UserReserveList.vue'
+//import Location from './User/Location.vue'
+import UserSearchHospital from './User/UserSearchHospital.vue'
+import Notice from './User/Notice.vue'
+import UserMyInfo from './User/UserMyInfo.vue'
+import UserSetting from './User/UserSetting.vue'
+
 //import UserReserve from './User/UserReserve.vue'
 //import UserFormula from './User/UserFormula.vue'
-import UserReserveList from './User/UserReserveList.vue'
-//import UserSearchHospital from './User/UserSearchHospital.vue'
 //import UserOrder from './User/UserOrder.vue'
-import Location from './User/Location.vue'
 
 export default {
     components: { 
@@ -90,29 +89,30 @@ export default {
     },
     created() {
         axios.get('http://49.50.160.174/comm/getImage',{
-    
-        })
-        .then(res => {
-            this.items = {
-                    BLUE: res.data.list.hcrm_id+'/view/'+ res.data.list.image1,
-                    DARK: res.data.list.hcrm_id+'/view/'+ res.data.list.image2,
-                    ORANGE: res.data.list.hcrm_id+'/view/'+ res.data.list.image3
-            }
-        })
-        .catch(err => {
+
+        }).then(res => {
+            this.items = res.data.list;
+        }).catch(err => {
             console.log('catch : '+err);
         });
+
+        axios.get('http://49.50.160.174/user/getnotice',{
+            
+        }).then(res => {
+            this.notice = res.data.list;
+        }).catch(err => {
+            console.log('catch : '+err);
+        });
+
+
     },
     data(){
         return{
-            title:'Store',
-            nbr:'',
+            notice:[],
+
+            items: [],
             carouselIndex: 0,
-            items: {
-                BLUE: '',
-                DARK: '',
-                ORANGE: ''
-            },
+
             dots: {
                 textAlign: 'center',
                 fontSize: '20px',
@@ -129,15 +129,19 @@ export default {
             const getMenu = (type)=>{
                 switch(type){
                     case 'UserReserve':
-                        return Location;
+                        return UserSearchHospital;
                     case 'UserFormula':
-                        return Location;
+                        return UserSearchHospital;
                     case 'UserReserveList':
                         return UserReserveList;
                     case 'UserSearchHospital':
-                        return Location;
+                        return UserSearchHospital;
                     case 'UserOrder':
-                        return Location;
+                        return UserSearchHospital;
+                    case 'UserMyInfo':
+                        return UserMyInfo;
+                    case 'UserSetting':
+                        return UserSetting;
                 }
             }
 
@@ -146,13 +150,27 @@ export default {
                 data(){
                     return{
                         title: t,
-                        back:'사용자',
+                        back:'',
                         menu: t 
                     }
                 }
             }
             //this.$emit('push',pageToPush);
             this.$store.dispatch('navigator/pushPage',pageToPush);
+        },
+        pushNotice(list){
+            var pageToPush = {
+                extends: Notice,
+                data(){
+                    return{
+                        title: '공지사항',
+                        list:list 
+                    }
+                }
+            }
+            //this.$emit('push',pageToPush);
+            this.$store.dispatch('navigator/pushPage',pageToPush);
+
         },
         logout(){
             this.$ons.notification.confirm({

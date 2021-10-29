@@ -9,7 +9,7 @@
             <v-ons-list>
                 <v-ons-list-item style="margin-top:20px;">
                     <div class="center">
-                        <v-ons-input placeholder="Username" 
+                        <v-ons-input placeholder="전화번호" 
                             float 
                             type="text" 
                             v-model="id" 
@@ -22,7 +22,7 @@
                 </v-ons-list-item>
                 <v-ons-list-item>
                     <div class="center">
-                        <v-ons-input placeholder="Password" 
+                        <v-ons-input placeholder="비밀번호" 
                             float 
                             type="password" 
                             v-model="pw" 

@@ -78,7 +78,7 @@
 
 <script>
 import axios from 'axios'
-import Location2 from './Location2.vue'
+import UserSearchHospital2 from './UserSearchHospital2.vue'
 
 export default {
     components: { 
@@ -138,7 +138,7 @@ export default {
             let menu = this.menu;
 
             var pageToPush = {
-                extends: Location2,
+                extends: UserSearchHospital2,
                 data(){
                     return{
                         title: hos.HOS_NM,  

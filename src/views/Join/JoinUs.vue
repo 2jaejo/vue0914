@@ -97,11 +97,11 @@ export default {
     created(){
         axios.get('http://49.50.160.174/user/bloodlist',{
             
-            }).then(res =>{
-                this.bloodlist = res.data.list;
-            }).catch(err =>{
-                console.log('catch : '+err);
-            });
+        }).then(res =>{
+            this.bloodlist = res.data.list;
+        }).catch(err =>{
+            console.log('catch : '+err);
+        });
     },
     data(){
         return{
