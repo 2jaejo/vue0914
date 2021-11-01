@@ -13,6 +13,9 @@
             
             <v-ons-card>
                 <ul class="list">
+                    <li class="list-header">
+                        개인 설정
+                    </li>
                     <li class="list-item">
                         <div class="list-item__center">
                             <div>이름</div>
@@ -90,7 +93,7 @@
             <v-ons-card>
                 <v-ons-list>
                     <li class="list-header">
-                        지역설정
+                        지역 설정
                     </li>
                     <v-ons-list-item>
                         <div class="center">
@@ -127,6 +130,7 @@
                     </div>
                 </v-ons-list-item>
             </v-ons-list>       
+                        
         </div>
 
     </v-ons-page>    

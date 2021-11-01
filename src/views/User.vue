@@ -64,6 +64,16 @@
                 <v-ons-col><div class="bg skyblue" @click="push('UserMyInfo','나의정보')">나의정보</div></v-ons-col>
                 <v-ons-col><div class="bg skyblue" @click="push('UserSetting','환경설정')">환경설정</div></v-ons-col>
             </v-ons-row>
+
+            <v-ons-row>
+                부트스트랩 테스트 
+            </v-ons-row>
+            <v-ons-row>
+                <b-button>Button</b-button>
+                <b-button variant="danger">Button</b-button>
+                <b-button variant="success">Button</b-button>
+                <b-button variant="outline-primary">Button</b-button>
+            </v-ons-row>
         </div>
         
     </v-ons-page>

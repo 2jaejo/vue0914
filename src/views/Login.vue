@@ -42,9 +42,9 @@
 
             <v-ons-row style="width:90%; margin:20px auto;">
                 <v-ons-col width="70%">
-                    <a href="javascript:void(0);" style="color:#eee;">아이디</a> 
-                    <span style="color:#eee;"> &#47; </span> 
-                    <a href="javascript:void(0);" style="color:#eee;">비밀번호 찾기</a>
+                    <!-- <a href="javascript:void(0);" style="color:#eee;">아이디</a>  -->
+                    <!-- <span style="color:#eee;"> &#47; </span>  -->
+                    <a href="javascript:void(0);" style="color:#eee;">비밀번호 재설정</a>
                 </v-ons-col>
                 <v-ons-col>
                     <a href="javascript:void(0);" style="color:#eee;" @click="push('회원가입')">회원가입</a>

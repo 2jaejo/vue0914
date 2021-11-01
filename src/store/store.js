@@ -6,8 +6,7 @@ import axios from "axios";
 import Login from '../views/Login.vue'
 
 //모듈 임포트
-import companyStore from './modules/companyStore'
-import hospitalStore from './modules/hospitalStore'
+
 
 Vue.use(Vuex);
 
@@ -60,8 +59,7 @@ export default new Vuex.Store({
     namespaced:true,
     modules:{
         navigator,
-        companyStore,
-        hospitalStore,
+      
  
     },
     state:{ //data
