@@ -15,6 +15,12 @@ import VueTheMask from 'vue-the-mask'
 Vue.use(VueTheMask);
 
 import axios from 'axios'
+import AxiosPlugin from 'vue-axios-cors'
+Vue.use(AxiosPlugin);
+axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+
 Vue.prototype.$axios = axios;
 
 import BootstrapVue from 'bootstrap-vue'

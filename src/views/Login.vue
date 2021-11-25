@@ -2,54 +2,58 @@
     <v-ons-page>
               
         <div class="background">
-            <img :src="require('@/assets/images/bg_user_login.png')" width="100%" height="100%">
+            <img src="http://49.50.160.174/public/_Upload/bg_user_login.png" width="100%" height="100%">
+            <!-- <img :src="require('@/assets/images/bg_user_login.png')" width="100%" height="100%"> -->
         </div>
 
-        <div class="content" style="margin-top:70%;">
-            <v-ons-list>
-                <v-ons-list-item style="margin-top:20px;">
-                    <div class="center">
+        <div class="content">
+            <div style="padding-top:70%;">
+
+                <div style="background-color:white;">
+                    <div style="padding-left:4%; padding-right:4%; padding-top:10%; padding-bottom:2%; border:none;">
                         <v-ons-input placeholder="전화번호" 
                             float 
                             type="text" 
                             v-model="id" 
-                            style="width: 96%; margin:10px auto;"
+                            style="width:100%;"
                             modifier="underbar"
                             @keyup.enter="login"
                         >
                         </v-ons-input>
                     </div>
-                </v-ons-list-item>
-                <v-ons-list-item>
-                    <div class="center">
+                
+                    <div style="padding-left:4%; padding-right:4%; padding-top:8%; padding-bottom:2%; border:none;">
                         <v-ons-input placeholder="비밀번호" 
                             float 
                             type="password" 
                             v-model="pw" 
-                            style="width:96%; margin:10px auto;"
+                            style="width:100%;"
                             modifier="underbar"
                             @keyup.enter="login"
                         >
                         </v-ons-input>
                     </div>
-                </v-ons-list-item>
-                <v-ons-list-item>
-                    <div class="center">
-                        <v-ons-button modifier="large" @click="login">로그인</v-ons-button>
+                    <div style="padding:4%;">
+                        <v-ons-button style="width:100%;" modifier="large--cta" @click="login">로그인</v-ons-button>
                     </div>
-                </v-ons-list-item>        
-            </v-ons-list>  
+                </div>    
+            
 
-            <v-ons-row style="width:90%; margin:20px auto;">
-                <v-ons-col width="70%">
-                    <!-- <a href="javascript:void(0);" style="color:#eee;">아이디</a>  -->
-                    <!-- <span style="color:#eee;"> &#47; </span>  -->
-                    <a href="javascript:void(0);" style="color:#eee;">비밀번호 재설정</a>
-                </v-ons-col>
-                <v-ons-col>
-                    <a href="javascript:void(0);" style="color:#eee;" @click="push('회원가입')">회원가입</a>
-                </v-ons-col>
-            </v-ons-row>                 
+                <div>
+                    <v-ons-row style="width:90%; margin:10px auto;">
+                        <v-ons-col width="70%">
+                            <!-- <a href="javascript:void(0);" style="color:#eee;">아이디</a>  -->
+                            <!-- <span style="color:#eee;"> &#47; </span>  -->
+                            <a href="javascript:void(0);" style="color:#eee;">비밀번호 재설정</a>
+                        </v-ons-col>
+                        <v-ons-col>
+                            <a href="javascript:void(0);" style="color:#eee;" @click="push('회원가입')">회원가입</a>
+                        </v-ons-col>
+                    </v-ons-row>
+                </div>
+            
+            </div>
+                   
         </div>
 
     </v-ons-page>
@@ -145,3 +149,14 @@ export default {
 }
 </script>
 
+<style scoped>
+input::placeholder {
+  color: white;
+}
+input::-webkit-input-placeholder {
+  color: white;
+}
+input::-ms-input-placeholder {
+  color: white;
+}
+</style>

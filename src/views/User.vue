@@ -18,7 +18,8 @@
                 >
                     <v-ons-carousel-item v-for="(value, index) in items" :key="index">
                         <div style="height:300px; text-align: center; font-size: 50px; color: #fff;">
-                            <img :src="'http://www.mediper.net:8080/_Upload/hos/'+value.HOS_ID+'/view/'+value.SAVE_NM" 
+                            <img 
+                                :src="value.url"
                                 onerror="this.src='http://www.mediper.net:8080/images/none_image.png'" style="width:100%;height:100%;"/>
                         </div>
                     </v-ons-carousel-item>
@@ -65,15 +66,7 @@
                 <v-ons-col><div class="bg skyblue" @click="push('UserSetting','환경설정')">환경설정</div></v-ons-col>
             </v-ons-row>
 
-            <v-ons-row>
-                부트스트랩 테스트 
-            </v-ons-row>
-            <v-ons-row>
-                <b-button>Button</b-button>
-                <b-button variant="danger">Button</b-button>
-                <b-button variant="success">Button</b-button>
-                <b-button variant="outline-primary">Button</b-button>
-            </v-ons-row>
+            
         </div>
         
     </v-ons-page>
@@ -98,14 +91,6 @@ export default {
 
     },
     created() {
-        axios.get('http://49.50.160.174/comm/getImage',{
-
-        }).then(res => {
-            this.items = res.data.list;
-        }).catch(err => {
-            console.log('catch : '+err);
-        });
-
         axios.get('http://49.50.160.174/user/getnotice',{
             
         }).then(res => {
@@ -120,15 +105,19 @@ export default {
         return{
             notice:[],
 
-            items: [],
+            items: [
+                {url:'http://49.50.160.174/public/_Upload/user/user1.png'},
+                {url:'http://49.50.160.174/public/_Upload/user/user2.png'},
+                {url:'http://49.50.160.174/public/_Upload/user/user3.png'},
+            ],
             carouselIndex: 0,
 
             dots: {
                 textAlign: 'center',
-                fontSize: '20px',
+                fontSize: '15px',
                 color: '#fff',
                 position: 'absolute',
-                bottom: '10px',
+                bottom: '30px',
                 left: 0,
                 right: 0
             },
